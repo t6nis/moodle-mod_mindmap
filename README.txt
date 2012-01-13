@@ -1,11 +1,10 @@
-version 2012011300------------------------------------------------------------
-//Update
-+Refactored code + added licences.
-
-Have fun!
 ------------------------------------------------------------------------------
-version 2011091200------------------------------------------------------------
-//UPDATED FOR MOODLE 2 BY TÕNIS TARTES
+//13.01.2012 - version 2012011300
+//Contributor Tõnis Tartes
++Refactored code and added licences.
+------------------------------------------------------------------------------
+//12.09.2011 - version 2011091200
+//Updated for moodle 2 - contributor Tõnis Tartes
 Everythings the same as the old one, except the backup & restore functionality. 
 +Fixed the editable box
 +Added a Description field
