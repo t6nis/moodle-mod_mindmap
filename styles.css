@@ -1,0 +1,14 @@
+.mod_mindmap .mindmap_hint {
+    text-align:center; 
+    font-weight:bold; 
+    font-style:italic; 
+    font-size:10px;
+}
+
+.mod_mindmap #flashcontent {
+    margin:0 auto; 
+    padding:0px; 
+    text-align:center; 
+    border:1px black solid; 
+    width:900px;
+}
