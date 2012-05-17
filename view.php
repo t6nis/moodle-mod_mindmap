@@ -102,7 +102,7 @@ echo $OUTPUT->box_start('generalbox', 'intro');
         {
                 alert(decodeURI(str));
         }
-        var so = new SWFObject("./viewer43.swf", "viewer", 900, 600, "9", "#FFFFFF");
+        var so = new SWFObject("./viewer43.swf", "viewer", 800, 600, "9", "#FFFFFF");
         so.addVariable("load_url", "./xml.php?id=<?php echo $mindmap->id;?>");
         <?php if((has_capability('moodle/course:manageactivities', $coursecontext, $USER->id)) || ($mindmap->editable == '1')):?>
                 so.addVariable('save_url', "./save.php?id=<?php echo $mindmap->id;?>");

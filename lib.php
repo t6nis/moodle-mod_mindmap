@@ -245,12 +245,8 @@ function mindmap_scale_used ($newmoduleid,$scaleid) {
 function mindmap_scale_used_anywhere($scaleid) {
     
     global $DB;
-    
-    if ($scaleid and $DB->record_exists('newmodule', array('grade' => -$scaleid))) {
-        return true;
-    } else {
-        return false;
-    }
+
+    return false;
     
 }
 

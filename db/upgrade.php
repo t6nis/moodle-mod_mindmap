@@ -112,6 +112,9 @@ function xmldb_mindmap_upgrade($oldversion=0) {
         upgrade_mod_savepoint(true, 2007040101, 'mindmap');
     }
 
+    if ($oldversion < 2012032300) {
+        upgrade_mod_savepoint(true, 2012032300, 'mindmap');
+    }
 /// Third example, the next day, 20070402 (with the trailing 00), some inserts were performed, related with the module
 
 /// And that's all. Please, examine and understand the 3 example blocks above. Also
