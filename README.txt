@@ -1,10 +1,13 @@
 ------------------------------------------------------------------------------
+//17.05.2012 - version 2012032300
++Fixed some errors when upgrading from 1.9 to 2.x.
+------------------------------------------------------------------------------
 //13.01.2012 - version 2012011300
-//Contributor TÃµnis Tartes
+//Contributor Tõnis Tartes
 +Refactored code and added licences.
 ------------------------------------------------------------------------------
 //12.09.2011 - version 2011091200
-//Updated for moodle 2 - contributor TÃµnis Tartes
+//Updated for moodle 2 - contributor Tõnis Tartes
 Everythings the same as the old one, except the backup & restore functionality. 
 +Fixed the editable box
 +Added a Description field
