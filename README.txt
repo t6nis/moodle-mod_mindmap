@@ -18,8 +18,9 @@ Everythings the same as the old one, except the backup & restore functionality.
 
 Have fun!
 
-Thanks go to ekpenso.com for providing the original module!
-------------------------------------------------------------
+Thanks to original mindmap module author: Andreas Geier
+Link: https://github.com/functino/Moodle-Mindmap-Module
+
 
 Mindmap version 0.5
 ------------------------
