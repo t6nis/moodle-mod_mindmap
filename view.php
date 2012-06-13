@@ -91,10 +91,10 @@ echo html_writer::tag('div', '', array('id' => 'flashcontent'));
     }
     var so = new SWFObject('./viewer.swf', 'viewer', 800, 600, '9', '#FFFFFF');
     so.addVariable('load_url', './xml.php?id=<?php echo $mindmap->id;?>');
-    <?php if((has_capability('moodle/course:manageactivities', $context, $USER->id)) || ($mindmap->editable == '1')):?>
+    <?php if((has_capability('moodle/course:manageactivities', $context, $USER->id)) || ($mindmap->editable == '1')): ?>
             so.addVariable('save_url', './save.php?id=<?php echo $mindmap->id;?>');
             so.addVariable('editable', 'true');
-    <?php endif;?>
+    <?php endif; ?>
     so.addVariable('lang', 'en');
     so.write('flashcontent');
     // ]]>

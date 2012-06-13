@@ -38,19 +38,15 @@ if ($id) {
 require_login($mindmap->course);
 
 if($xml) {
-    
-    if((!empty($USER->id) && $mindmap->userid == $USER->id) || $mindmap->editable == '1' ) {
 
-        if(get_magic_quotes_gpc()) {
-            $xml = stripslashes($xml);
-        }
-
-        $new = new stdClass();
-        $new->id = $id;
-        $new->xmldata = $xml;
-        
-        $DB->update_record('mindmap', $new);
-        
+    if(get_magic_quotes_gpc()) {
+        $xml = stripslashes($xml);
     }
-    
+
+    $new = new stdClass();
+    $new->id = $id;
+    $new->xmldata = $xml;
+
+    $DB->update_record('mindmap', $new);
+
 }
