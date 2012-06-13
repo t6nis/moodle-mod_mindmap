@@ -31,32 +31,31 @@ $id = optional_param('id', 0, PARAM_INT); // Course Module ID, or
 $a  = optional_param('a', 0, PARAM_INT);
 
 if ($id) {
-    if (! $cm = $DB->get_record('course_modules', array('id' => $id))) {
+    if (!$cm = get_coursemodule_from_id('mindmap', $id)) {
         error('Course Module ID was incorrect');
     }
 
-    if (! $course = $DB->get_record('course', array('id' => $cm->course))) {
+    if (!$course = $DB->get_record('course', array('id' => $cm->course))) {
         error('Course is misconfigured');
     }
 
-    if (! $mindmap = $DB->get_record('mindmap', array('id' => $cm->instance))) {
+    if (!$mindmap = $DB->get_record('mindmap', array('id' => $cm->instance))) {
         error('Course module is incorrect');
     }
-
 } else {
-    if (! $mindmap = $DB->get_record('mindmap', array('id' => $a))) {
+    if (!$mindmap = $DB->get_record('mindmap', array('id' => $a))) {
         error('Course module is incorrect');
     }
-    if (! $course = $DB->get_record('course', array('id' => $mindmap->course))) {
+    if (!$course = $DB->get_record('course', array('id' => $mindmap->course))) {
         error('Course is misconfigured');
     }
-    if (! $cm = get_coursemodule_from_instance('mindmap', $mindmap->id, $course->id)) {
+    if (!$cm = get_coursemodule_from_instance('mindmap', $mindmap->id, $course->id)) {
         error('Course Module ID was incorrect');
     }
 }
 
-require_login($course->id);
-$context = context_module::instance($cm->id);
+require_login($course, true, $cm);
+$context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
 add_to_log($course->id, 'mindmap', 'view', 'view.php?id='.$cm->id, $mindmap->id);
 
@@ -69,7 +68,6 @@ $strname      = format_string($mindmap->name);
 $PAGE->set_url('/mod/mindmap/view.php', array('id'=>$cm->id));  
 $PAGE->set_title($strname);
 $PAGE->set_heading($course->fullname);
-$PAGE->set_pagelayout('admin'); //this is a bloody hack!
 
 //Header
 echo $OUTPUT->header();

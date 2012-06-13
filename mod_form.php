@@ -47,8 +47,8 @@ class mod_mindmap_mod_form extends moodleform_mod {
         $mform->setType('introeditor', PARAM_RAW); // no XSS prevention here, users must be trusted
         $mform->addRule('introeditor', get_string('required'), 'required', null, 'client');
 
-        $mform->addElement('checkbox', 'editable', get_string('editable', 'mindmap'));
-
+        $mform->addElement('advcheckbox', 'editable', get_string('editable', 'mindmap'), '', array('group' => 1), array(0, 1));
+        
         // add standard elements, common to all modules
         $this->standard_coursemodule_elements();
 

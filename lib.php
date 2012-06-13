@@ -52,13 +52,6 @@ function mindmap_add_instance($mindmap) {
                             </MindMap>';
     
     $mindmap->userid = $USER->id;
-    
-    $mindmap->editable = '0';
-    
-    if(isset($mindmap->editable)) {
-        $mindmap->editable = '1';
-    }
-    
     $mindmap->timecreated = time();
     
     return $DB->insert_record('mindmap', $mindmap);
@@ -79,11 +72,7 @@ function mindmap_update_instance($mindmap) {
     
     $mindmap->timemodified = time();
     $mindmap->id = $mindmap->instance;
-    
-    if (!isset($mindmap->editable)) {
-        $mindmap->editable = 0;
-    }
-    
+
     return $DB->update_record('mindmap', $mindmap);
 }
 
