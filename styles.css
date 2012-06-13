@@ -1,11 +1,13 @@
-.mod_mindmap .mindmap_hint {
+.path-mod-mindmap .mindmap_hint {
     text-align:center; 
     font-weight:bold; 
     font-style:italic; 
     font-size:10px;
+    margin-top: 10px;
+    margin-bottom:10px;
 }
 
-.mod_mindmap #flashcontent {
+.path-mod-mindmap #flashcontent {
     margin:0 auto; 
     padding:0px; 
     text-align:center; 

@@ -20,33 +20,27 @@
  * @package    mod
  * @subpackage mindmap
  * @author ekpenso.com
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2012 Tõnis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("../../config.php");
-require_once("lib.php");
+require_once('../../config.php');
 
-global $DB;
+$id = required_param('id', PARAM_INT); // Course Module ID, or
+$xml = optional_param('mindmap', '', PARAM_RAW); 
 
-$id = optional_param('id', 0, PARAM_INT); // Course Module ID, or
-
-if($id) {
-        
-    if (! $mindmap = $DB->get_record("mindmap", array("id" => $id))) {
-        error("Course module is incorrect");
+if ($id) {
+    if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
+        error('Course module is incorrect');
     }
-    
-}   
+}
 
-require_login($course->id);
+require_login($mindmap->course);
 
-if(isset($_POST['mindmap'])) {
+if($xml) {
     
     if((!empty($USER->id) && $mindmap->userid == $USER->id) || $mindmap->editable == '1' ) {
-        
-        $xml = $_POST['mindmap'];
-        
+
         if(get_magic_quotes_gpc()) {
             $xml = stripslashes($xml);
         }

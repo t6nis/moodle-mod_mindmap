@@ -20,80 +20,90 @@
  * @package    mod
  * @subpackage mindmap
  * @author ekpenso.com
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2012 Tõnis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-//require configs & libs
-require_once("../../config.php");
-require_once("lib.php");
+require_once('../../config.php');
 
-global $DB, $OUTPUT, $PAGE, $USER;
+$id = required_param('id', PARAM_INT);   // course id
 
-$id = required_param('id', PARAM_INT);   // course
+$course = $DB->get_record('course', array('id'=>$id), '*', MUST_EXIST);
 
-if (!$course = $DB->get_record("course", array("id" => $id))) {
-    error("Course ID is incorrect");
-}
+require_course_login($course, true);
 
-require_login($course->id);
-
-add_to_log($course->id, "mindmap", "view all", "index.php?id=$course->id", "");
+add_to_log($course->id, 'mindmap', 'view all', 'index.php?id='.$course->id, '');
 
 /// Get all required stringsnewmodule
-$strmindmaps = get_string("modulenameplural", "mindmap");
-$strmindmap  = get_string("modulename", "mindmap");
+$strmindmaps     = get_string('modulenameplural', 'mindmap');
+$strmindmap      = get_string('modulename', 'mindmap');
+$strsectionname  = get_string('sectionname', 'format_'.$course->format);
+$strname         = get_string('name');
+$strintro        = get_string('moduleintro');
+
+$strweek  = get_string('week');
+$strtopic  = get_string('topic');
+
+$timenow = time();
 
 //$PAGE params
 $PAGE->set_title($strmindmaps);
 $PAGE->set_heading(format_string($course->fullname));
-$PAGE->set_url('/mod/mindmap/index.php', array('id'=>$course->id));  
+$PAGE->set_url('/mod/mindmap/index.php', array('id' => $course->id));  
 $PAGE->set_pagelayout('admin'); //this is a bloody hack!
     
 /// Print the header   
 echo $OUTPUT->header();
-echo $OUTPUT->heading($strmindmaps);
 
 /// Get all the appropriate data
-if (! $mindmaps = get_all_instances_in_course("mindmap", $course)) {
-    notice("There are no mindmaps", "../../course/view.php?id=$course->id");
-    die;
+if (!$mindmaps = get_all_instances_in_course('mindmap', $course)) {
+    notice('There are no mindmaps', $CFG->wwwroot.'/course/view.php?id='.$course->id);
+    exit;
 }
 
-$timenow = time();
-$strname  = get_string("name");
-$strweek  = get_string("week");
-$strtopic  = get_string("topic");
+$usesections = course_format_uses_sections($course->format);
+if ($usesections) {
+    $sections = get_all_sections($course->id);
+}
 
 //init table
 $table = new html_table();
-$table->width = "100%";
-$table->size = array('10%', '90%');
-if ($course->format == "weeks") {
-    $table->head  = array ($strweek, $strname);
-    $table->align = array ("center", "center");
-} else if ($course->format == "topics") {
-    $table->head  = array ($strtopic, $strname);
-    $table->align = array ("center", "center", "center", "center");
+$table->attributes['class'] = 'generaltable mod_index';
+
+if ($usesections) {
+    $table->head  = array ($strsectionname, $strname, $strintro);
+    $table->align = array ('center', 'left', 'left');
 } else {
-    $table->head  = array ($strname);
-    $table->align = array ("center", "center", "center");
+    $table->head  = array ($strlastmodified, $strname, $strintro);
+    $table->align = array ('left', 'left', 'left');
 }
 
+$modinfo = get_fast_modinfo($course);
+$currentsection = '';
+
 foreach ($mindmaps as $mindmap) {
-    if (!$mindmap->visible) {
-        //Show dimmed if the mod is hidden
-        $link = "<a class=\"dimmed\" href=\"view.php?id=$mindmap->coursemodule\">$mindmap->name</a>";
+    $cm = $modinfo->cms[$mindmap->coursemodule];
+    if ($usesections) {
+        $printsection = '';
+        if ($mindmap->section !== $currentsection) {
+            if ($mindmap->section) {
+                $printsection = get_section_name($course, $sections[$mindmap->section]);
+            }
+            if ($currentsection !== '') {
+                $table->data[] = 'hr';
+            }
+            $currentsection = $mindmap->section;
+        }
     } else {
-        //Show normal if the mod is visible
-        $link = "<a href=\"view.php?id=$mindmap->coursemodule\">$mindmap->name</a>";
+        $printsection = '<span class="smallinfo">'.userdate($mindmap->timemodified).'</span>';
     }
 
-    if ($course->format == "weeks" or $course->format == "topics") {
-        $table->data[] = array ($mindmap->section, $link);
-    } else {
-        $table->data[] = array ($link);
-    }
+    $class = $mindmap->visible ? '' : 'class="dimmed"'; // hidden modules are dimmed
+    
+    $table->data[] = array (
+        $printsection,
+        '<a '.$class.' href="view.php?id='.$cm->id.'">'.format_string($mindmap->name).'</a>',
+        format_module_intro('mindmap', $mindmap, $cm->id));
 }
 
 echo html_writer::table($table);

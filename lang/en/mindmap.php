@@ -30,6 +30,9 @@ $string['index_help'] = 'The Mindmap Module is provided by <a href="http://ekpen
 $string['mindmap_help'] = 'The Mindmap Module is provided by <a href="http://ekpenso.com">ekpenso.com</a> - if you experience problems or if you have feedback feel free to contact us.';
 $string['mindmap'] = 'mindmap';
 $string['modulename'] = 'Mindmap';
+$string['modulename_help'] = 'This is the original Mindmap module for moodle formerly found on ekpenso.com. 
+    
+This Mindmap module allows you to create and save simple mindmaps from within moodle.';
 $string['modulenameplural'] = 'Mindmaps';
 $string['mindmapfieldset'] = 'Custom example fieldset';
 $string['mindmapintro'] = 'Mindmap Intro';

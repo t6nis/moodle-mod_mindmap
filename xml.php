@@ -20,23 +20,20 @@
  * @package    mod
  * @subpackage mindmap
  * @author ekpenso.com
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2012 Tõnis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("../../config.php");
-require_once("lib.php");
-
-global $DB;
+require_once('../../config.php');
 
 $id = optional_param('id', 0, PARAM_INT); // Course Module ID, or
 
 if($id) {
-    if (! $mindmap = $DB->get_record("mindmap", array("id" => $id))) {
-        error("Course module is incorrect");
+    if (! $mindmap = $DB->get_record('mindmap', array('id' => $id))) {
+        error('Course module is incorrect');
     }
-    if (! $course = $DB->get_record("course", array("id" => $mindmap->course))) {
-        error("Course is misconfigured");
+    if (! $course = $DB->get_record('course', array('id' => $mindmap->course))) {
+        error('Course is misconfigured');
     }
 }
 

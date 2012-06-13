@@ -20,23 +20,8 @@
  * @package    mod
  * @subpackage mindmap
  * @author ekpenso.com
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2012 Tõnis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-/**
- * Library of functions and constants for module newmodule
- * This file should have two well differenced parts:
- *   - All the core Moodle functions, neeeded to allow
- *     the module to work integrated in Moodle.
- *   - All the newmodule specific functions, needed
- *     to implement all the module logic. Please, note
- *     that, if the module become complex and this lib
- *     grows a lot, it's HIGHLY recommended to move all
- *     these module specific functions to a new php file,
- *     called "locallib.php" (see forum, quiz...). This will
- *     help to save some memory when Moodle is performing
- *     actions across all modules.
  */
 
 /**
@@ -46,7 +31,7 @@
  * of the new instance.
  *
  * @param object $instance An object from the form in mod.html
- * @return int The id of the newly inserted newmodule record
+ * @return int The id of the newly inserted $mindmap record
  **/
 function mindmap_add_instance($mindmap) {
     
@@ -68,15 +53,15 @@ function mindmap_add_instance($mindmap) {
     
     $mindmap->userid = $USER->id;
     
+    $mindmap->editable = '0';
+    
     if(isset($mindmap->editable)) {
         $mindmap->editable = '1';
-    } else { 
-        $mindmap->editable = '0';
     }
     
     $mindmap->timecreated = time();
     
-    return $DB->insert_record("mindmap", $mindmap);
+    return $DB->insert_record('mindmap', $mindmap);
     
 }
 
@@ -94,12 +79,12 @@ function mindmap_update_instance($mindmap) {
     
     $mindmap->timemodified = time();
     $mindmap->id = $mindmap->instance;
-
-    if (!$mindmap->editable) {
+    
+    if (!isset($mindmap->editable)) {
         $mindmap->editable = 0;
     }
     
-    return $DB->update_record("mindmap", $mindmap);
+    return $DB->update_record('mindmap', $mindmap);
 }
 
 /**
@@ -138,7 +123,22 @@ function mindmap_delete_instance($id) {
  * @todo Finish documenting this function
  **/
 function mindmap_user_outline($course, $user, $mod, $mindmap) {
-    return $return;
+    global $DB;
+
+    if ($logs = $DB->get_records('log', array('userid'=>$user->id, 'module'=>'mindmap',
+                                              'action'=>'view', 'info'=>$mindmap->id), 'time ASC')) {
+
+        $numviews = count($logs);
+        $lastlog = array_pop($logs);
+
+        $result = new stdClass();
+        $result->info = get_string('numviews', '', $numviews);
+        $result->time = $lastlog->time;
+
+        return $result;
+    }
+    
+    return null;
 }
 
 /**
@@ -148,13 +148,13 @@ function mindmap_user_outline($course, $user, $mod, $mindmap) {
  * @return boolean
  * @todo Finish documenting this function
  **/
-function mindmap_user_complete($course, $user, $mod, $newmodule) {
+function mindmap_user_complete($course, $user, $mod, $mindmap) {
     return true;
 }
 
 /**
  * Given a course and a time, this module should find recent activity 
- * that has occurred in newmodule activities and print it out. 
+ * that has occurred in $mindmap activities and print it out. 
  * Return true if there was output, or false is there was none. 
  *
  * @uses $CFG
@@ -162,102 +162,64 @@ function mindmap_user_complete($course, $user, $mod, $newmodule) {
  * @todo Finish documenting this function
  **/
 function mindmap_print_recent_activity($course, $isteacher, $timestart) {
-    global $CFG;
-
     return false;  //  True if anything was printed, otherwise false 
 }
 
 /**
- * Function to be run periodically according to the moodle cron
- * This function searches for things that need to be done, such 
- * as sending out mail, toggling flags etc ... 
- *
+ * No cron in book.
+ * 
  * @uses $CFG
  * @return boolean
  * @todo Finish documenting this function
  **/
-function mindmap_cron () {
-    global $CFG;
-
+function mindmap_cron() {
     return true;
 }
 
 /**
- * Must return an array of grades for a given instance of this module, 
- * indexed by user.  It also returns a maximum allowed grade.
- * 
- * Example:
- *    $return->grades = array of grades;
- *    $return->maxgrade = maximum allowed grade;
- *
- *    return $return;
- *
- * @param int $newmoduleid ID of an instance of this module
+ * No grading in book.
+ * @param int $mindmapid ID of an instance of this module
  * @return mixed Null or object with an array of grades and with the maximum grade
  **/
-function mindmap_grades($newmoduleid) {
-   return NULL;
+function mindmap_grades($mindmapid) {
+   return null;
 }
 
 /**
  * Must return an array of user records (all data) who are participants
- * for a given instance of newmodule. Must include every user involved
+ * for a given instance of $mindmap. Must include every user involved
  * in the instance, independient of his role (student, teacher, admin...)
  * See other modules as example.
  *
- * @param int $newmoduleid ID of an instance of this module
+ * @param int $mindmapid ID of an instance of this module
  * @return mixed boolean/array of students
  **/
-function mindmap_get_participants($newmoduleid) {
+function mindmap_get_participants($mindmapid) {
     return false;
 }
 
 /**
- * This function returns if a scale is being used by one newmodule
+ * This function returns if a scale is being used by one $mindmap
  * it it has support for grading and scales. Commented code should be
  * modified if necessary. See forum, glossary or journal modules
  * as reference.
  *
- * @param int $newmoduleid ID of an instance of this module
+ * @param int $mindmap ID of an instance of this module
  * @return mixed
  * @todo Finish documenting this function
  **/
-function mindmap_scale_used ($newmoduleid,$scaleid) {
-    $return = false;
-
-    //$rec = get_record("newmodule","id","$newmoduleid","scale","-$scaleid");
-    //
-    //if (!empty($rec)  && !empty($scaleid)) {
-    //    $return = true;
-    //}
-   
-    return $return;
+function mindmap_scale_used($mindmapid, $scaleid) {
+    return false;
 }
 
 /**
- * Checks if scale is being used by any instance of newmodule.
- * This function was added in 1.9
- *
+ * Checks if scale is being used by any instance of mindmap
  * This is used to find out if scale used anywhere
  * @param $scaleid int
- * @return boolean True if the scale is used by any newmodule
+ * @return boolean True if the scale is used by any $mindmap
  */
 function mindmap_scale_used_anywhere($scaleid) {
-    
-    global $DB;
-
     return false;
-    
-}
-
-/**
- * Execute post-install custom actions for the module
- * This function was added in 1.9
- *
- * @return boolean true if success, false on error
- */
-function mindmap_install() {
-     return true;
 }
 
 function mindmap_supports($feature) {
