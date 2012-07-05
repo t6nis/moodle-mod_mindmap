@@ -95,7 +95,7 @@ foreach ($mindmaps as $mindmap) {
             $currentsection = $mindmap->section;
         }
     } else {
-        $printsection = '<span class="smallinfo">'.userdate($mindmap->timemodified).'</span>';
+        $printsection = html_writer::tag('span', userdate($mindmap->timemodified), array('class' => 'smallinfo'));
     }
 
     $class = $mindmap->visible ? '' : 'class="dimmed"'; // hidden modules are dimmed

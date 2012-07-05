@@ -33,7 +33,7 @@ class mod_mindmap_mod_form extends moodleform_mod {
     function definition() {
 
         global $CFG, $COURSE, $DB;
-        $mform    =& $this->_form;
+        $mform =& $this->_form;
 
         /// Adding the "general" fieldset, where all the common settings are showed
         $mform->addElement('header', 'general', get_string('general', 'form'));

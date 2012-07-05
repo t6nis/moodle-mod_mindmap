@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/mindmap/db" VERSION="20070401" COMMENT="XMLDB file for Moodle mod/mindmap"
+<XMLDB PATH="mod/mindmap/db" VERSION="2012061300" COMMENT="XMLDB file for Moodle mod/mindmap"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >

@@ -7,14 +7,17 @@ This Mindmap module allows you to create and save simple mindmaps from within mo
 
 Quick install instructions:
 
-- ) Copy this "/mindmap"-Folder and place it in your /mod directory
-- ) go go to your admin area and go to "notificatiosn"
-- ) That's it
+- Copy this "/mindmap"-Folder and place it in your /mod directory
+- go go to your admin area and go to "notificatiosn"
+- That's it
 
 Have fun!
 
 Thanks to original mindmap module author: Andreas Geier
 Link: https://github.com/functino/Moodle-Mindmap-Module
+
+//04.07.2012 - version 2012070400
++Minor fixes
 
 //13.06.2012 - version 2012061300
 +Refactored code

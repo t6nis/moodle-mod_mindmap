@@ -32,30 +32,6 @@ function xmldb_mindmap_upgrade($oldversion=0) {
     
     $result = true;
 
-/// And upgrade begins here. For each one, you'll need one
-/// block of code similar to the next one. Please, delete
-/// this comment lines once this file start handling proper
-/// upgrade code.
-
-/// if ($result && $oldversion < YYYYMMDD00) { //New version in version.php
-///     $result = result of "/lib/ddllib.php" function calls
-/// }
-
-/// Lines below (this included)  MUST BE DELETED once you get the first version
-/// of your module ready to be installed. They are here only
-/// for demonstrative purposes and to show how the newmodule
-/// iself has been upgraded.
-
-/// For each upgrade block, the file newmodule/version.php
-/// needs to be updated . Such change allows Moodle to know
-/// that this file has to be processed.
-
-/// To know more about how to write correct DB upgrade scripts it's
-/// highly recommended to read information available at:
-///   http://docs.moodle.org/en/Development:XMLDB_Documentation
-/// and to play with the XMLDB Editor (in the admin menu) and its
-/// PHP generation posibilities.
-
 /// First example, some fields were added to the module on 20070400
     if ($oldversion < 2007040100) {
 
@@ -125,6 +101,10 @@ function xmldb_mindmap_upgrade($oldversion=0) {
         upgrade_mod_savepoint(true, 2012061300, 'mindmap');
     }
     
+    if ($oldversion < 2012070400) {
+        upgrade_mod_savepoint(true, 2012070400, 'mindmap');
+    }
+ 
     return $result;
 }
 
