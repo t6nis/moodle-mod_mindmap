@@ -16,6 +16,9 @@ Have fun!
 Thanks to original mindmap module author: Andreas Geier
 Link: https://github.com/functino/Moodle-Mindmap-Module
 
+//09.10.2012 - version 2012100900
++Modified viewer.swf and fixed IE compatiblity issue
+
 //04.07.2012 - version 2012070400
 +Minor fixes
 
