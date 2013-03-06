@@ -8,7 +8,7 @@ This Mindmap module allows you to create and save simple mindmaps from within mo
 Quick install instructions:
 
 - Copy this "/mindmap"-Folder and place it in your /mod directory
-- go go to your admin area and go to "notificatiosn"
+- Go to your admin area and "Notifications"
 - That's it
 
 Have fun!
@@ -18,7 +18,7 @@ Link: https://github.com/functino/Moodle-Mindmap-Module
 
 //01.03.2013 - version 2013030100
 Teacher can enable locking, so that multiple students cannot edit a mindmap at the same time. This caused problems with saving xml data.
-NB! All mindmaps will have locking enabled by default after upgradeing.
+NB! All mindmaps will have locking enabled by default after upgrade.
 +Locking functionality.
 
 //09.10.2012 - version 2012100900
