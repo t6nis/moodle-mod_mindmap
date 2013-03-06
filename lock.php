@@ -15,23 +15,39 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mindmap plugin version info
+ * Mindmap locking
  *
  * @package    mod
  * @subpackage mindmap
  * @author ekpenso.com
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2013 Tõnis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+require_once('../../config.php');
 
-$module->version  = 2013030100;  // The current module version (Date: YYYYMMDDXX)
-$module->requires = 2011070100;  // Requires this Moodle version
-$module->cron     = 0;           // Period for cron to check this module (secs)
-$module->component = 'mod_mindmap'; // Full name of the plugin (used for diagnostics)
+global $DB;
 
-$module->maturity  = MATURITY_STABLE;
-$module->release   = "2.1 (2011070100)"; // User-friendly version number
+$id = required_param('id', PARAM_INT); // Course Module ID, or
+$lock = required_param('lock', PARAM_RAW);
+$uid = required_param('uid', PARAM_RAW);
+
+if($id) {
+    if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
+        print_error('Course module is incorrect');
+    }
+    if (!$course = $DB->get_record('course', array('id' => $mindmap->course))) {
+        print_error('Course is misconfigured');
+    }
+}
+
+require_login($mindmap->course);
+
+$update = new stdClass();
+$update->id = $id;
+$update->locked = $lock;
+$update->lockedbyuser = $uid;
+
+$DB->update_record('mindmap', $update);
 
 ?>

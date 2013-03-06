@@ -69,6 +69,19 @@ $PAGE->set_url('/mod/mindmap/view.php', array('id'=>$cm->id));
 $PAGE->set_title($strname);
 $PAGE->set_heading($course->fullname);
 
+//JS Lock
+$jsmodule = array(
+    'name'     => 'mod_mindmap',
+    'fullpath' => '/mod/mindmap/module.js',
+    'requires' => array('base', 'io', 'io-base', 'io-form', 'node', 'json'),
+    'strings' => array(
+        array('mindmapunlocked', 'mindmap')
+    )
+);
+if ($mindmap->locking > 0) {
+    $PAGE->requires->js_init_call('M.mod_mindmap.init_lock', array($mindmap->id, $mindmap->locked, $mindmap->lockedbyuser, $USER->id), false, $jsmodule);
+}
+
 //Header
 echo $OUTPUT->header();
 
@@ -79,6 +92,24 @@ echo $OUTPUT->box(format_module_intro('mindmap', $mindmap, $cm->id), 'generalbox
 echo $OUTPUT->box_start('generalbox', 'intro'); 
 
 echo html_writer::tag('div', get_string('mindmaphint', 'mindmap'), array('class' => 'mindmap_hint'));
+//Locking info
+if ($mindmap->locking > 0 && $mindmap->locked > 0 && $mindmap->lockedbyuser != $USER->id) {
+    $user = $DB->get_record('user', array('id' => $mindmap->lockedbyuser), 'firstname, lastname', MUST_EXIST);
+    echo html_writer::start_tag('div', array('class' => 'mindmap_locked'));
+    echo html_writer::tag('span', get_string('mindmaplocked', 'mindmap', $user));
+    //Override lock for teachers
+    if (has_capability('moodle/course:manageactivities', $context, $USER->id)) {
+        echo "<div class=\"mindmap-unlock-button\">";
+        echo "<form method=\"post\" action=\"unlock.php\" id=\"mindmapform\">";        
+        echo "<input type=\"hidden\" name=\"id\" value=\"$mindmap->id\" />";
+        echo "<input type=\"hidden\" name=\"uid\" value=\"$USER->id\" />";
+        echo "<input type=\"submit\" name=\"unlock\" value=\"Unlock\">";
+        echo "</form>";
+        echo "</div>";
+    }
+    echo html_writer::end_tag('div');
+}
+
 echo html_writer::tag('div', '', array('id' => 'flashcontent'));
 
 ?>
@@ -89,7 +120,13 @@ echo html_writer::tag('div', '', array('id' => 'flashcontent'));
     so.addVariable('load_url', '<?php echo $CFG->wwwroot; ?>/mod/mindmap/xml.php?id=<?php echo $mindmap->id;?>');
     <?php if((has_capability('moodle/course:manageactivities', $context, $USER->id)) || ($mindmap->editable == '1')): ?>
             so.addVariable('save_url', '<?php echo $CFG->wwwroot; ?>/mod/mindmap/save.php?id=<?php echo $mindmap->id;?>');
-            so.addVariable('editable', 'true');
+            <?php if ($mindmap->locking == 0) { ?>
+                    so.addVariable('editable', 'true');
+            <?php } else { ?>
+                <?php if ($mindmap->locking > 0 && (($mindmap->locked == 1 && $mindmap->lockedbyuser == $USER->id) || ($mindmap->locked < 1))) { ?>
+                    so.addVariable('editable', 'true');
+                <?php } ?>
+            <?php } ?>
     <?php endif; ?>
     so.addVariable('lang', 'en');
     so.addVariable('wmode', 'direct');
@@ -103,4 +140,5 @@ echo $OUTPUT->box_end();
 
 //Footer
 echo $OUTPUT->footer($course);
+
 ?>

@@ -48,6 +48,9 @@ class mod_mindmap_mod_form extends moodleform_mod {
         $mform->addRule('introeditor', get_string('required'), 'required', null, 'client');
 
         $mform->addElement('advcheckbox', 'editable', get_string('editable', 'mindmap'), '', array('group' => 1), array(0, 1));
+        $mform->setDefault('editable', 1);
+        $mform->addElement('advcheckbox', 'locking', get_string('locking', 'mindmap'), '', array('group' => 1), array(0, 1));
+        $mform->setDefault('locking', 1);
         
         // add standard elements, common to all modules
         $this->standard_coursemodule_elements();

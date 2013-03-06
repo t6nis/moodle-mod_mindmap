@@ -37,6 +37,11 @@ $string['modulenameplural'] = 'Mindmaps';
 $string['mindmapfieldset'] = 'Custom example fieldset';
 $string['mindmapintro'] = 'Mindmap Intro';
 $string['mindmapname'] = 'Mindmap Name';
-$string['editable'] = 'Editable';
+$string['editable'] = 'Allow students to edit this mindmap';
 $string['mindmaphint'] = 'To add a new node, press the "Insert" key on the keyboard!';
+$string['mindmap:addinstance'] = 'Add a new Mindmap instance';
+$string['mindmaplocked'] = 'You cannot edit the current mindmap, because user {$a->firstname} {$a->lastname} is already editing it!';
+$string['mindmapunlocked'] = 'If you leave this page, Mindmap will be available for others to edit.';
+$string['locking'] = 'Enable locking';
+
 ?>

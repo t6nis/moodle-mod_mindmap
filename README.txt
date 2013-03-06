@@ -16,6 +16,11 @@ Have fun!
 Thanks to original mindmap module author: Andreas Geier
 Link: https://github.com/functino/Moodle-Mindmap-Module
 
+//01.03.2013 - version 2013030100
+Teacher can enable locking, so that multiple students cannot edit a mindmap at the same time. This caused problems with saving xml data.
+NB! All mindmaps will have locking enabled by default after upgradeing.
++Locking functionality.
+
 //09.10.2012 - version 2012100900
 +Modified viewer.swf and fixed IE compatiblity issue
 

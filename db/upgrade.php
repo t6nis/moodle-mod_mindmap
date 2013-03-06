@@ -104,7 +104,29 @@ function xmldb_mindmap_upgrade($oldversion=0) {
     if ($oldversion < 2012070400) {
         upgrade_mod_savepoint(true, 2012070400, 'mindmap');
     }
- 
+    
+    //Locking functionality
+    if ($oldversion < 2013030100) {
+        
+        $table = new xmldb_table('mindmap');
+        $field = new xmldb_field('locking');
+        $field->set_attributes(XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'timemodified');
+        $dbman->add_field($table, $field);
+        
+        $table = new xmldb_table('mindmap');
+        $field = new xmldb_field('locked');
+        $field->set_attributes(XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'locking');
+        $dbman->add_field($table, $field);
+        
+        $table = new xmldb_table('mindmap');
+        $field = new xmldb_field('lockedbyuser');
+        $field->set_attributes(XMLDB_TYPE_INTEGER, '12', null, XMLDB_NOTNULL, null, '0', 'locked');
+        $dbman->add_field($table, $field);
+        
+        upgrade_mod_savepoint(true, 2013030100, 'mindmap');
+        
+    }
+    
     return $result;
 }
 
