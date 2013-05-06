@@ -20,7 +20,7 @@
  * @package    mod
  * @subpackage mindmap
  * @author ekpenso.com
- * @copyright  2011 TÃµnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -30,9 +30,7 @@ $string['index_help'] = 'The Mindmap Module is provided by <a href="http://ekpen
 $string['mindmap_help'] = 'The Mindmap Module is provided by <a href="http://ekpenso.com">ekpenso.com</a> - if you experience problems or if you have feedback feel free to contact us.';
 $string['mindmap'] = 'mindmap';
 $string['modulename'] = 'Mindmap';
-$string['modulename_help'] = 'This is the original Mindmap module for moodle formerly found on ekpenso.com. 
-    
-This Mindmap module allows you to create and save simple mindmaps from within moodle.';
+$string['modulename_help'] = 'Mindmap module allows you to create and save simple mindmaps from within moodle.';
 $string['modulenameplural'] = 'Mindmaps';
 $string['mindmapfieldset'] = 'Custom example fieldset';
 $string['mindmapintro'] = 'Mindmap Intro';
