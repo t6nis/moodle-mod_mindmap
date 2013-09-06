@@ -16,6 +16,11 @@ Have fun!
 Thanks to original mindmap module author: Andreas Geier
 Link: https://github.com/functino/Moodle-Mindmap-Module
 
+//06.09.2013 - version 2013090600
++Removed old upgrade codes(2007040100)
++New default icon with transparent background
++Bump to Moodle 2.5 version
+
 //01.03.2013 - version 2013030100
 Teacher can enable locking, so that multiple students cannot edit a mindmap at the same time. This caused problems with saving xml data.
 NB! All mindmaps will have locking enabled by default after upgrade.

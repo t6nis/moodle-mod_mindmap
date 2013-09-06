@@ -20,18 +20,18 @@
  * @package    mod
  * @subpackage mindmap
  * @author ekpenso.com
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2011 TÃµnis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$module->version  = 2013050600;  // The current module version (Date: YYYYMMDDXX)
+$module->version  = 2013060900;  // The current module version (Date: YYYYMMDDXX)
 $module->requires = 2011070100;  // Requires this Moodle version
 $module->cron     = 0;           // Period for cron to check this module (secs)
 $module->component = 'mod_mindmap'; // Full name of the plugin (used for diagnostics)
 
 $module->maturity  = MATURITY_STABLE;
-$module->release   = "2013050600"; // User-friendly version number
+$module->release   = "2013060900"; // User-friendly version number
 
 ?>
