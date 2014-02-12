@@ -19,6 +19,10 @@ Link: https://github.com/functino/Moodle-Mindmap-Module
 Thanks goes to FatCow Webhosting for the new Mindmap icon. 
 License: Creative Commons(Attribution 3.0 United States)
 
+//12.02.2014 - version 2014021200
++fixed context notice for Moodle 2.6
++Bump to Moodle 2.6 version
+
 //06.09.2013 - version 2013090600
 +Removed old upgrade codes(2007040100)
 +New default icon with transparent background
