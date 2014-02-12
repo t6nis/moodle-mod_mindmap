@@ -26,6 +26,7 @@
 
 //requires configs & libs
 require_once('../../config.php');
+require_once($CFG->libdir . '/completionlib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // Course Module ID, or
 $a  = optional_param('a', 0, PARAM_INT);
@@ -58,6 +59,8 @@ require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
 add_to_log($course->id, 'mindmap', 'view', 'view.php?id='.$cm->id, $mindmap->id);
+$completion = new completion_info($course);
+$completion->set_module_viewed($cm);
 
 /// Print the page header
 $strmindmaps  = get_string('modulenameplural', 'mindmap');

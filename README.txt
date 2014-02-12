@@ -21,6 +21,7 @@ License: Creative Commons(Attribution 3.0 United States)
 
 //12.02.2014 - version 2014021200
 +fixed context notice for Moodle 2.6
++added completion ability
 +Bump to Moodle 2.6 version
 
 //06.09.2013 - version 2013090600
