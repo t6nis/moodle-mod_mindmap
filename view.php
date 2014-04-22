@@ -121,7 +121,7 @@ echo html_writer::tag('div', '', array('id' => 'flashcontent'));
     // <![CDATA[
     var so = new SWFObject('<?php echo $CFG->wwwroot; ?>/mod/mindmap/viewer.swf?uVal=<?php echo rand(0,100); ?>', 'viewer', 800, 600, '9', '#FFFFFF');
     so.addVariable('load_url', '<?php echo $CFG->wwwroot; ?>/mod/mindmap/xml.php?id=<?php echo $mindmap->id;?>');
-    <?php if((has_capability('moodle/course:manageactivities', $context, $USER->id)) || ($mindmap->editable == '1')): ?>
+    <?php if(!isguestuser() && ((has_capability('moodle/course:manageactivities', $context, $USER->id)) || ($mindmap->editable == '1'))): ?>
             so.addVariable('save_url', '<?php echo $CFG->wwwroot; ?>/mod/mindmap/save.php?id=<?php echo $mindmap->id;?>');
             <?php if ($mindmap->locking == 0) { ?>
                     so.addVariable('editable', 'true');
