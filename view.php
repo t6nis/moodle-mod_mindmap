@@ -58,7 +58,7 @@ if ($id) {
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
-add_to_log($course->id, 'mindmap', 'view', 'view.php?id='.$cm->id, $mindmap->id);
+add_to_log($course->id, 'mindmap', 'view', 'view.php?id='.$cm->id, $mindmap->name, $cm->id);
 $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
@@ -92,10 +92,10 @@ echo $OUTPUT->header();
 echo $OUTPUT->box(format_module_intro('mindmap', $mindmap, $cm->id), 'generalbox', 'intro');
 
 //Mindmap box
-echo $OUTPUT->box_start('generalbox', 'intro'); 
+echo $OUTPUT->box_start('generalbox', 'mindmap_view'); 
 
-echo html_writer::tag('div', get_string('mindmaphint', 'mindmap'), array('class' => 'mindmap_hint'));
-//Locking info
+echo html_writer::tag('div', get_string('mindmaphint', 'mindmap'), array('class' => 'mindmap_hint', 'id' => 'mindmap_hint'));
+//Locking info 
 if ($mindmap->locking > 0 && $mindmap->locked > 0 && $mindmap->lockedbyuser != $USER->id) {
     $user = $DB->get_record('user', array('id' => $mindmap->lockedbyuser), 'firstname, lastname', MUST_EXIST);
     echo html_writer::start_tag('div', array('class' => 'mindmap_locked'));
@@ -119,7 +119,14 @@ echo html_writer::tag('div', '', array('id' => 'flashcontent'));
 <script type="text/javascript" src="./javascript/swfobject.js"></script>	
 <script type="text/javascript">
     // <![CDATA[
-    var so = new SWFObject('<?php echo $CFG->wwwroot; ?>/mod/mindmap/viewer.swf?uVal=<?php echo rand(0,100); ?>', 'viewer', 800, 600, '9', '#FFFFFF');
+    var swf_width = document.getElementById('mindmap_hint').offsetWidth; //Set SWF width
+    //Width calculations
+    if (swf_width > 1200) {
+        swf_width = swf_width - 1;
+    } else {
+        swf_width = swf_width - 11;
+    }
+    var so = new SWFObject('<?php echo $CFG->wwwroot; ?>/mod/mindmap/viewer.swf?uVal=<?php echo rand(0,100); ?>', 'viewer', swf_width, 600, '9', '#FFFFFF');
     so.addVariable('load_url', '<?php echo $CFG->wwwroot; ?>/mod/mindmap/xml.php?id=<?php echo $mindmap->id;?>');
     <?php if((has_capability('moodle/course:manageactivities', $context, $USER->id)) || ($mindmap->editable == '1')): ?>
             so.addVariable('save_url', '<?php echo $CFG->wwwroot; ?>/mod/mindmap/save.php?id=<?php echo $mindmap->id;?>');

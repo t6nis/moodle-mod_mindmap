@@ -62,9 +62,6 @@ if (!$mindmaps = get_all_instances_in_course('mindmap', $course)) {
 }
 
 $usesections = course_format_uses_sections($course->format);
-if ($usesections) {
-    $sections = get_all_sections($course->id);
-}
 
 //init table
 $table = new html_table();
@@ -78,16 +75,28 @@ if ($usesections) {
     $table->align = array ('left', 'left', 'left');
 }
 
-$modinfo = get_fast_modinfo($course);
 $currentsection = '';
 
 foreach ($mindmaps as $mindmap) {
-    $cm = $modinfo->cms[$mindmap->coursemodule];
-    if ($usesections) {
-        $printsection = '';
+    
+    if (!$mindmap->visible && has_capability('moodle/course:viewhiddenactivities', $context)) {
+        // Show dimmed if the mod is hidden.
+        $link = html_writer::tag('a', format_string($mindmap->name, true), array('href' => new moodle_url('/mod/mindmap/view.php', array('id' => $mindmap->coursemodule)), 'class' => 'dimmed'));
+    } else if ($mindmap->visible) {
+        // Show normal if the mod is visible.
+        $link = html_writer::tag('a', format_string($mindmap->name, true), array('href' => new moodle_url('/mod/mindmap/view.php', array('id' => $mindmap->coursemodule))));
+    } else {
+        // Don't show the glossary.
+        continue;
+    }
+    
+    $description = format_module_intro('mindmap', $mindmap, $mindmap->coursemodule);
+    $printsection = '';
+    
+    if ($usesections) {        
         if ($mindmap->section !== $currentsection) {
             if ($mindmap->section) {
-                $printsection = get_section_name($course, $sections[$mindmap->section]);
+                $printsection = get_section_name($course, $mindmap->section);
             }
             if ($currentsection !== '') {
                 $table->data[] = 'hr';
@@ -98,12 +107,12 @@ foreach ($mindmaps as $mindmap) {
         $printsection = html_writer::tag('span', userdate($mindmap->timemodified), array('class' => 'smallinfo'));
     }
 
-    $class = $mindmap->visible ? '' : 'class="dimmed"'; // hidden modules are dimmed
-    
-    $table->data[] = array (
-        $printsection,
-        '<a '.$class.' href="view.php?id='.$cm->id.'">'.format_string($mindmap->name).'</a>',
-        format_module_intro('mindmap', $mindmap, $cm->id));
+    if ($usesections) {
+        $table->data[] = array ($printsection, $link, $description);
+    } else {
+        $table->data[] = array ($link);
+    }
+
 }
 
 echo html_writer::table($table);

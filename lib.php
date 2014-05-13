@@ -162,7 +162,7 @@ function mindmap_print_recent_activity($course, $isteacher, $timestart) {
  * @todo Finish documenting this function
  **/
 function mindmap_cron() {
-    return true;
+    return false;
 }
 
 /**
