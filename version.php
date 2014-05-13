@@ -30,7 +30,7 @@ $plugin->version  = 2014051300;  // The current module version (Date: YYYYMMDDXX
 $plugin->requires = 2011120500;  // Requires this Moodle version
 $plugin->cron     = 0;           // Period for cron to check this module (secs)
 $plugin->component = 'mod_mindmap'; // Full name of the plugin (used for diagnostics)
-
+ 
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->release   = "2014051300"; // User-friendly version number
 
