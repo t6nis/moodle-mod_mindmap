@@ -58,7 +58,17 @@ if ($id) {
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
-add_to_log($course->id, 'mindmap', 'view', 'view.php?id='.$cm->id, $mindmap->name, $cm->id);
+//Trigger events
+$params = array(
+    'context' => $context,
+    'objectid' => $mindmap->id
+);
+$event = \mod_mindmap\event\course_module_viewed::create($params);
+$event->add_record_snapshot('course_modules', $cm);
+$event->add_record_snapshot('course', $course);
+$event->add_record_snapshot('mindmap', $mindmap);
+$event->trigger();
+
 $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 

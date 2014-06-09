@@ -19,6 +19,11 @@ Link: https://github.com/functino/Moodle-Mindmap-Module
 Thanks goes to FatCow Webhosting for the new Mindmap icon. 
 License: Creative Commons(Attribution 3.0 United States)
 
+//09.06.2014 - version 2014060900
++Moodle 2.7 compatiblity with new logging api
+This version is compatible with Moodle 2.6 and up. 
+Please download older version for Moodle 2.5 and below.
+
 //13.05.2014 - version 2014051300
 +Fixed minor logging messages
 +Fixed notice in mindmap index

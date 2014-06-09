@@ -32,7 +32,13 @@ $course = $DB->get_record('course', array('id'=>$id), '*', MUST_EXIST);
 
 require_course_login($course, true);
 
-add_to_log($course->id, 'mindmap', 'view all', 'index.php?id='.$course->id, '');
+//Trigger event
+$params = array(
+    'context' => context_course::instance($course->id)
+);
+$event = \mod_mindmap\event\course_module_instance_list_viewed::create($params);
+$event->add_record_snapshot('course', $course);
+$event->trigger();
 
 /// Get all required stringsnewmodule
 $strmindmaps     = get_string('modulenameplural', 'mindmap');
