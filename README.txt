@@ -19,6 +19,11 @@ Link: https://github.com/functino/Moodle-Mindmap-Module
 Thanks goes to FatCow Webhosting for the new Mindmap icon. 
 License: Creative Commons(Attribution 3.0 United States)
 
+//13.05.2014 - version 2014051300
++Fixed minor logging messages
++Fixed notice in mindmap index
++On page reload mindmap field sizes according to window
+
 //12.02.2014 - version 2014021200
 +fixed context notice for Moodle 2.6
 +added completion ability

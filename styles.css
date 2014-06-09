@@ -16,8 +16,8 @@
 }
 .path-mod-mindmap #flashcontent {
     margin:0 auto; 
-    padding:0px; 
+    padding:3px; 
     text-align:center; 
-    border:1px black solid; 
-    width:800px;
+    border:1px solid #ddd; 
+    width:100% !important;
 }
