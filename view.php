@@ -153,6 +153,9 @@ echo html_writer::tag('div', '', array('id' => 'flashcontent'));
     so.write('flashcontent');
     // ]]>
 </script>
+
+<?php echo html_writer::tag('div', '<a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>', array('class' => 'getflash')); ?>
+
 <?php 
 
 //End Mindmap box

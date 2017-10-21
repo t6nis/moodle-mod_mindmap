@@ -21,3 +21,7 @@
     border:1px solid #ddd; 
     width:100% !important;
 }
+
+.path-mod-mindmap .getflash {
+    text-align: right;
+}
