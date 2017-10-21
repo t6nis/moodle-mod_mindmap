@@ -15,18 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Saving mindmap nodes
+ * Saving mindmap nodes.
  *
- * @package    mod
- * @subpackage mindmap
+ * @package    mod_mindmap
  * @author ekpenso.com
- * @copyright  2012 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2012 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once('../../config.php');
 
-$id = required_param('id', PARAM_INT); // Course Module ID, or
+$id = required_param('id', PARAM_INT);
 $xml = optional_param('mindmap', '', PARAM_RAW); 
 
 if ($id) {
@@ -37,9 +36,9 @@ if ($id) {
 
 require_login($mindmap->course);
 
-if($xml) {
+if ($xml) {
 
-    if(get_magic_quotes_gpc()) {
+    if (get_magic_quotes_gpc()) {
         $xml = stripslashes($xml);
     }
 
@@ -48,5 +47,4 @@ if($xml) {
     $new->xmldata = $xml;
 
     $DB->update_record('mindmap', $new);
-
 }

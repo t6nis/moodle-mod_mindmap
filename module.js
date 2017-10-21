@@ -11,7 +11,7 @@ M.mod_mindmap.init_lock = function(Y, mindmapid, locked, uid, vid) {
         uid = vid;
     }
     
-    //When moving away from mindmap
+    // When moving away from mindmap.
     if (uid == vid) {
         window.onbeforeunload = function (e) {
 
@@ -26,11 +26,11 @@ M.mod_mindmap.init_lock = function(Y, mindmapid, locked, uid, vid) {
                 });
             }
             
-            // For IE and Firefox
+            // For IE and Firefox.
             if (e) {
                 e.returnValue = confirm;
             }
-            // For Safari
+            // For Safari.
             return confirm;
 
         };

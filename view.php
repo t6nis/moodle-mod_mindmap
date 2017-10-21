@@ -1,4 +1,4 @@
-<?php  
+<?php
 // This file is part of Mindmap module for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,16 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mindmap view page
+ * Mindmap view page.
  *
- * @package    mod
- * @subpackage mindmap
+ * @package    mod_mindmap
  * @author ekpenso.com
- * @copyright  2012 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2012 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-//requires configs & libs
 require_once('../../config.php');
 require_once($CFG->libdir . '/completionlib.php');
 
@@ -58,7 +56,7 @@ if ($id) {
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
-//Trigger events
+// Trigger events.
 $params = array(
     'context' => $context,
     'objectid' => $mindmap->id
@@ -72,17 +70,16 @@ $event->trigger();
 $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
-/// Print the page header
+// Print the page header.
 $strmindmaps  = get_string('modulenameplural', 'mindmap');
 $strmindmap   = get_string('modulename', 'mindmap');
 $strname      = format_string($mindmap->name);
 
-//$PAGE params
 $PAGE->set_url('/mod/mindmap/view.php', array('id'=>$cm->id));  
 $PAGE->set_title($strname);
 $PAGE->set_heading($course->fullname);
 
-//JS Lock
+// JS Lock.
 $jsmodule = array(
     'name'     => 'mod_mindmap',
     'fullpath' => '/mod/mindmap/module.js',
@@ -95,22 +92,18 @@ if ($mindmap->locking > 0) {
     $PAGE->requires->js_init_call('M.mod_mindmap.init_lock', array($mindmap->id, $mindmap->locked, $mindmap->lockedbyuser, $USER->id), false, $jsmodule);
 }
 
-//Header
 echo $OUTPUT->header();
 
-//Intro box
 echo $OUTPUT->box(format_module_intro('mindmap', $mindmap, $cm->id), 'generalbox', 'intro');
-
-//Mindmap box
 echo $OUTPUT->box_start('generalbox', 'mindmap_view'); 
 
 echo html_writer::tag('div', get_string('mindmaphint', 'mindmap'), array('class' => 'mindmap_hint', 'id' => 'mindmap_hint'));
-//Locking info 
+// Locking info
 if ($mindmap->locking > 0 && $mindmap->locked > 0 && $mindmap->lockedbyuser != $USER->id) {
     $user = $DB->get_record('user', array('id' => $mindmap->lockedbyuser), 'firstname, lastname', MUST_EXIST);
     echo html_writer::start_tag('div', array('class' => 'mindmap_locked'));
     echo html_writer::tag('span', get_string('mindmaplocked', 'mindmap', $user));
-    //Override lock for teachers
+    // Override lock for teachers.
     if (has_capability('moodle/course:manageactivities', $context, $USER->id)) {
         echo "<div class=\"mindmap-unlock-button\">";
         echo "<form method=\"post\" action=\"unlock.php\" id=\"mindmapform\">";        
@@ -158,10 +151,6 @@ echo html_writer::tag('div', '', array('id' => 'flashcontent'));
 
 <?php 
 
-//End Mindmap box
 echo $OUTPUT->box_end(); 
 
-//Footer
 echo $OUTPUT->footer($course);
-
-?>

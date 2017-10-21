@@ -15,14 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mindmap core interaction API
+ * Mindmap core interaction API.
  *
- * @package    mod
- * @subpackage mindmap
+ * @package    mod_mindmap
  * @author ekpenso.com
- * @copyright  2012 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2012 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+defined('MOODLE_INTERNAL') || die();
 
 /**
  * Given an object containing all the necessary data, 
@@ -114,8 +115,8 @@ function mindmap_delete_instance($id) {
 function mindmap_user_outline($course, $user, $mod, $mindmap) {
     global $DB;
 
-    if ($logs = $DB->get_records('log', array('userid'=>$user->id, 'module'=>'mindmap',
-                                              'action'=>'view', 'info'=>$mindmap->id), 'time ASC')) {
+    if ($logs = $DB->get_records('log', array('userid' => $user->id, 'module' => 'mindmap',
+                                              'action' => 'view', 'info' => $mindmap->id), 'time ASC')) {
 
         $numviews = count($logs);
         $lastlog = array_pop($logs);
@@ -155,7 +156,7 @@ function mindmap_print_recent_activity($course, $isteacher, $timestart) {
 }
 
 /**
- * No cron in book.
+ * No cron in mindmap.
  * 
  * @uses $CFG
  * @return boolean
@@ -166,7 +167,7 @@ function mindmap_cron() {
 }
 
 /**
- * No grading in book.
+ * No grading in mindmap.
  * @param int $mindmapid ID of an instance of this module
  * @return mixed Null or object with an array of grades and with the maximum grade
  **/
@@ -260,9 +261,6 @@ function mindmap_get_post_actions() {
  * @return array
  */
 function mindmap_page_type_list($pagetype, $parentcontext, $currentcontext) {
-    $module_pagetype = array('mod-mindmap-*'=>get_string('page-mod-mindmap-x', 'mod_mindmap'));
+    $module_pagetype = array('mod-mindmap-*' => get_string('page-mod-mindmap-x', 'mod_mindmap'));
     return $module_pagetype;
 }
-
-
-?>

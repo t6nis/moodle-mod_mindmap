@@ -15,12 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mindmap unlocking
+ * Mindmap unlocking.
  *
- * @package    mod
- * @subpackage mindmap
+ * @package    mod_mindmap
  * @author ekpenso.com
- * @copyright  2013 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2013 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,10 +27,10 @@ require_once('../../config.php');
 
 global $DB;
 
-$id = required_param('id', PARAM_INT); // Course Module ID, or
+$id = required_param('id', PARAM_INT);
 $uid = required_param('uid', PARAM_INT);
 
-if($id) {
+if ($id) {
     if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
         print_error('Course module is incorrect');
     }
@@ -59,5 +58,3 @@ if (has_capability('moodle/course:manageactivities', $context, $uid)) {
 }
 
 redirect('view.php?id='.$cm->id);
-
-?>

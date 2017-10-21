@@ -17,17 +17,16 @@
 /**
  * Provides support for the conversion of moodle1 backup to the moodle2 format
  *
- * @package    mod
- * @subpackage Mindmap
- * @author Tõnis Tartes <tonis.tartes@gmail.com>
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @package    mod_mindmap
+ * @author Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2011 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Mindmap conversion handler
+ * Mindmap conversion handler.
  */
 class moodle1_mod_mindmap_handler extends moodle1_mod_handler {
 
@@ -59,33 +58,33 @@ class moodle1_mod_mindmap_handler extends moodle1_mod_handler {
 
     /**
      * This is executed every time we have one /MOODLE_BACKUP/COURSE/MODULES/MOD/MINDMAP
-     * data available
+     * data available.
      * @param array $data
      */
     public function process_mindmap($data) {
         global $CFG;
 
-        // get the course module id and context id
+        // Get the course module id and context id.
         $instanceid     = $data['id'];
         $cminfo         = $this->get_cminfo($instanceid);
         $this->moduleid = $cminfo['id'];
         $contextid      = $this->converter->get_contextid(CONTEXT_MODULE, $this->moduleid);
 
-        // replay the upgrade step 2009042006
+        // Replay the upgrade step 2009042006.
         if ($CFG->texteditors !== 'textarea') {
             $data['intro']       = text_to_html($data['intro'], false, false, true);
             $data['introformat'] = FORMAT_HTML;
         }
 
-        // get a fresh new file manager for this instance
+        // Get a fresh new file manager for this instance.
         $this->fileman = $this->converter->get_file_manager($contextid, 'mod_mindmap');
 
-        // convert course files embedded into the intro
+        // Convert course files embedded into the intro.
         $this->fileman->filearea = 'intro';
         $this->fileman->itemid   = 0;
         $data['intro'] = moodle1_converter::migrate_referenced_files($data['intro'], $this->fileman);
 
-        // start writing mindmap.xml
+        // Start writing mindmap.xml.
         $this->open_xml_writer("activities/mindmap_{$this->moduleid}/mindmap.xml");
         $this->xmlwriter->begin_tag('activity', array('id' => $instanceid, 'moduleid' => $this->moduleid,
             'modulename' => 'mindmap', 'contextid' => $contextid));
@@ -102,12 +101,12 @@ class moodle1_mod_mindmap_handler extends moodle1_mod_handler {
      * This is executed when we reach the closing </MOD> tag of our 'mindmap' path
      */
     public function on_mindmap_end() {
-        // finalize mindmap.xml
+        // Finalize mindmap.xml.
         $this->xmlwriter->end_tag('mindmap');
         $this->xmlwriter->end_tag('activity');
         $this->close_xml_writer();
 
-        // write inforef.xml
+        // Write inforef.xml.
         $this->open_xml_writer("activities/mindmap_{$this->moduleid}/inforef.xml");
         $this->xmlwriter->begin_tag('inforef');
         $this->xmlwriter->end_tag('inforef');

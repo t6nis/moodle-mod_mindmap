@@ -15,12 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mindmap instance add/edit form
+ * Mindmap instance add/edit form.
  *
- * @package    mod
- * @subpackage mindmap
+ * @package    mod_mindmap
  * @author ekpenso.com
- * @copyright  2012 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2012 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -35,11 +34,11 @@ class mod_mindmap_mod_form extends moodleform_mod {
         global $CFG, $COURSE, $DB;
         $mform =& $this->_form;
 
-        /// Adding the "general" fieldset, where all the common settings are showed
+        // Adding the "general" fieldset, where all the common settings are showed.
         $mform->addElement('header', 'general', get_string('general', 'form'));
         
-        /// Adding the standard "name" field
-        $mform->addElement('text', 'name', get_string('mindmapname', 'mindmap'), array('size'=>'64'));
+        // Adding the standard "name" field.
+        $mform->addElement('text', 'name', get_string('mindmapname', 'mindmap'), array('size' => '64'));
         $mform->setType('name', PARAM_TEXT);
         $mform->addRule('name', null, 'required', null, 'client');
 
@@ -50,13 +49,11 @@ class mod_mindmap_mod_form extends moodleform_mod {
         $mform->addElement('advcheckbox', 'locking', get_string('locking', 'mindmap'), '', array('group' => 1), array(0, 1));
         $mform->setDefault('locking', 1);
         
-        // add standard elements, common to all modules
+        // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();
 
-        // add standard buttons, common to all modules
+        // Add standard buttons, common to all modules.
         $this->add_action_buttons();
 
     }
 }
-
-?>

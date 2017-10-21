@@ -15,15 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    mod
- * @subpackage mindmap
- * @author Tõnis Tartes <tonis.tartes@gmail.com>
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @package    mod_mindmap
+ * @author Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2011 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 /**
- * Structure step to restore one mindmap activity
+ * Structure step to restore one mindmap activity.
  */
 class restore_mindmap_activity_structure_step extends restore_activity_structure_step {
 
@@ -32,7 +33,7 @@ class restore_mindmap_activity_structure_step extends restore_activity_structure
         $paths = array();
         $paths[] = new restore_path_element('mindmap', '/activity/mindmap');
 
-        // Return the paths wrapped into standard activity structure
+        // Return the paths wrapped into standard activity structure.
         return $this->prepare_activity_structure($paths);
     }
 
@@ -45,14 +46,14 @@ class restore_mindmap_activity_structure_step extends restore_activity_structure
         $data->timecreated = $this->apply_date_offset($data->timecreated);
         $data->timemodified = $this->apply_date_offset($data->timemodified);
 
-        // insert the mindmap record
+        // Insert the mindmap record.
         $newitemid = $DB->insert_record('mindmap', $data);
-        // immediately after inserting "activity" record, call this
+        // Immediately after inserting "activity" record, call this.
         $this->apply_activity_instance($newitemid);
     }
 
     protected function after_execute() {
-        // Add mindmap related files, no need to match by itemname (just internally handled context)
+        // Add mindmap related files, no need to match by itemname (just internally handled context).
         $this->add_related_files('mod_mindmap', 'intro', null);
     }
 }

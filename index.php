@@ -1,4 +1,4 @@
-<?php 
+<?php
 // This file is part of Mindmap module for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,25 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mindmap index page
+ * Mindmap index page.
  *
- * @package    mod
- * @subpackage mindmap
+ * @package    mod_mindmap
  * @author ekpenso.com
- * @copyright  2012 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2012 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once('../../config.php');
 
-$id = required_param('id', PARAM_INT);   // course id
+$id = required_param('id', PARAM_INT);
 
-$course = $DB->get_record('course', array('id'=>$id), '*', MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 $context = context_course::instance($course->id);
 
 require_course_login($course, true);
 
-//Trigger event
+// Trigger event.
 $params = array(
     'context' => context_course::instance($course->id)
 );
@@ -41,7 +40,7 @@ $event = \mod_mindmap\event\course_module_instance_list_viewed::create($params);
 $event->add_record_snapshot('course', $course);
 $event->trigger();
 
-/// Get all required stringsnewmodule
+// Get all required stringsnewmodule.
 $strmindmaps     = get_string('modulenameplural', 'mindmap');
 $strmindmap      = get_string('modulename', 'mindmap');
 $strsectionname  = get_string('sectionname', 'format_'.$course->format);
@@ -53,16 +52,15 @@ $strtopic  = get_string('topic');
 
 $timenow = time();
 
-//$PAGE params
 $PAGE->set_title($strmindmaps);
 $PAGE->set_heading(format_string($course->fullname));
-$PAGE->set_url('/mod/mindmap/index.php', array('id' => $course->id));  
-$PAGE->set_pagelayout('admin'); //this is a bloody hack!
-    
-/// Print the header   
+$PAGE->set_url('/mod/mindmap/index.php', array('id' => $course->id));
+$PAGE->set_pagelayout('admin'); // This is a bloody hack.
+
+// Print the header.
 echo $OUTPUT->header();
 
-/// Get all the appropriate data
+// Get all the appropriate data.
 if (!$mindmaps = get_all_instances_in_course('mindmap', $course)) {
     notice('There are no mindmaps', $CFG->wwwroot.'/course/view.php?id='.$course->id);
     exit;
@@ -70,7 +68,7 @@ if (!$mindmaps = get_all_instances_in_course('mindmap', $course)) {
 
 $usesections = course_format_uses_sections($course->format);
 
-//init table
+// Init table.
 $table = new html_table();
 $table->attributes['class'] = 'generaltable mod_index';
 
@@ -96,10 +94,10 @@ foreach ($mindmaps as $mindmap) {
         // Don't show the glossary.
         continue;
     }
-    
+
     $description = format_module_intro('mindmap', $mindmap, $mindmap->coursemodule);
     $printsection = '';
-    
+
     if ($usesections) {        
         if ($mindmap->section !== $currentsection) {
             if ($mindmap->section) {
@@ -124,7 +122,5 @@ foreach ($mindmaps as $mindmap) {
 
 echo html_writer::table($table);
 
-/// Finish the page
+// Finish the page.
 echo $OUTPUT->footer($course);
-
-?>

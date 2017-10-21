@@ -15,23 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mindmap plugin version info
+ * Mindmap plugin version info.
  *
- * @package    mod
- * @subpackage mindmap
+ * @package    mod_mindmap
  * @author ekpenso.com
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2011 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version  = 2014060900;  // The current module version (Date: YYYYMMDDXX)
+$plugin->version  = 2017102000;  // The current module version (Date: YYYYMMDDXX).
 $plugin->requires  = 2013111800; // Requires Moodle 2.6.
-$plugin->cron     = 0;           // Period for cron to check this module (secs)
-$plugin->component = 'mod_mindmap'; // Full name of the plugin (used for diagnostics)
+$plugin->cron     = 0;           // Period for cron to check this module (secs).
+$plugin->component = 'mod_mindmap'; // Full name of the plugin (used for diagnostics).
  
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = "2014060900"; // User-friendly version number
-
-?>
+$plugin->release   = "2017102000"; // User-friendly version number.

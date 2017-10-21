@@ -15,20 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mindmap xml parsing
+ * Mindmap xml parsing.
  *
- * @package    mod
- * @subpackage mindmap
+ * @package    mod_mindmap
  * @author ekpenso.com
- * @copyright  2012 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2012 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once('../../config.php');
 
-$id = optional_param('id', 0, PARAM_INT); // Course Module ID, or
+$id = optional_param('id', 0, PARAM_INT);
 
-if($id) {
+if ($id) {
     if (! $mindmap = $DB->get_record('mindmap', array('id' => $id))) {
         error('Course module is incorrect');
     }
@@ -40,4 +39,3 @@ if($id) {
 require_login($course->id);
 
 echo $mindmap->xmldata;
-

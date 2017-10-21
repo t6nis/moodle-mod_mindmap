@@ -14,13 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+defined('MOODLE_INTERNAL') || die();
+
 /**
- * Mindmap plugin upgrade code
+ * Mindmap plugin upgrade code.
  *
- * @package    mod
- * @subpackage mindmap
+ * @package    mod_mindmap
  * @author ekpenso.com
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2011 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,14 +29,14 @@ function xmldb_mindmap_upgrade($oldversion=0) {
 
     global $CFG, $THEME, $DB;
 
-    $dbman = $DB->get_manager(); /// loads ddl manager and xmldb classes
+    $dbman = $DB->get_manager(); // Loads ddl manager and xmldb classes.
     
     $result = true;
 
     if ($oldversion < 2012032300) {
         upgrade_mod_savepoint(true, 2012032300, 'mindmap');
     }
- 
+
     if ($oldversion < 2012061300) {
         
         $table = new xmldb_table('mindmap');
@@ -49,7 +50,7 @@ function xmldb_mindmap_upgrade($oldversion=0) {
         upgrade_mod_savepoint(true, 2012070400, 'mindmap');
     }
     
-    //Locking functionality
+    // Locking functionality.
     if ($oldversion < 2013030100) {
         
         $table = new xmldb_table('mindmap');
@@ -73,5 +74,3 @@ function xmldb_mindmap_upgrade($oldversion=0) {
     
     return $result;
 }
-
-?>

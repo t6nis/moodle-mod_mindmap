@@ -15,41 +15,40 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    mod
- * @subpackage mindmap
- * @author Tõnis Tartes <tonis.tartes@gmail.com>
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @package    mod_mindmap
+ * @author Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2011 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Define the complete mindmap structure for backup, with file and id annotations
+ * Define the complete mindmap structure for backup, with file and id annotations.
  */
 class backup_mindmap_activity_structure_step extends backup_activity_structure_step {
 
     protected function define_structure() {
 
-        // To know if we are including userinfo
-        // Mindmap user data is in the xmldata field in DB - anyway lets skip that
+        // To know if we are including userinfo.
+        // Mindmap user data is in the xmldata field in DB - anyway lets skip that.
 
-        // Define each element separated
+        // Define each element separated.
         $mindmap = new backup_nested_element('mindmap', array('id'), array(
             'name', 'intro', 'introformat', 'userid', 'editable',
             'xmldata', 'timecreated', 'timemodified'));
 
-        // Build the tree
+        // Build the tree.
 
-        // Define sources
+        // Define sources.
         $mindmap->set_source_table('mindmap', array('id' => backup::VAR_ACTIVITYID));
 
-        // Define id annotations
+        // Define id annotations.
 
-        // Define file annotations
+        // Define file annotations.
         $mindmap->annotate_files('mod_mindmap', 'intro', null);
 
-        // Return the root element (mindmap), wrapped into standard activity structure
+        // Return the root element (mindmap), wrapped into standard activity structure.
         return $this->prepare_activity_structure($mindmap);
     }
 }
