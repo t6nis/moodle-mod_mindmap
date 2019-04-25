@@ -18,7 +18,11 @@ Link: https://github.com/functino/Moodle-Mindmap-Module
 
 Thanks goes to FatCow Webhosting for the new Mindmap icon. 
 License: Creative Commons(Attribution 3.0 United States)
-//20.10.2017 -version 2017102000
+//25.04.2019 - version 2019042500
++Version update
++Fixing some deprecated functions
+
+//20.10.2017 - version 2017102000
 +Moodle 3.0+ compatibliy
 +Code cleanup.
 +Added getflash button. Clicking it will prompt whether to allow flash or not in chrome.
