@@ -41,5 +41,3 @@ $string['mindmap:addinstance'] = 'Add a new Mindmap instance';
 $string['mindmaplocked'] = 'You cannot edit the current mindmap, because user {$a->firstname} {$a->lastname} is already editing it!';
 $string['mindmapunlocked'] = 'If you leave this page, Mindmap will be available for others to edit.';
 $string['locking'] = 'Enable locking';
-
-?>

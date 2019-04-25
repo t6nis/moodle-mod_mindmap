@@ -31,25 +31,25 @@ $a  = optional_param('a', 0, PARAM_INT);
 
 if ($id) {
     if (!$cm = get_coursemodule_from_id('mindmap', $id)) {
-        error('Course Module ID was incorrect');
+        print_error('Course Module ID was incorrect');
     }
 
     if (!$course = $DB->get_record('course', array('id' => $cm->course))) {
-        error('Course is misconfigured');
+        print_error('Course is misconfigured');
     }
 
     if (!$mindmap = $DB->get_record('mindmap', array('id' => $cm->instance))) {
-        error('Course module is incorrect');
+        print_error('Course module is incorrect');
     }
 } else {
     if (!$mindmap = $DB->get_record('mindmap', array('id' => $a))) {
-        error('Course module is incorrect');
+        print_error('Course module is incorrect');
     }
     if (!$course = $DB->get_record('course', array('id' => $mindmap->course))) {
-        error('Course is misconfigured');
+        print_error('Course is misconfigured');
     }
     if (!$cm = get_coursemodule_from_instance('mindmap', $mindmap->id, $course->id)) {
-        error('Course Module ID was incorrect');
+        print_error('Course Module ID was incorrect');
     }
 }
 

@@ -30,7 +30,7 @@ $xml = optional_param('mindmap', '', PARAM_RAW);
 
 if ($id) {
     if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
-        error('Course module is incorrect');
+        print_error('Course module is incorrect');
     }
 }
 

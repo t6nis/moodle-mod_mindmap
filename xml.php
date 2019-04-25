@@ -29,10 +29,10 @@ $id = optional_param('id', 0, PARAM_INT);
 
 if ($id) {
     if (! $mindmap = $DB->get_record('mindmap', array('id' => $id))) {
-        error('Course module is incorrect');
+        print_error('Course module is incorrect');
     }
     if (! $course = $DB->get_record('course', array('id' => $mindmap->course))) {
-        error('Course is misconfigured');
+        print_error('Course is misconfigured');
     }
 }
 

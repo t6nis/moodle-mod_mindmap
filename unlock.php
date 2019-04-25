@@ -38,7 +38,7 @@ if ($id) {
         print_error('Course is misconfigured');
     }
     if (!$cm = get_coursemodule_from_instance('mindmap', $mindmap->id, $course->id)) {
-        error('Course Module ID was incorrect');
+        print_error('Course Module ID was incorrect');
     }
 }
 
