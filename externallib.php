@@ -15,46 +15,40 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mindmap unlocking.
- *
  * @package    mod_mindmap
  * @author     Tonis Tartes <tonis.tartes@gmail.com>
  * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../config.php');
+require_once("$CFG->libdir/externallib.php");
 
-global $DB;
+/**
+ * Class mod_mindmap_external
+ */
+class mod_mindmap_external extends external_api {
 
-$id = required_param('id', PARAM_INT);
-$uid = required_param('uid', PARAM_INT);
-
-if ($id) {
-    if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
-        print_error('Course module is incorrect');
+    public static function submit_mindmap_parameters() {
+        return new external_function_parameters(
+            array(
+                'mindmapid' => new external_value(PARAM_INT, 'The item id to operate on'),
+                'mindmapdata' => new external_value(PARAM_TEXT, 'Update data'))
+        );
     }
-    if (!$course = $DB->get_record('course', array('id' => $mindmap->course))) {
-        print_error('Course is misconfigured');
+
+    public static function submit_mindmap_returns() {
+        return null;
     }
-    if (!$cm = get_coursemodule_from_instance('mindmap', $mindmap->id, $course->id)) {
-        print_error('Course Module ID was incorrect');
+
+    public static function submit_mindmap($mindmapid, $mindmapdata) {
+        global $DB;
+
+        $dataobject = new stdClass();
+        $dataobject->id = $mindmapid;
+        $dataobject->mindmapdata = $mindmapdata;
+
+        return $DB->update_record('mindmap', $dataobject);
+
     }
-}
-
-require_login($mindmap->course);
-
-$context = context_module::instance($cm->id);
-
-if (has_capability('moodle/course:manageactivities', $context, $uid)) {
-    
-    $update = new stdClass();
-    $update->id = $id;
-    $update->locked = 0;
-    $update->lockedbyuser = 0;
-
-    $DB->update_record('mindmap', $update);
 
 }
-
-redirect('view.php?id='.$cm->id);

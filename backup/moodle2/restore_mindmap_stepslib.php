@@ -16,8 +16,8 @@
 
 /**
  * @package    mod_mindmap
- * @author Tonis Tartes <tonis.tartes@gmail.com>
- * @copyright  2011 Tonis Tartes <tonis.tartes@gmail.com>
+ * @author     Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -41,7 +41,6 @@ class restore_mindmap_activity_structure_step extends restore_activity_structure
         global $DB;
 
         $data = (object)$data;
-        $oldid = $data->id;
         $data->course = $this->get_courseid();
         $data->timecreated = $this->apply_date_offset($data->timecreated);
         $data->timemodified = $this->apply_date_offset($data->timemodified);

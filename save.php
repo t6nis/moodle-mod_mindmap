@@ -18,11 +18,11 @@
  * Saving mindmap nodes.
  *
  * @package    mod_mindmap
- * @author ekpenso.com
- * @copyright  2012 Tonis Tartes <tonis.tartes@gmail.com>
+ * @author     Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
+/*
 require_once('../../config.php');
 
 $id = required_param('id', PARAM_INT);
@@ -47,4 +47,4 @@ if ($xml) {
     $new->xmldata = $xml;
 
     $DB->update_record('mindmap', $new);
-}
+}*/

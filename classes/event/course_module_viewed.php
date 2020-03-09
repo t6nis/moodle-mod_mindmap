@@ -18,7 +18,8 @@
  * The mod_mindmap course module viewed event.
  *
  * @package    mod_mindmap
- * @copyright  2014 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @author     Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -30,8 +31,8 @@ defined('MOODLE_INTERNAL') || die();
  * The mod_mindmap course module viewed event class.
  *
  * @package    mod_mindmap
- * @since      Moodle 2.7
- * @copyright  2014 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @author     Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_module_viewed extends \core\event\course_module_viewed {

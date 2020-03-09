@@ -18,8 +18,8 @@
  * Mindmap view page.
  *
  * @package    mod_mindmap
- * @author ekpenso.com
- * @copyright  2012 Tonis Tartes <tonis.tartes@gmail.com>
+ * @author     Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -88,18 +88,24 @@ $jsmodule = array(
         array('mindmapunlocked', 'mindmap')
     )
 );
+$locked = 0;
+if ($mindmap->locking > 0 && $mindmap->locked > 0 && $mindmap->lockedbyuser != $USER->id) {
+    $locked = 1;
+}
 if ($mindmap->locking > 0) {
     $PAGE->requires->js_init_call('M.mod_mindmap.init_lock', array($mindmap->id, $mindmap->locked, $mindmap->lockedbyuser, $USER->id), false, $jsmodule);
+    $PAGE->requires->js('/mod/mindmap/javascript/vis-network.min.js', true);
+    $PAGE->requires->js('/mod/mindmap/javascript/jscolor.js', true);
+    $PAGE->requires->js_call_amd('mod_mindmap/mindmap-vis', 'Init', array($mindmap->id, $locked));
 }
 
 echo $OUTPUT->header();
 
 echo $OUTPUT->box(format_module_intro('mindmap', $mindmap, $cm->id), 'generalbox', 'intro');
-echo $OUTPUT->box_start('generalbox', 'mindmap_view'); 
+echo $OUTPUT->box_start('generalbox', 'mindmap_view');
 
-echo html_writer::tag('div', get_string('mindmaphint', 'mindmap'), array('class' => 'mindmap_hint', 'id' => 'mindmap_hint'));
 // Locking info
-if ($mindmap->locking > 0 && $mindmap->locked > 0 && $mindmap->lockedbyuser != $USER->id) {
+if ($locked == 1) {
     $user = $DB->get_record('user', array('id' => $mindmap->lockedbyuser), 'firstname, lastname', MUST_EXIST);
     echo html_writer::start_tag('div', array('class' => 'mindmap_locked'));
     echo html_writer::tag('span', get_string('mindmaplocked', 'mindmap', $user));
@@ -114,43 +120,46 @@ if ($mindmap->locking > 0 && $mindmap->locked > 0 && $mindmap->lockedbyuser != $
         echo "</div>";
     }
     echo html_writer::end_tag('div');
+} else {
+    ?>
+    <div id="network-popUp">
+        <span id="operation">node</span>
+        <table>
+            <tr>
+                <td>Label</td>
+                <td><input id="node-label" value=""/></td>
+            </tr>
+            <tr>
+                <td>Text color</td><td><input class="jscolor {hash:true}" id="node-font-color" value="#343434" /></td>
+            </tr>
+            <tr>
+                <td>BG Color</td><td><input class="jscolor {hash:true}" id="node-color-background" value="#97c1fc" /></td>
+            </tr>
+            <tr>
+                <td>Shape</td>
+                <td>
+                    <select name="node-shape" id="node-shape">
+                        <option value="ellipse">Ellipse</option>
+                        <option value="circle">Circle</option>
+                        <option value="box">Box</option>
+                        <option value="text">Text</option>
+                        <option value="database">Database</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" id="node-id" value="new value"/>
+        <input type="button" value="Save" id="saveButton"/>
+        <input type="button" value="Cancel" id="cancelButton"/>
+    </div>
+    <input type="hidden" id="mindmapid" name="mindmapid" value="<?php echo $mindmap->id ?>"/>
+    <input type="button" id="export_button" value="Save mindmap"/>
+    <?php
 }
-
-echo html_writer::tag('div', '', array('id' => 'flashcontent'));
-
+echo html_writer::start_tag('div', array('id' => 'network', 'class' => 'network'));
+echo html_writer::end_tag('div');
 ?>
-<script type="text/javascript" src="./javascript/swfobject.js"></script>	
-<script type="text/javascript">
-    // <![CDATA[
-    var swf_width = document.getElementById('mindmap_hint').offsetWidth; //Set SWF width
-    //Width calculations
-    if (swf_width > 1200) {
-        swf_width = swf_width - 1;
-    } else {
-        swf_width = swf_width - 11;
-    }
-    var so = new SWFObject('<?php echo $CFG->wwwroot; ?>/mod/mindmap/viewer.swf?uVal=<?php echo rand(0,100); ?>', 'viewer', swf_width, 600, '9', '#FFFFFF');
-    so.addVariable('load_url', '<?php echo $CFG->wwwroot; ?>/mod/mindmap/xml.php?id=<?php echo $mindmap->id;?>');
-    <?php if(!isguestuser() && ((has_capability('moodle/course:manageactivities', $context, $USER->id)) || ($mindmap->editable == '1'))): ?>
-            so.addVariable('save_url', '<?php echo $CFG->wwwroot; ?>/mod/mindmap/save.php?id=<?php echo $mindmap->id;?>');
-            <?php if ($mindmap->locking == 0) { ?>
-                    so.addVariable('editable', 'true');
-            <?php } else { ?>
-                <?php if ($mindmap->locking > 0 && (($mindmap->locked == 1 && $mindmap->lockedbyuser == $USER->id) || ($mindmap->locked < 1))) { ?>
-                    so.addVariable('editable', 'true');
-                <?php } ?>
-            <?php } ?>
-    <?php endif; ?>
-    so.addVariable('lang', 'en');
-    so.addVariable('wmode', 'direct');
-    so.write('flashcontent');
-    // ]]>
-</script>
 
-<?php echo html_writer::tag('div', '<a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>', array('class' => 'getflash')); ?>
-
-<?php 
-
-echo $OUTPUT->box_end(); 
-
+<?php
+echo $OUTPUT->box_end();
 echo $OUTPUT->footer($course);

@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Mindmap module for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,26 +15,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_mindmap instance list viewed event.
- *
  * @package    mod_mindmap
  * @author     Tonis Tartes <tonis.tartes@gmail.com>
  * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_mindmap\event;
+$services = array(
+    'Mindmap service' => array(
+        'functions' => array('mod_mindmap_submit_mindmap'),
+        'enabled' => 1
+    )
+);
 
-defined('MOODLE_INTERNAL') || die();
+$functions = array(
+    'mod_mindmap_submit_mindmap' => array(
+        'classname'     => 'mod_mindmap_external',
+        'methodname'    => 'submit_mindmap',
+        'classpath'     => 'mod/mindmap/externallib.php',
+        'description'   => 'Save mindmap form by ajax',
+        'type'          => 'write',
+        'ajax'          => true,
+        'loginrequired' => true,
+        'services'      => array(MOODLE_OFFICIAL_MOBILE_SERVICE)
+    ),
+);
 
-/**
- * The mod_mindmap instance list viewed event class.
- *
- * @package    mod_mindmap
- * @author     Tonis Tartes <tonis.tartes@gmail.com>
- * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-class course_module_instance_list_viewed extends \core\event\course_module_instance_list_viewed {
-    // No code required here as the parent class handles it all.
-}

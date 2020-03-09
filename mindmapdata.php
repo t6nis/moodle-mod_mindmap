@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mindmap unlocking.
+ * Mindmap xml parsing.
  *
  * @package    mod_mindmap
  * @author     Tonis Tartes <tonis.tartes@gmail.com>
@@ -24,37 +24,33 @@
  */
 
 require_once('../../config.php');
+require_once('lib.php');
 
-global $DB;
-
-$id = required_param('id', PARAM_INT);
-$uid = required_param('uid', PARAM_INT);
+$id = optional_param('id', 0, PARAM_INT);
+$convert = optional_param('convert', 0, PARAM_INT);
 
 if ($id) {
-    if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
+    if (! $mindmap = $DB->get_record('mindmap', array('id' => $id))) {
         print_error('Course module is incorrect');
     }
-    if (!$course = $DB->get_record('course', array('id' => $mindmap->course))) {
+    if (! $course = $DB->get_record('course', array('id' => $mindmap->course))) {
         print_error('Course is misconfigured');
     }
-    if (!$cm = get_coursemodule_from_instance('mindmap', $mindmap->id, $course->id)) {
-        print_error('Course Module ID was incorrect');
-    }
 }
 
-require_login($mindmap->course);
+require_login($course->id);
 
-$context = context_module::instance($cm->id);
+// Get old flash data for conversion
+if ($convert == 1) {
+    $xml = simplexml_load_string($mindmap->xmldata);
+    $json = json_encode($xml);
+    $array = json_decode($json, TRUE);
 
-if (has_capability('moodle/course:manageactivities', $context, $uid)) {
-    
-    $update = new stdClass();
-    $update->id = $id;
-    $update->locked = 0;
-    $update->lockedbyuser = 0;
-
-    $DB->update_record('mindmap', $update);
-
+    $jsonobject = convert_node_helper($array['MM']);
+    $flashmindmaparray = array();
+    $result = array_builder($jsonobject, $flashmindmaparray);
+    $flashmindmap = json_encode($result);
+    echo $flashmindmap;
+} else {
+    echo $mindmap->mindmapdata;
 }
-
-redirect('view.php?id='.$cm->id);

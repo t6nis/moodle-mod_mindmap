@@ -17,17 +17,14 @@
 /**
  * Mindmap plugin language strings
  *
- * @package    mod
- * @subpackage mindmap
- * @author ekpenso.com
- * @copyright  2011 Tõnis Tartes <tonis.tartes@gmail.com>
+ * @package    mod_mindmap
+ * @author     Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 $string['pluginname'] = 'Mindmap';
 $string['pluginadministration'] = 'Mindmap administration';
-$string['index_help'] = 'The Mindmap Module is provided by <a href="http://ekpenso.com">ekpenso.com</a> - if you experience problems or if you have feedback feel free to contact us.';
-$string['mindmap_help'] = 'The Mindmap Module is provided by <a href="http://ekpenso.com">ekpenso.com</a> - if you experience problems or if you have feedback feel free to contact us.';
 $string['mindmap'] = 'mindmap';
 $string['modulename'] = 'Mindmap';
 $string['modulename_help'] = 'Mindmap module allows you to create and save simple mindmaps from within moodle.';
@@ -36,8 +33,10 @@ $string['mindmapfieldset'] = 'Custom example fieldset';
 $string['mindmapintro'] = 'Mindmap Intro';
 $string['mindmapname'] = 'Mindmap Name';
 $string['editable'] = 'Allow students to edit this mindmap';
-$string['mindmaphint'] = 'To add a new node, press the "Insert" key on the keyboard!';
 $string['mindmap:addinstance'] = 'Add a new Mindmap instance';
 $string['mindmaplocked'] = 'You cannot edit the current mindmap, because user {$a->firstname} {$a->lastname} is already editing it!';
 $string['mindmapunlocked'] = 'If you leave this page, Mindmap will be available for others to edit.';
 $string['locking'] = 'Enable locking';
+$string['convertflash'] = 'This is the old Flash view of the mindmap.';
+$string['convertjs'] = 'This is the new JS based view of the mindmap. Using the old Flash XML data.';
+$string['convertinfo'] = 'Please review content before saving.';

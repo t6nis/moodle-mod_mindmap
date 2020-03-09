@@ -13,8 +13,9 @@
         <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="false" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)" PREVIOUS="intro" NEXT="userid"/>
         <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="introformat" NEXT="editable"/>
         <FIELD NAME="editable" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="userid" NEXT="xmldata"/>
-        <FIELD NAME="xmldata" TYPE="text" LENGTH="big" NOTNULL="true" SEQUENCE="false" COMMENT="data" PREVIOUS="editable" NEXT="timecreated"/>
-        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="xmldata" NEXT="timemodified"/>
+        <FIELD NAME="xmldata" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false" COMMENT="data" PREVIOUS="editable" NEXT="mindmapdata"/>
+        <FIELD NAME="mindmapdata" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false" COMMENT="mindmapdata" PREVIOUS="xmldata" NEXT="timecreated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="mindmapdata" NEXT="timemodified"/>
         <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timecreated" NEXT="locking"/>
         <FIELD NAME="locking" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="timemodified" NEXT="locked"/>
         <FIELD NAME="locked" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="locking" NEXT="lockedbyuser"/>

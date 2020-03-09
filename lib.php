@@ -15,11 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mindmap core interaction API.
+ * Mindmap core API.
  *
  * @package    mod_mindmap
- * @author ekpenso.com
- * @copyright  2012 Tonis Tartes <tonis.tartes@gmail.com>
+ * @author     Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -38,19 +38,7 @@ function mindmap_add_instance($mindmap) {
     
     global $USER, $DB;
     
-    $mindmap->xmldata = '<MindMap>
-                             <MM>
-                               <Node x_Coord="400" y_Coord="270">
-                                 <Text>Moodle</Text>
-                                 <Format Underlined="0" Italic="0" Bold="0">
-                                   <Font>Trebuchet MS</Font>
-                                   <FontSize>14</FontSize>
-                                   <FontColor>ffffff</FontColor>
-                                   <BackgrColor>ff0000</BackgrColor>
-                                 </Format>
-                               </Node>
-                             </MM>
-                            </MindMap>';
+    $mindmap->mindmapdata = '';
     
     $mindmap->userid = $USER->id;
     $mindmap->timecreated = time();
@@ -89,13 +77,13 @@ function mindmap_delete_instance($id) {
 
     global $DB;
     
-    if (! $mindmap = $DB->get_record("mindmap", array("id" => "$id"))) {
+    if (!$mindmap = $DB->get_record("mindmap", array("id" => $id))) {
         return false;
     }
 
     $result = true;
 
-    if (! $DB->delete_records("mindmap", array("id" => "$mindmap->id"))) {
+    if (!$DB->delete_records("mindmap", array("id" => $mindmap->id))) {
         $result = false;
     }
 
@@ -212,6 +200,10 @@ function mindmap_scale_used_anywhere($scaleid) {
     return false;
 }
 
+/**
+ * @param $feature
+ * @return bool|int|null
+ */
 function mindmap_supports($feature) {
     switch($feature) {
         case FEATURE_MOD_ARCHETYPE:           return MOD_ARCHETYPE_OTHER;
@@ -262,4 +254,73 @@ function mindmap_get_post_actions() {
 function mindmap_page_type_list($pagetype, $parentcontext, $currentcontext) {
     $module_pagetype = array('mod-mindmap-*' => get_string('page-mod-mindmap-x', 'mod_mindmap'));
     return $module_pagetype;
+}
+
+/**
+ * Extend module settings navigation and add conversion link.
+ *
+ * @param $settingsnav
+ * @param $context
+ */
+function mindmap_extend_settings_navigation(settings_navigation $settings, navigation_node $mindmap) {
+    global $PAGE;
+
+    if (has_capability('mod/mindmap:addinstance', $PAGE->cm->context)) {
+        $mindmap->add('Convert from Flash', new moodle_url('/mod/mindmap/convert.php', array('id'=>$PAGE->cm->id)));
+    }
+}
+
+/**
+ * @param $array
+ * @param array $resultx
+ * @return array|bool
+ */
+function array_builder($array, $result = array()) {
+    if (!is_array($array)) {
+        return FALSE;
+    }
+
+    foreach ($array as $key => $value) {
+        if (!empty($value['x'])) {
+            $result[] = $value;
+        } else {
+            $result = array_builder($value, $result);
+        }
+    }
+
+    return $result;
+}
+
+/**
+ * @param $array
+ * @param bool $parentconnection
+ * @return array
+ */
+function convert_node_helper($array, $parentconnection = false) {
+    $result = array();
+    foreach ($array as $node => $key) {
+        $jsonobject = array();
+        $jsonobject['x'] = $key['@attributes']['x_Coord'];
+        $jsonobject['y'] = $key['@attributes']['y_Coord'];
+        $jsonobject['id'] = $key['Text'];
+        $jsonobject['label'] = $key['Text'];
+        $jsonobject['font']['color'] = '#'.$key['Format']['FontColor'];
+        $jsonobject['color']['background'] = '#'.$key['Format']['BackgrColor'];
+        if (!empty($parentconnection)) {
+            $jsonobject['connections'][] = $parentconnection;
+        }
+        if (!empty($key['Node']) && is_array($key['Node'])) {
+            foreach ($key['Node'] as $subkey => $subval) {
+                $jsonobject['connections'][] = $subval['Text'];
+            }
+        }
+        $result[] = $jsonobject;
+        if (!empty($key['Node']) && is_array($key['Node'])) {
+            $parentconnection = '';
+            $parentconnection = $key['Text'];
+            $result[] = convert_node_helper($key['Node'], $parentconnection);
+        }
+
+    }
+    return $result;
 }

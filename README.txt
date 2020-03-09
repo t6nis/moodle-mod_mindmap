@@ -1,8 +1,7 @@
-Mindmap module for Moodle 2.x
+Mindmap module for Moodle
 ------------------------
 by Tõnis Tartes
 
-This is the original Mindmap module for moodle formerly found on ekpenso.com. 
 This Mindmap module allows you to create and save simple mindmaps from within moodle.
 
 Quick install instructions:
@@ -13,11 +12,19 @@ Quick install instructions:
 
 Have fun!
 
-Thanks to original mindmap module author: Andreas Geier
-Link: https://github.com/functino/Moodle-Mindmap-Module
-
 Thanks goes to FatCow Webhosting for the new Mindmap icon. 
 License: Creative Commons(Attribution 3.0 United States)
+
+// 05.03.2020 update
++ Moved from Flash to JS - Thanks to vis.js library! - https://visjs.org/
++ Javascript version is supported in all browser!
++ New version supports different shapes.
++ Mobile friendly.
++ Ability to review and convert from old Flash mindmap to JS based mindmap.
++ In future Flash Conversion option will be dropped with database field holding flash data!!!
+- Dropped Moodle 1.x backup/restore support.
+
+
 //25.04.2019 - version 2019042500
 +Version update
 +Fixing some deprecated functions

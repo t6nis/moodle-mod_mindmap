@@ -18,17 +18,17 @@
  * Mindmap plugin version info.
  *
  * @package    mod_mindmap
- * @author ekpenso.com
- * @copyright  2011 Tonis Tartes <tonis.tartes@gmail.com>
+ * @author     Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version  = 2019042500;  // The current module version (Date: YYYYMMDDXX).
+$plugin->version  = 2020220203;  // The current module version (Date: YYYYMMDDXX).
 $plugin->requires  = 2013111800; // Requires Moodle 2.6.
 $plugin->cron     = 0;           // Period for cron to check this module (secs).
 $plugin->component = 'mod_mindmap'; // Full name of the plugin (used for diagnostics).
  
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = "2019042500"; // User-friendly version number.
+$plugin->release   = "2020220203"; // User-friendly version number.

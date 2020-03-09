@@ -20,8 +20,8 @@ defined('MOODLE_INTERNAL') || die();
  * Mindmap plugin upgrade code.
  *
  * @package    mod_mindmap
- * @author ekpenso.com
- * @copyright  2011 Tonis Tartes <tonis.tartes@gmail.com>
+ * @author     Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -69,8 +69,19 @@ function xmldb_mindmap_upgrade($oldversion=0) {
         $dbman->add_field($table, $field);
         
         upgrade_mod_savepoint(true, 2013030100, 'mindmap');
-        
+
     }
-    
+
+    // mindmapdata field for new VisJS based mindmap
+    if ($oldversion < 2020022200) {
+
+        $table = new xmldb_table('mindmap');
+        $field = new xmldb_field('mindmapdata');
+        $field->set_attributes(XMLDB_TYPE_TEXT, null, null, null, null, null, 'xmldata');
+        $dbman->add_field($table, $field);
+
+        upgrade_mod_savepoint(true, 2020022200, 'mindmap');
+
+    }
     return $result;
 }

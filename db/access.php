@@ -18,8 +18,8 @@
  * Mindmap plugin upgrade code.
  *
  * @package    mod_mindmap
- * @author ekpenso.com
- * @copyright  2011 Tonis Tartes <tonis.tartes@gmail.com>
+ * @author     Tonis Tartes <tonis.tartes@gmail.com>
+ * @copyright  2020 Tonis Tartes <tonis.tartes@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

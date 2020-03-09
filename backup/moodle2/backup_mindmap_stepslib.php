@@ -36,7 +36,7 @@ class backup_mindmap_activity_structure_step extends backup_activity_structure_s
         // Define each element separated.
         $mindmap = new backup_nested_element('mindmap', array('id'), array(
             'name', 'intro', 'introformat', 'userid', 'editable',
-            'xmldata', 'timecreated', 'timemodified'));
+            'xmldata', 'mindmapdata', 'timecreated', 'timemodified'));
 
         // Build the tree.
 
