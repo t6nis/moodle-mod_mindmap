@@ -27,7 +27,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         widthConstraint: { maximum: 180 },
                         margin: 10,
                         borderWidth: 1,
-                        shape: 'ellipse',
+                        shape: 'box',
                         labelHighlightBold: false
                     }
                 ];
@@ -76,7 +76,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         networkNodes.push({
                             id: elem.id,
                             label: elem.label,
-                            shape: elem.shape,
+                            shape: (elem.hasOwnProperty('shape') ? elem.shape : 'box'),
                             x: elem.x,
                             y: elem.y,
                             font: {
@@ -105,7 +105,6 @@ define(['jquery', 'mod_mindmap/mindmap'],
 
                 function getEdgeData(data) {
                     var networkEdges = [];
-
                     data.forEach(function(node) {
                         // add the connection
                         node.connections.forEach(function(connId, cIndex, conns) {
@@ -185,7 +184,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                                 document.getElementById("node-label").value = '';
                                 document.getElementById("node-font-color").value = '#343434';
                                 document.getElementById("node-color-background").value = '#97c1fc';
-                                document.getElementById("node-shape").value = 'ellipse';
+                                document.getElementById("node-shape").value = 'box';
                                 var newData = {
                                     id: document.getElementById("node-id").value,
                                     x: data.x,
@@ -214,7 +213,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                                 document.getElementById("node-label").value = data.label;
                                 document.getElementById("node-font-color").value = (data.font.hasOwnProperty('color') ? data.font.color : '#343434' );
                                 document.getElementById("node-color-background").value = (data.color.hasOwnProperty('background') ? data.color.background : '#97c1fc');
-                                document.getElementById("node-shape").value = (data.hasOwnProperty('shape')  ? data.shape : 'ellipse');
+                                document.getElementById("node-shape").value = (data.hasOwnProperty('shape')  ? data.shape : 'box');
                                 document.getElementById("saveButton").onclick = saveData.bind(
                                     this,
                                     data,
@@ -250,7 +249,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         },
                         nodes: {
                             borderWidth: 1,
-                            shape: 'ellipse',
+                            shape: 'box',
                             widthConstraint: { maximum: 180 },
                             margin: 10,
                             font: {
@@ -278,7 +277,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         },
                         nodes: {
                             borderWidth: 1,
-                            shape: 'ellipse',
+                            shape: 'box',
                             widthConstraint: { maximum: 180 },
                             margin: 10,
                             font: {

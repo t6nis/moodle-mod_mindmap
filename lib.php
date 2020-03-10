@@ -298,11 +298,16 @@ function array_builder($array, $result = array()) {
  */
 function convert_node_helper($array, $parentconnection = false) {
     $result = array();
+    $pattern = array('Ö','Ä','Õ','Ü','ö','ä','õ','ü');
+    $replace = array('O','A','O','U','o','a','o','u');
     foreach ($array as $node => $key) {
+        if (empty($key['Text'])) {
+            continue;
+        }
         $jsonobject = array();
         $jsonobject['x'] = $key['@attributes']['x_Coord'];
         $jsonobject['y'] = $key['@attributes']['y_Coord'];
-        $jsonobject['id'] = $key['Text'];
+        $jsonobject['id'] = str_replace($pattern, $replace, $key['Text']).$key['@attributes']['x_Coord'];
         $jsonobject['label'] = $key['Text'];
         $jsonobject['font']['color'] = '#'.$key['Format']['FontColor'];
         $jsonobject['color']['background'] = '#'.$key['Format']['BackgrColor'];
@@ -311,13 +316,16 @@ function convert_node_helper($array, $parentconnection = false) {
         }
         if (!empty($key['Node']) && is_array($key['Node'])) {
             foreach ($key['Node'] as $subkey => $subval) {
-                $jsonobject['connections'][] = $subval['Text'];
+                if (empty($subval['Text'])) {
+                    continue;
+                }
+                $jsonobject['connections'][] = str_replace($pattern, $replace, $subval['Text']).$subval['@attributes']['x_Coord'];
             }
         }
         $result[] = $jsonobject;
         if (!empty($key['Node']) && is_array($key['Node'])) {
             $parentconnection = '';
-            $parentconnection = $key['Text'];
+            $parentconnection = str_replace($pattern, $replace, $key['Text']).$key['@attributes']['x_Coord'];
             $result[] = convert_node_helper($key['Node'], $parentconnection);
         }
 

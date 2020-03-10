@@ -83,5 +83,14 @@ function xmldb_mindmap_upgrade($oldversion=0) {
         upgrade_mod_savepoint(true, 2020022200, 'mindmap');
 
     }
+
+    if ($oldversion < 2020220204) {
+        $table = new xmldb_table('mindmap');
+        $field = new xmldb_field('xmldata', XMLDB_TYPE_TEXT, null, null, null, null, null, null);
+        $dbman->change_field_type($table, $field);
+
+        upgrade_mod_savepoint(true, 2020220204, 'mindmap');
+    }
+
     return $result;
 }
