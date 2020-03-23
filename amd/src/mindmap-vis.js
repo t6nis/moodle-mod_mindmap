@@ -49,9 +49,9 @@ define(['jquery', 'mod_mindmap/mindmap'],
                 }
 
                 function clearPopUp() {
-                    document.getElementById("saveButton").onclick = null;
-                    document.getElementById("cancelButton").onclick = null;
-                    document.getElementById("network-popUp").style.display = "none";
+                    document.getElementById("savebutton").onclick = null;
+                    document.getElementById("cancelbutton").onclick = null;
+                    document.getElementById("network-popup").style.display = "none";
                 }
 
                 function cancelEdit(callback) {
@@ -165,7 +165,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                     var exportValue = JSON.stringify(nodes, undefined, 2);
                     var ajax = new Mindmap();
                     ajax.mindmapsubmit(mindmapid, exportValue);
-                    console.log(exportValue);
+                    //console.log(exportValue);
                 }
 
                 // create a network
@@ -198,13 +198,13 @@ define(['jquery', 'mod_mindmap/mindmap'],
                                         background: document.getElementById("node-color-background").value
                                     }
                                 };
-                                document.getElementById("saveButton").onclick = saveData.bind(
+                                document.getElementById("savebutton").onclick = saveData.bind(
                                     this,
                                     newData,
                                     callback
                                 );
-                                document.getElementById("cancelButton").onclick = clearPopUp.bind();
-                                document.getElementById("network-popUp").style.display = "block";
+                                document.getElementById("cancelbutton").onclick = clearPopUp.bind();
+                                document.getElementById("network-popup").style.display = "block";
                             },
                             editNode: function(data, callback) {
                                 // filling in the popup DOM elements
@@ -214,16 +214,16 @@ define(['jquery', 'mod_mindmap/mindmap'],
                                 document.getElementById("node-font-color").value = (data.font.hasOwnProperty('color') ? data.font.color : '#343434' );
                                 document.getElementById("node-color-background").value = (data.color.hasOwnProperty('background') ? data.color.background : '#97c1fc');
                                 document.getElementById("node-shape").value = (data.hasOwnProperty('shape')  ? data.shape : 'box');
-                                document.getElementById("saveButton").onclick = saveData.bind(
+                                document.getElementById("savebutton").onclick = saveData.bind(
                                     this,
                                     data,
                                     callback
                                 );
-                                document.getElementById("cancelButton").onclick = cancelEdit.bind(
+                                document.getElementById("cancelbutton").onclick = cancelEdit.bind(
                                     this,
                                     callback
                                 );
-                                document.getElementById("network-popUp").style.display = "block";
+                                document.getElementById("network-popup").style.display = "block";
                             },
                             addEdge: function(data, callback) {
                                 if (data.from == data.to) {

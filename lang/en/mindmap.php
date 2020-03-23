@@ -23,20 +23,32 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Mindmap';
-$string['pluginadministration'] = 'Mindmap administration';
+$string['bgcolor'] = 'BG color';
+$string['box'] = 'Box';
+$string['circle'] = 'Circle';
+$string['convertflash'] = 'This is the old Flash view of the mindmap.';
+$string['convertinfo'] = 'Please review content before saving.';
+$string['convertjs'] = 'This is the new JS based view of the mindmap. Using the old Flash XML data.';
+$string['database'] = 'Database';
+$string['editable'] = 'Allow students to edit this mindmap';
+$string['ellipse'] = 'Ellipse';
+$string['label'] = 'Label';
+$string['locking'] = 'Enable locking';
 $string['mindmap'] = 'mindmap';
+$string['mindmap:addinstance'] = 'Add a new Mindmap instance';
+$string['mindmapfieldset'] = 'Custom example fieldset';
+$string['mindmapintro'] = 'Mindmap Intro';
+$string['mindmaplocked'] = 'You cannot edit the current mindmap, because user {$a->firstname} {$a->lastname} is already editing it!';
+$string['mindmapname'] = 'Mindmap Name';
+$string['mindmapsave'] = 'Save mindmap';
+$string['mindmapsaved'] = 'Mindmap saved successfully!';
+$string['mindmapunlocked'] = 'If you leave this page, Mindmap will be available for others to edit.';
 $string['modulename'] = 'Mindmap';
 $string['modulename_help'] = 'Mindmap module allows you to create and save simple mindmaps from within moodle.';
 $string['modulenameplural'] = 'Mindmaps';
-$string['mindmapfieldset'] = 'Custom example fieldset';
-$string['mindmapintro'] = 'Mindmap Intro';
-$string['mindmapname'] = 'Mindmap Name';
-$string['editable'] = 'Allow students to edit this mindmap';
-$string['mindmap:addinstance'] = 'Add a new Mindmap instance';
-$string['mindmaplocked'] = 'You cannot edit the current mindmap, because user {$a->firstname} {$a->lastname} is already editing it!';
-$string['mindmapunlocked'] = 'If you leave this page, Mindmap will be available for others to edit.';
-$string['locking'] = 'Enable locking';
-$string['convertflash'] = 'This is the old Flash view of the mindmap.';
-$string['convertjs'] = 'This is the new JS based view of the mindmap. Using the old Flash XML data.';
-$string['convertinfo'] = 'Please review content before saving.';
+$string['nothingtoconvert'] = 'Nothing to convert!';
+$string['pluginadministration'] = 'Mindmap administration';
+$string['pluginname'] = 'Mindmap';
+$string['shape'] = 'Shape';
+$string['text'] = 'Text';
+$string['textcolor'] = 'Text color';

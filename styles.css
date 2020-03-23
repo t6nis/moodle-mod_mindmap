@@ -52,7 +52,7 @@ table.legend_table,td {
     font-size:16px;
     font-weight: 600;
 }
-#network-popUp {
+#network-popup {
     display:none;
     position:absolute;
     width: 310px;
@@ -67,10 +67,10 @@ table.legend_table,td {
     text-align: center;
     box-shadow: 0px 0px 5px #ddd;
 }
-#network-popUp table {
+#network-popup table {
     margin: 5px 0px 10px 0px;
 }
-#network-popUp table td {
+#network-popup table td {
     border-width: 0px;
     text-align: left;
 }

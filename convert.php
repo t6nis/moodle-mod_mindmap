@@ -38,10 +38,6 @@ if ($id) {
     if (!$mindmap = $DB->get_record('mindmap', array('id' => $cm->instance))) {
         print_error('Course module is incorrect');
     }
-
-    if (empty($mindmap->xmldata)) {
-        print_error('Nothing to convert!');
-    }
 }
 
 require_login($course, true, $cm);
@@ -58,7 +54,12 @@ $PAGE->requires->js('/mod/mindmap/javascript/jscolor.js', true);
 $PAGE->requires->js_call_amd('mod_mindmap/mindmap-vis', 'Init', array($mindmap->id, 1, 1));
 
 echo $OUTPUT->header();
-
+// IF there is no xmldata currently available..
+if (empty($mindmap->xmldata)) {
+    echo html_writer::tag('div', get_string('nothingtoconvert', 'mindmap'));
+    echo $OUTPUT->footer($course);
+    exit();
+}
 
 echo html_writer::tag('div', get_string('convertinfo', 'mindmap'));
 echo html_writer::tag('div', get_string('convertflash', 'mindmap'), array('class' => 'mindmap_hint', 'id' => 'mindmap_hint'));
@@ -91,9 +92,7 @@ echo html_writer::tag('div', get_string('convertjs', 'mindmap'), array('class' =
 echo html_writer::start_tag('div', array('id' => 'network', 'class' => 'network'));
 echo html_writer::end_tag('div');
 echo html_writer::start_tag('div', array('id' => 'convert-save', 'class' => 'convert-save'));
-?>
-<input type="hidden" id="mindmapid" name="mindmapid" value="<?php echo $mindmap->id ?>"/>
-<input type="button" id="export_button" value="Save mindmap"/>
-<?php
+echo html_writer::tag('input', '', array('type' => 'hidden', 'id' => 'mindmapid', 'name' => 'mindmapid', 'value' => $mindmap->id));
+echo html_writer::tag('input', '', array('type' => 'button', 'id' => 'export_button', 'value' => get_string('mindmapsave', 'mindmap')));
 echo html_writer::end_tag('div');
 echo $OUTPUT->footer($course);

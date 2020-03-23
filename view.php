@@ -121,40 +121,40 @@ if ($locked == 1) {
     }
     echo html_writer::end_tag('div');
 } else {
+    echo html_writer::start_tag('div', array('id' => 'network-popup'))
     ?>
-    <div id="network-popUp">
         <span id="operation">node</span>
         <table>
             <tr>
-                <td>Label</td>
+                <td><?php echo get_string('label', 'mindmap'); ?></td>
                 <td><input id="node-label" value=""/></td>
             </tr>
             <tr>
-                <td>Text color</td><td><input class="jscolor {hash:true}" id="node-font-color" value="#343434" /></td>
+                <td><?php echo get_string('textcolor', 'mindmap'); ?></td><td><input class="jscolor {hash:true}" id="node-font-color" value="#343434" /></td>
             </tr>
             <tr>
-                <td>BG Color</td><td><input class="jscolor {hash:true}" id="node-color-background" value="#97c1fc" /></td>
+                <td><?php echo get_string('bgcolor', 'mindmap'); ?></td><td><input class="jscolor {hash:true}" id="node-color-background" value="#97c1fc" /></td>
             </tr>
             <tr>
-                <td>Shape</td>
+                <td><?php echo get_string('shape', 'mindmap'); ?></td>
                 <td>
                     <select name="node-shape" id="node-shape">
-                        <option value="ellipse">Ellipse</option>
-                        <option value="circle">Circle</option>
-                        <option value="box">Box</option>
-                        <option value="text">Text</option>
-                        <option value="database">Database</option>
+                        <option value="ellipse"><?php echo get_string('ellipse', 'mindmap'); ?></option>
+                        <option value="circle"><?php echo get_string('circle', 'mindmap'); ?></option>
+                        <option value="box"><?php echo get_string('box', 'mindmap'); ?></option>
+                        <option value="text"><?php echo get_string('text', 'mindmap'); ?></option>
+                        <option value="database"><?php echo get_string('database', 'mindmap'); ?></option>
                     </select>
                 </td>
             </tr>
         </table>
-        <input type="hidden" id="node-id" value="new value"/>
-        <input type="button" value="Save" id="saveButton"/>
-        <input type="button" value="Cancel" id="cancelButton"/>
-    </div>
-    <input type="hidden" id="mindmapid" name="mindmapid" value="<?php echo $mindmap->id ?>"/>
-    <input type="button" id="export_button" value="Save mindmap"/>
     <?php
+    echo html_writer::tag('input', '', array('type' => 'hidden', 'id' => 'node-id', 'value' => 'new value'));
+    echo html_writer::tag('input', '', array('type' => 'button', 'id' => 'savebutton', 'value' => get_string('save')));
+    echo html_writer::tag('input', '', array('type' => 'button', 'id' => 'cancelbutton', 'value' => get_string('cancel')));
+    echo html_writer::end_tag('div');
+    echo html_writer::tag('input', '', array('type' => 'hidden', 'id' => 'mindmapid', 'name' => 'mindmapid', 'value' => $mindmap->id));
+    echo html_writer::tag('input', '', array('type' => 'button', 'id' => 'export_button', 'value' => get_string('mindmapsave', 'mindmap')));
 }
 echo html_writer::start_tag('div', array('id' => 'network', 'class' => 'network'));
 echo html_writer::end_tag('div');
