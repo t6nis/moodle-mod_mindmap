@@ -39,7 +39,7 @@ function mindmap_add_instance($mindmap) {
     global $USER, $DB;
     
     $mindmap->mindmapdata = '';
-    
+    $mindmap->xmldata = ''; // This is kept for historic purpose..
     $mindmap->userid = $USER->id;
     $mindmap->timecreated = time();
     
