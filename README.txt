@@ -15,6 +15,10 @@ Have fun!
 Thanks goes to FatCow Webhosting for the new Mindmap icon. 
 License: Creative Commons(Attribution 3.0 United States)
 
+// INSTRUCTIONS
+Use the main buttons from mindmap taskbar to create mindmaps.
++ If you double click anywhere in the empty space you can start connecting lines between nodes! Helps to save a few moves.
+
 // 05.03.2020 update
 + Moved from Flash to JS - Thanks to vis.js library! - https://visjs.org/
 + Javascript version is supported in all browser!
@@ -22,6 +26,7 @@ License: Creative Commons(Attribution 3.0 United States)
 + Mobile friendly.
 + Ability to review and convert from old Flash mindmap to JS based mindmap.
 + In future Flash Conversion option will be dropped with database field holding flash data!!!
+NB! Conversion from flash data might still hold a few bugs. Always check your data!
 - Dropped Moodle 1.x backup/restore support.
 
 
