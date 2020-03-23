@@ -324,7 +324,6 @@ function convert_node_helper($array, $parentconnection = false) {
         }
         $result[] = $jsonobject;
         if (!empty($key['Node']) && is_array($key['Node'])) {
-            $parentconnection = '';
             $parentconnection = str_replace($pattern, $replace, $key['Text']).$key['@attributes']['x_Coord'];
             $result[] = convert_node_helper($key['Node'], $parentconnection);
         }

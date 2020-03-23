@@ -24,7 +24,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         color: {
                             background: '#ff0000',
                         },
-                        widthConstraint: { maximum: 180 },
+                        widthConstraint: { maximum: 300 },
                         margin: 10,
                         borderWidth: 1,
                         shape: 'box',
@@ -85,7 +85,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                             color: {
                                 background: (elem.hasOwnProperty('color') ? elem.color.background : '#97c1fc')
                             },
-                            widthConstraint: { maximum: 180 },
+                            widthConstraint: { maximum: 300 },
                             margin: 10
                         });
                     });
@@ -250,7 +250,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         nodes: {
                             borderWidth: 1,
                             shape: 'box',
-                            widthConstraint: { maximum: 180 },
+                            widthConstraint: { maximum: 300 },
                             margin: 10,
                             font: {
                                 size: 18,
@@ -278,7 +278,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         nodes: {
                             borderWidth: 1,
                             shape: 'box',
-                            widthConstraint: { maximum: 180 },
+                            widthConstraint: { maximum: 300 },
                             margin: 10,
                             font: {
                                 size: 18,
