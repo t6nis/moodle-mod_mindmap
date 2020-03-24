@@ -24,6 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/mod/mindmap/backup/moodle2/backup_mindmap_stepslib.php');
+
 /**
  * Mindmap backup task that provides all the settings and steps to perform one
  * complete backup of the activity.
@@ -55,12 +56,12 @@ class backup_mindmap_activity_task extends backup_activity_task {
         $base = preg_quote($CFG->wwwroot, "/");
 
         // Link to the list of mindmap.
-        $search="/(".$base."\/mod\/mindmap\/index.php\?id\=)([0-9]+)/";
-        $content= preg_replace($search, '$@MINDMAPINDEX*$2@$', $content);
+        $search = "/(" . $base . "\/mod\/mindmap\/index.php\?id\=)([0-9]+)/";
+        $content = preg_replace($search, '$@MINDMAPINDEX*$2@$', $content);
 
         // Link to mindmap view by moduleid.
-        $search="/(".$base."\/mod\/mindmap\/view.php\?id\=)([0-9]+)/";
-        $content= preg_replace($search, '$@MINDMAPVIEWBYID*$2@$', $content);
+        $search = "/(" . $base . "\/mod\/mindmap\/view.php\?id\=)([0-9]+)/";
+        $content = preg_replace($search, '$@MINDMAPVIEWBYID*$2@$', $content);
 
         return $content;
     }

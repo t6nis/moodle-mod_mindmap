@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once($CFG->dirroot.'/course/moodleform_mod.php');
+require_once($CFG->dirroot . '/course/moodleform_mod.php');
 
 class mod_mindmap_mod_form extends moodleform_mod {
 
@@ -36,7 +36,7 @@ class mod_mindmap_mod_form extends moodleform_mod {
 
         // Adding the "general" fieldset, where all the common settings are showed.
         $mform->addElement('header', 'general', get_string('general', 'form'));
-        
+
         // Adding the standard "name" field.
         $mform->addElement('text', 'name', get_string('mindmapname', 'mindmap'), array('size' => '64'));
         $mform->setType('name', PARAM_TEXT);
@@ -48,7 +48,7 @@ class mod_mindmap_mod_form extends moodleform_mod {
         $mform->setDefault('editable', 1);
         $mform->addElement('advcheckbox', 'locking', get_string('locking', 'mindmap'), '', array('group' => 1), array(0, 1));
         $mform->setDefault('locking', 1);
-        
+
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();
 

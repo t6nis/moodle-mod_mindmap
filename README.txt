@@ -60,7 +60,8 @@ Please download older version for Moodle 2.5 and below.
 +Bump to Moodle 2.5 version
 
 //01.03.2013 - version 2013030100
-Teacher can enable locking, so that multiple students cannot edit a mindmap at the same time. This caused problems with saving xml data.
+Teacher can enable locking, so that multiple students cannot edit a mindmap at the same time.
+This caused problems with saving xml data.
 NB! All mindmaps will have locking enabled by default after upgrade.
 +Locking functionality.
 

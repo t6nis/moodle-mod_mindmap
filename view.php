@@ -27,7 +27,7 @@ require_once('../../config.php');
 require_once($CFG->libdir . '/completionlib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // Course Module ID, or
-$a  = optional_param('a', 0, PARAM_INT);
+$a = optional_param('a', 0, PARAM_INT);
 
 if ($id) {
     if (!$cm = get_coursemodule_from_id('mindmap', $id)) {
@@ -71,17 +71,17 @@ $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
 // Print the page header.
-$strmindmaps  = get_string('modulenameplural', 'mindmap');
-$strmindmap   = get_string('modulename', 'mindmap');
-$strname      = format_string($mindmap->name);
+$strmindmaps = get_string('modulenameplural', 'mindmap');
+$strmindmap = get_string('modulename', 'mindmap');
+$strname = format_string($mindmap->name);
 
-$PAGE->set_url('/mod/mindmap/view.php', array('id'=>$cm->id));  
+$PAGE->set_url('/mod/mindmap/view.php', array('id' => $cm->id));
 $PAGE->set_title($strname);
 $PAGE->set_heading($course->fullname);
 
 // JS Lock.
 $jsmodule = array(
-    'name'     => 'mod_mindmap',
+    'name' => 'mod_mindmap',
     'fullpath' => '/mod/mindmap/module.js',
     'requires' => array('base', 'io', 'io-base', 'io-form', 'node', 'json'),
     'strings' => array(
@@ -112,7 +112,7 @@ if ($locked == 1) {
     // Override lock for teachers.
     if (has_capability('moodle/course:manageactivities', $context, $USER->id)) {
         echo "<div class=\"mindmap-unlock-button\">";
-        echo "<form method=\"post\" action=\"unlock.php\" id=\"mindmapform\">";        
+        echo "<form method=\"post\" action=\"unlock.php\" id=\"mindmapform\">";
         echo "<input type=\"hidden\" name=\"id\" value=\"$mindmap->id\" />";
         echo "<input type=\"hidden\" name=\"uid\" value=\"$USER->id\" />";
         echo "<input type=\"submit\" name=\"unlock\" value=\"Unlock\">";
@@ -123,31 +123,33 @@ if ($locked == 1) {
 } else {
     echo html_writer::start_tag('div', array('id' => 'network-popup'))
     ?>
-        <span id="operation">node</span>
-        <table>
-            <tr>
-                <td><?php echo get_string('label', 'mindmap'); ?></td>
-                <td><input id="node-label" value=""/></td>
-            </tr>
-            <tr>
-                <td><?php echo get_string('textcolor', 'mindmap'); ?></td><td><input class="jscolor {hash:true}" id="node-font-color" value="#343434" /></td>
-            </tr>
-            <tr>
-                <td><?php echo get_string('bgcolor', 'mindmap'); ?></td><td><input class="jscolor {hash:true}" id="node-color-background" value="#97c1fc" /></td>
-            </tr>
-            <tr>
-                <td><?php echo get_string('shape', 'mindmap'); ?></td>
-                <td>
-                    <select name="node-shape" id="node-shape">
-                        <option value="ellipse"><?php echo get_string('ellipse', 'mindmap'); ?></option>
-                        <option value="circle"><?php echo get_string('circle', 'mindmap'); ?></option>
-                        <option value="box"><?php echo get_string('box', 'mindmap'); ?></option>
-                        <option value="text"><?php echo get_string('text', 'mindmap'); ?></option>
-                        <option value="database"><?php echo get_string('database', 'mindmap'); ?></option>
-                    </select>
-                </td>
-            </tr>
-        </table>
+    <span id="operation">node</span>
+    <table>
+        <tr>
+            <td><?php echo get_string('label', 'mindmap'); ?></td>
+            <td><input id="node-label" value=""/></td>
+        </tr>
+        <tr>
+            <td><?php echo get_string('textcolor', 'mindmap'); ?></td>
+            <td><input class="jscolor {hash:true}" id="node-font-color" value="#343434"/></td>
+        </tr>
+        <tr>
+            <td><?php echo get_string('bgcolor', 'mindmap'); ?></td>
+            <td><input class="jscolor {hash:true}" id="node-color-background" value="#97c1fc"/></td>
+        </tr>
+        <tr>
+            <td><?php echo get_string('shape', 'mindmap'); ?></td>
+            <td>
+                <select name="node-shape" id="node-shape">
+                    <option value="ellipse"><?php echo get_string('ellipse', 'mindmap'); ?></option>
+                    <option value="circle"><?php echo get_string('circle', 'mindmap'); ?></option>
+                    <option value="box"><?php echo get_string('box', 'mindmap'); ?></option>
+                    <option value="text"><?php echo get_string('text', 'mindmap'); ?></option>
+                    <option value="database"><?php echo get_string('database', 'mindmap'); ?></option>
+                </select>
+            </td>
+        </tr>
+    </table>
     <?php
     echo html_writer::tag('input', '', array('type' => 'hidden', 'id' => 'node-id', 'value' => 'new value'));
     echo html_writer::tag('input', '', array('type' => 'button', 'id' => 'savebutton', 'value' => get_string('save')));

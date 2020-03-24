@@ -47,7 +47,7 @@ require_login($mindmap->course);
 $context = context_module::instance($cm->id);
 
 if (has_capability('moodle/course:manageactivities', $context, $uid)) {
-    
+
     $update = new stdClass();
     $update->id = $id;
     $update->locked = 0;
@@ -57,4 +57,4 @@ if (has_capability('moodle/course:manageactivities', $context, $uid)) {
 
 }
 
-redirect('view.php?id='.$cm->id);
+redirect('view.php?id=' . $cm->id);

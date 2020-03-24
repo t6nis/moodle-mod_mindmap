@@ -26,39 +26,39 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Given an object containing all the necessary data, 
- * (defined by the form in mod.html) this function 
- * will create a new instance and return the id number 
+ * Given an object containing all the necessary data,
+ * (defined by the form in mod.html) this function
+ * will create a new instance and return the id number
  * of the new instance.
  *
  * @param object $instance An object from the form in mod.html
  * @return int The id of the newly inserted $mindmap record
  **/
 function mindmap_add_instance($mindmap) {
-    
+
     global $USER, $DB;
-    
+
     $mindmap->mindmapdata = '';
     $mindmap->xmldata = ''; // This is kept for historic purpose..
     $mindmap->userid = $USER->id;
     $mindmap->timecreated = time();
-    
+
     return $DB->insert_record('mindmap', $mindmap);
-    
+
 }
 
 /**
- * Given an object containing all the necessary data, 
- * (defined by the form in mod.html) this function 
+ * Given an object containing all the necessary data,
+ * (defined by the form in mod.html) this function
  * will update an existing instance with new data.
  *
  * @param object $instance An object from the form in mod.html
  * @return boolean Success/Fail
  **/
 function mindmap_update_instance($mindmap) {
-    
+
     global $DB;
-    
+
     $mindmap->timemodified = time();
     $mindmap->id = $mindmap->instance;
 
@@ -66,9 +66,9 @@ function mindmap_update_instance($mindmap) {
 }
 
 /**
- * Given an ID of an instance of this module, 
- * this function will permanently delete the instance 
- * and any data that depends on it. 
+ * Given an ID of an instance of this module,
+ * this function will permanently delete the instance
+ * and any data that depends on it.
  *
  * @param int $id Id of the module instance
  * @return boolean Success/Failure
@@ -76,7 +76,7 @@ function mindmap_update_instance($mindmap) {
 function mindmap_delete_instance($id) {
 
     global $DB;
-    
+
     if (!$mindmap = $DB->get_record("mindmap", array("id" => $id))) {
         return false;
     }
@@ -91,7 +91,7 @@ function mindmap_delete_instance($id) {
 }
 
 /**
- * Return a small object with summary information about what a 
+ * Return a small object with summary information about what a
  * user has done with a given particular instance of this module
  * Used for user activity reports.
  * $return->time = the time they did it
@@ -104,7 +104,7 @@ function mindmap_user_outline($course, $user, $mod, $mindmap) {
     global $DB;
 
     if ($logs = $DB->get_records('log', array('userid' => $user->id, 'module' => 'mindmap',
-                                              'action' => 'view', 'info' => $mindmap->id), 'time ASC')) {
+        'action' => 'view', 'info' => $mindmap->id), 'time ASC')) {
 
         $numviews = count($logs);
         $lastlog = array_pop($logs);
@@ -115,12 +115,12 @@ function mindmap_user_outline($course, $user, $mod, $mindmap) {
 
         return $result;
     }
-    
+
     return null;
 }
 
 /**
- * Print a detailed representation of what a user has done with 
+ * Print a detailed representation of what a user has done with
  * a given particular instance of this module, for user activity reports.
  *
  * @return boolean
@@ -131,23 +131,23 @@ function mindmap_user_complete($course, $user, $mod, $mindmap) {
 }
 
 /**
- * Given a course and a time, this module should find recent activity 
- * that has occurred in $mindmap activities and print it out. 
- * Return true if there was output, or false is there was none. 
+ * Given a course and a time, this module should find recent activity
+ * that has occurred in $mindmap activities and print it out.
+ * Return true if there was output, or false is there was none.
  *
- * @uses $CFG
  * @return boolean
+ * @uses $CFG
  * @todo Finish documenting this function
  **/
 function mindmap_print_recent_activity($course, $isteacher, $timestart) {
-    return false;  //  True if anything was printed, otherwise false 
+    return false;
 }
 
 /**
  * No cron in mindmap.
- * 
- * @uses $CFG
+ *
  * @return boolean
+ * @uses $CFG
  * @todo Finish documenting this function
  **/
 function mindmap_cron() {
@@ -160,7 +160,7 @@ function mindmap_cron() {
  * @return mixed Null or object with an array of grades and with the maximum grade
  **/
 function mindmap_grades($mindmapid) {
-   return null;
+    return null;
 }
 
 /**
@@ -205,17 +205,26 @@ function mindmap_scale_used_anywhere($scaleid) {
  * @return bool|int|null
  */
 function mindmap_supports($feature) {
-    switch($feature) {
-        case FEATURE_MOD_ARCHETYPE:           return MOD_ARCHETYPE_OTHER;
-        case FEATURE_GROUPS:                  return false;
-        case FEATURE_GROUPINGS:               return false;
-        case FEATURE_MOD_INTRO:               return true;
-        case FEATURE_COMPLETION_TRACKS_VIEWS: return true;
-        case FEATURE_GRADE_HAS_GRADE:         return false;
-        case FEATURE_GRADE_OUTCOMES:          return false;
-        case FEATURE_BACKUP_MOODLE2:          return true;
+    switch ($feature) {
+        case FEATURE_MOD_ARCHETYPE:
+            return MOD_ARCHETYPE_OTHER;
+        case FEATURE_GROUPS:
+            return false;
+        case FEATURE_GROUPINGS:
+            return false;
+        case FEATURE_MOD_INTRO:
+            return true;
+        case FEATURE_COMPLETION_TRACKS_VIEWS:
+            return true;
+        case FEATURE_GRADE_HAS_GRADE:
+            return false;
+        case FEATURE_GRADE_OUTCOMES:
+            return false;
+        case FEATURE_BACKUP_MOODLE2:
+            return true;
 
-        default: return null;
+        default:
+            return null;
     }
 }
 
@@ -252,8 +261,8 @@ function mindmap_get_post_actions() {
  * @return array
  */
 function mindmap_page_type_list($pagetype, $parentcontext, $currentcontext) {
-    $module_pagetype = array('mod-mindmap-*' => get_string('page-mod-mindmap-x', 'mod_mindmap'));
-    return $module_pagetype;
+    $modulepagetype = array('mod-mindmap-*' => get_string('page-mod-mindmap-x', 'mod_mindmap'));
+    return $modulepagetype;
 }
 
 /**
@@ -266,7 +275,7 @@ function mindmap_extend_settings_navigation(settings_navigation $settings, navig
     global $PAGE;
 
     if (has_capability('mod/mindmap:addinstance', $PAGE->cm->context)) {
-        $mindmap->add('Convert from Flash', new moodle_url('/mod/mindmap/convert.php', array('id'=>$PAGE->cm->id)));
+        $mindmap->add('Convert from Flash', new moodle_url('/mod/mindmap/convert.php', array('id' => $PAGE->cm->id)));
     }
 }
 
@@ -277,7 +286,7 @@ function mindmap_extend_settings_navigation(settings_navigation $settings, navig
  */
 function array_builder($array, $result = array()) {
     if (!is_array($array)) {
-        return FALSE;
+        return false;
     }
 
     foreach ($array as $key => $value) {
@@ -298,8 +307,8 @@ function array_builder($array, $result = array()) {
  */
 function convert_node_helper($array, $parentconnection = false) {
     $result = array();
-    $pattern = array('Ö','Ä','Õ','Ü','ö','ä','õ','ü');
-    $replace = array('O','A','O','U','o','a','o','u');
+    $pattern = array('Ö', 'Ä', 'Õ', 'Ü', 'ö', 'ä', 'õ', 'ü');
+    $replace = array('O', 'A', 'O', 'U', 'o', 'a', 'o', 'u');
     foreach ($array as $node => $key) {
         if (empty($key['Text'])) {
             continue;
@@ -307,10 +316,10 @@ function convert_node_helper($array, $parentconnection = false) {
         $jsonobject = array();
         $jsonobject['x'] = $key['@attributes']['x_Coord'];
         $jsonobject['y'] = $key['@attributes']['y_Coord'];
-        $jsonobject['id'] = str_replace($pattern, $replace, $key['Text']).$key['@attributes']['x_Coord'];
+        $jsonobject['id'] = str_replace($pattern, $replace, $key['Text']) . $key['@attributes']['x_Coord'];
         $jsonobject['label'] = $key['Text'];
-        $jsonobject['font']['color'] = '#'.$key['Format']['FontColor'];
-        $jsonobject['color']['background'] = '#'.$key['Format']['BackgrColor'];
+        $jsonobject['font']['color'] = '#' . $key['Format']['FontColor'];
+        $jsonobject['color']['background'] = '#' . $key['Format']['BackgrColor'];
         if (!empty($parentconnection)) {
             $jsonobject['connections'][] = $parentconnection;
         }
@@ -319,12 +328,12 @@ function convert_node_helper($array, $parentconnection = false) {
                 if (empty($subval['Text'])) {
                     continue;
                 }
-                $jsonobject['connections'][] = str_replace($pattern, $replace, $subval['Text']).$subval['@attributes']['x_Coord'];
+                $jsonobject['connections'][] = str_replace($pattern, $replace, $subval['Text']) . $subval['@attributes']['x_Coord'];
             }
         }
         $result[] = $jsonobject;
         if (!empty($key['Node']) && is_array($key['Node'])) {
-            $parentconnection = str_replace($pattern, $replace, $key['Text']).$key['@attributes']['x_Coord'];
+            $parentconnection = str_replace($pattern, $replace, $key['Text']) . $key['@attributes']['x_Coord'];
             $result[] = convert_node_helper($key['Node'], $parentconnection);
         }
 

@@ -30,10 +30,10 @@ $id = optional_param('id', 0, PARAM_INT);
 $convert = optional_param('convert', 0, PARAM_INT);
 
 if ($id) {
-    if (! $mindmap = $DB->get_record('mindmap', array('id' => $id))) {
+    if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
         print_error('Course module is incorrect');
     }
-    if (! $course = $DB->get_record('course', array('id' => $mindmap->course))) {
+    if (!$course = $DB->get_record('course', array('id' => $mindmap->course))) {
         print_error('Course is misconfigured');
     }
 }
@@ -44,7 +44,7 @@ require_login($course->id);
 if ($convert == 1) {
     $xml = simplexml_load_string($mindmap->xmldata);
     $json = json_encode($xml);
-    $array = json_decode($json, TRUE);
+    $array = json_decode($json, true);
 
     $jsonobject = convert_node_helper($array['MM']);
     $flashmindmaparray = array();

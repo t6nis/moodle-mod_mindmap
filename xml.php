@@ -28,10 +28,10 @@ require_once('../../config.php');
 $id = optional_param('id', 0, PARAM_INT);
 
 if ($id) {
-    if (! $mindmap = $DB->get_record('mindmap', array('id' => $id))) {
+    if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
         print_error('Course module is incorrect');
     }
-    if (! $course = $DB->get_record('course', array('id' => $mindmap->course))) {
+    if (!$course = $DB->get_record('course', array('id' => $mindmap->course))) {
         print_error('Course is misconfigured');
     }
 }

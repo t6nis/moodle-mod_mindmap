@@ -24,7 +24,7 @@
 require_once('../../config.php');
 require_once('lib.php');
 
-$id = optional_param('id', 0, PARAM_INT); // Course Module ID, or
+$id = optional_param('id', 0, PARAM_INT);
 
 if ($id) {
     if (!$cm = get_coursemodule_from_id('mindmap', $id)) {
@@ -43,9 +43,9 @@ if ($id) {
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
-$strname      = format_string($mindmap->name);
+$strname = format_string($mindmap->name);
 
-$PAGE->set_url('/mod/mindmap/view.php', array('id'=>$cm->id));
+$PAGE->set_url('/mod/mindmap/view.php', array('id' => $cm->id));
 $PAGE->set_title($strname);
 $PAGE->set_heading($course->fullname);
 
@@ -66,23 +66,24 @@ echo html_writer::tag('div', get_string('convertflash', 'mindmap'), array('class
 
 echo html_writer::tag('div', '', array('id' => 'flashcontent'));
 ?>
-<script type="text/javascript" src="./javascript/swfobject.js"></script>
-<script type="text/javascript">
-    // <![CDATA[
-    var swf_width = document.getElementById('mindmap_hint').offsetWidth; //Set SWF width
-    //Width calculations
-    if (swf_width > 1200) {
-        swf_width = swf_width - 1;
-    } else {
-        swf_width = swf_width - 11;
-    }
-    var so = new SWFObject('<?php echo $CFG->wwwroot; ?>/mod/mindmap/viewer.swf?uVal=<?php echo rand(0,100); ?>', 'viewer', swf_width, 600, '9', '#FFFFFF');
-    so.addVariable('load_url', '<?php echo $CFG->wwwroot; ?>/mod/mindmap/xml.php?id=<?php echo $mindmap->id;?>');
-    so.addVariable('lang', 'en');
-    so.addVariable('wmode', 'direct');
-    so.write('flashcontent');
-    // ]]>
-</script>
+    <script type="text/javascript" src="./javascript/swfobject.js"></script>
+    <script type="text/javascript">
+        // <![CDATA[
+        var swf_width = document.getElementById('mindmap_hint').offsetWidth; //Set SWF width
+        //Width calculations
+        if (swf_width > 1200) {
+            swf_width = swf_width - 1;
+        } else {
+            swf_width = swf_width - 11;
+        }
+        var so = new SWFObject('<?php echo $CFG->wwwroot; ?>/mod/mindmap/viewer.swf?uVal=<?php echo rand(0, 100); ?>',
+            'viewer', swf_width, 600, '9', '#FFFFFF');
+        so.addVariable('load_url', '<?php echo $CFG->wwwroot; ?>/mod/mindmap/xml.php?id=<?php echo $mindmap->id;?>');
+        so.addVariable('lang', 'en');
+        so.addVariable('wmode', 'direct');
+        so.write('flashcontent');
+        // ]]>
+    </script>
 
 <?php echo html_writer::tag('div', '<a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>', array('class' => 'getflash')); ?>
 

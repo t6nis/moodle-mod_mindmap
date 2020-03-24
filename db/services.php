@@ -21,6 +21,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $services = array(
     'Mindmap service' => array(
         'functions' => array('mod_mindmap_submit_mindmap'),
@@ -30,14 +32,14 @@ $services = array(
 
 $functions = array(
     'mod_mindmap_submit_mindmap' => array(
-        'classname'     => 'mod_mindmap_external',
-        'methodname'    => 'submit_mindmap',
-        'classpath'     => 'mod/mindmap/externallib.php',
-        'description'   => 'Save mindmap form by ajax',
-        'type'          => 'write',
-        'ajax'          => true,
+        'classname' => 'mod_mindmap_external',
+        'methodname' => 'submit_mindmap',
+        'classpath' => 'mod/mindmap/externallib.php',
+        'description' => 'Save mindmap form by ajax',
+        'type' => 'write',
+        'ajax' => true,
         'loginrequired' => true,
-        'services'      => array(MOODLE_OFFICIAL_MOBILE_SERVICE)
+        'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)
     ),
 );
 

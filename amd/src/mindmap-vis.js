@@ -1,20 +1,20 @@
 define(['jquery', 'mod_mindmap/mindmap'],
-    function($, Mindmap) {
+    function ($, Mindmap) {
         return {
             Init: function (mindmapid, locked, convert) {
                 var mindmapdata;
                 $.ajax({
-                   async: false,
-                   url: "mindmapdata.php?id="+mindmapid+"&convert="+convert,
-                   success: function(result){
-                       mindmapdata = result; // Load mindmap data
-                   }
+                    async: false,
+                    url: "mindmapdata.php?id=" + mindmapid + "&convert=" + convert,
+                    success: function (result) {
+                        mindmapdata = result; // Load mindmap data
+                    }
                 });
 
                 var nodes = [
                     {
-                        id:"moodle",
-                        label:"Moodle",
+                        id: "moodle",
+                        label: "Moodle",
                         x: 400,
                         y: 370,
                         font: {
@@ -24,7 +24,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         color: {
                             background: '#ff0000',
                         },
-                        widthConstraint: { maximum: 300 },
+                        widthConstraint: {maximum: 300},
                         margin: 10,
                         borderWidth: 1,
                         shape: 'box',
@@ -72,7 +72,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                 function getNodeData(data) {
                     var networkNodes = [];
 
-                    data.forEach(function(elem, index, array) {
+                    data.forEach(function (elem, index, array) {
                         networkNodes.push({
                             id: elem.id,
                             label: elem.label,
@@ -85,7 +85,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                             color: {
                                 background: (elem.hasOwnProperty('color') ? elem.color.background : '#97c1fc')
                             },
-                            widthConstraint: { maximum: 300 },
+                            widthConstraint: {maximum: 300},
                             margin: 10
                         });
                     });
@@ -98,30 +98,32 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         if (data[n].id == id) {  // double equals since id can be numeric or string
                             return data[n];
                         }
-                    };
+                    }
+                    ;
 
                     throw 'Can not find id \'' + id + '\' in data';
                 }
 
                 function getEdgeData(data) {
                     var networkEdges = [];
-                    data.forEach(function(node) {
+                    data.forEach(function (node) {
                         // add the connection
-                        node.connections.forEach(function(connId, cIndex, conns) {
-                            networkEdges.push({from: node.id, to: connId, width:2});
+                        node.connections.forEach(function (connId, cIndex, conns) {
+                            networkEdges.push({from: node.id, to: connId, width: 2});
                             var cNode = getNodeById(data, connId);
 
                             var elementConnections = cNode.connections;
 
                             // remove the connection from the other node to prevent duplicate connections
-                            var duplicateIndex = elementConnections.filter(function(connection) {
+                            var duplicateIndex = elementConnections.filter(function (connection) {
                                 return connection == node.id; // double equals since id can be numeric or string
                             })[0];
 
 
                             if (duplicateIndex != -1) {
                                 elementConnections.splice(duplicateIndex, 1);
-                            };
+                            }
+                            ;
                         });
                     });
 
@@ -177,7 +179,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                     options = {
                         manipulation: {
                             initiallyActive: true,
-                            addNode: function(data, callback) {
+                            addNode: function (data, callback) {
                                 // filling in the popup DOM elements
                                 document.getElementById("operation").innerHTML = "Add Node";
                                 document.getElementById("node-id").value = data.id;
@@ -206,14 +208,14 @@ define(['jquery', 'mod_mindmap/mindmap'],
                                 document.getElementById("cancelbutton").onclick = clearPopUp.bind();
                                 document.getElementById("network-popup").style.display = "block";
                             },
-                            editNode: function(data, callback) {
+                            editNode: function (data, callback) {
                                 // filling in the popup DOM elements
                                 document.getElementById("operation").innerHTML = "Edit Node";
                                 document.getElementById("node-id").value = data.id;
                                 document.getElementById("node-label").value = data.label;
-                                document.getElementById("node-font-color").value = (data.font.hasOwnProperty('color') ? data.font.color : '#343434' );
+                                document.getElementById("node-font-color").value = (data.font.hasOwnProperty('color') ? data.font.color : '#343434');
                                 document.getElementById("node-color-background").value = (data.color.hasOwnProperty('background') ? data.color.background : '#97c1fc');
-                                document.getElementById("node-shape").value = (data.hasOwnProperty('shape')  ? data.shape : 'box');
+                                document.getElementById("node-shape").value = (data.hasOwnProperty('shape') ? data.shape : 'box');
                                 document.getElementById("savebutton").onclick = saveData.bind(
                                     this,
                                     data,
@@ -225,7 +227,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                                 );
                                 document.getElementById("network-popup").style.display = "block";
                             },
-                            addEdge: function(data, callback) {
+                            addEdge: function (data, callback) {
                                 if (data.from == data.to) {
                                     var r = confirm("Do you want to connect the node to itself?");
                                     if (r == true) {
@@ -250,7 +252,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         nodes: {
                             borderWidth: 1,
                             shape: 'box',
-                            widthConstraint: { maximum: 300 },
+                            widthConstraint: {maximum: 300},
                             margin: 10,
                             font: {
                                 size: 18,
@@ -259,7 +261,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         },
                     };
 
-                    $('#export_button').on('click', function(){
+                    $('#export_button').on('click', function () {
                         exportNetwork();
                     });
                 } else {
@@ -278,7 +280,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         nodes: {
                             borderWidth: 1,
                             shape: 'box',
-                            widthConstraint: { maximum: 300 },
+                            widthConstraint: {maximum: 300},
                             margin: 10,
                             font: {
                                 size: 18,
@@ -287,7 +289,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         }
                     };
                     if (convert == 1) {
-                        $('#export_button').on('click', function(){
+                        $('#export_button').on('click', function () {
                             exportNetwork();
                         });
                     }
@@ -307,5 +309,5 @@ define(['jquery', 'mod_mindmap/mindmap'],
                     });
                 }
             }
-    };
-});
+        };
+    });

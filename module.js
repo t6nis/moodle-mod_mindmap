@@ -1,16 +1,16 @@
 M.mod_mindmap = {};
- 
-M.mod_mindmap.init_lock = function(Y, mindmapid, locked, uid, vid) {
+
+M.mod_mindmap.init_lock = function (Y, mindmapid, locked, uid, vid) {
 
     if (uid == 0) {
         Y.io('lock.php', {
             method: 'POST',
-            data: 'id='+mindmapid+'&lock=1&uid='+vid+'',
+            data: 'id=' + mindmapid + '&lock=1&uid=' + vid + '',
             sync: false
         });
         uid = vid;
     }
-    
+
     // When moving away from mindmap.
     if (uid == vid) {
         window.onbeforeunload = function (e) {
@@ -20,12 +20,12 @@ M.mod_mindmap.init_lock = function(Y, mindmapid, locked, uid, vid) {
 
             if (uid == vid || uid == 0) {
                 Y.io('lock.php', {
-                    method: 'POST', 
-                    data: 'id='+mindmapid+'&lock=0&uid=0',
+                    method: 'POST',
+                    data: 'id=' + mindmapid + '&lock=0&uid=0',
                     sync: false
                 });
             }
-            
+
             // For IE and Firefox.
             if (e) {
                 e.returnValue = confirm;

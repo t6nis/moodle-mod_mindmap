@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+defined('MOODLE_INTERNAL') || die;
+
 /**
  * Saving mindmap nodes.
  *
@@ -26,7 +28,7 @@
 require_once('../../config.php');
 
 $id = required_param('id', PARAM_INT);
-$xml = optional_param('mindmap', '', PARAM_RAW); 
+$xml = optional_param('mindmap', '', PARAM_RAW);
 
 if ($id) {
     if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {

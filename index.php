@@ -41,14 +41,14 @@ $event->add_record_snapshot('course', $course);
 $event->trigger();
 
 // Get all required stringsnewmodule.
-$strmindmaps     = get_string('modulenameplural', 'mindmap');
-$strmindmap      = get_string('modulename', 'mindmap');
-$strsectionname  = get_string('sectionname', 'format_'.$course->format);
-$strname         = get_string('name');
-$strintro        = get_string('moduleintro');
+$strmindmaps = get_string('modulenameplural', 'mindmap');
+$strmindmap = get_string('modulename', 'mindmap');
+$strsectionname = get_string('sectionname', 'format_' . $course->format);
+$strname = get_string('name');
+$strintro = get_string('moduleintro');
 
-$strweek  = get_string('week');
-$strtopic  = get_string('topic');
+$strweek = get_string('week');
+$strtopic = get_string('topic');
 
 $timenow = time();
 
@@ -62,7 +62,7 @@ echo $OUTPUT->header();
 
 // Get all the appropriate data.
 if (!$mindmaps = get_all_instances_in_course('mindmap', $course)) {
-    notice('There are no mindmaps', $CFG->wwwroot.'/course/view.php?id='.$course->id);
+    notice('There are no mindmaps', $CFG->wwwroot . '/course/view.php?id=' . $course->id);
     exit;
 }
 
@@ -73,17 +73,17 @@ $table = new html_table();
 $table->attributes['class'] = 'generaltable mod_index';
 
 if ($usesections) {
-    $table->head  = array ($strsectionname, $strname, $strintro);
-    $table->align = array ('center', 'left', 'left');
+    $table->head = array($strsectionname, $strname, $strintro);
+    $table->align = array('center', 'left', 'left');
 } else {
-    $table->head  = array ($strlastmodified, $strname, $strintro);
-    $table->align = array ('left', 'left', 'left');
+    $table->head = array($strlastmodified, $strname, $strintro);
+    $table->align = array('left', 'left', 'left');
 }
 
 $currentsection = '';
 
 foreach ($mindmaps as $mindmap) {
-    
+
     if (!$mindmap->visible && has_capability('moodle/course:viewhiddenactivities', $context)) {
         // Show dimmed if the mod is hidden.
         $link = html_writer::tag('a', format_string($mindmap->name, true), array('href' => new moodle_url('/mod/mindmap/view.php', array('id' => $mindmap->coursemodule)), 'class' => 'dimmed'));
@@ -98,7 +98,7 @@ foreach ($mindmaps as $mindmap) {
     $description = format_module_intro('mindmap', $mindmap, $mindmap->coursemodule);
     $printsection = '';
 
-    if ($usesections) {        
+    if ($usesections) {
         if ($mindmap->section !== $currentsection) {
             if ($mindmap->section) {
                 $printsection = get_section_name($course, $mindmap->section);
@@ -113,9 +113,9 @@ foreach ($mindmaps as $mindmap) {
     }
 
     if ($usesections) {
-        $table->data[] = array ($printsection, $link, $description);
+        $table->data[] = array($printsection, $link, $description);
     } else {
-        $table->data[] = array ($link);
+        $table->data[] = array($link);
     }
 
 }
