@@ -94,10 +94,10 @@ if ($mindmap->locking > 0 && $mindmap->locked > 0 && $mindmap->lockedbyuser != $
 }
 if ($mindmap->locking > 0) {
     $PAGE->requires->js_init_call('M.mod_mindmap.init_lock', array($mindmap->id, $mindmap->locked, $mindmap->lockedbyuser, $USER->id), false, $jsmodule);
-    $PAGE->requires->js('/mod/mindmap/javascript/vis-network.min.js', true);
-    $PAGE->requires->js('/mod/mindmap/javascript/jscolor.js', true);
-    $PAGE->requires->js_call_amd('mod_mindmap/mindmap-vis', 'Init', array($mindmap->id, $locked));
 }
+$PAGE->requires->js('/mod/mindmap/javascript/vis-network.min.js', true);
+$PAGE->requires->js('/mod/mindmap/javascript/jscolor.js', true);
+$PAGE->requires->js_call_amd('mod_mindmap/mindmap-vis', 'Init', array($mindmap->id, $locked));
 
 echo $OUTPUT->header();
 
