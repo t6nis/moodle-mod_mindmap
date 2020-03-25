@@ -307,6 +307,14 @@ define(['jquery', 'mod_mindmap/mindmap'],
                             network.addEdgeMode();
                         }
                     });
+                    $('html').keyup(function(e) {
+                        if (e.key == 'Insert') {
+                            network.addNodeMode();
+                        }
+                        if (e.key == 'Delete') {
+                            network.deleteSelected();
+                        }
+                    });
                 }
             }
         };

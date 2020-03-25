@@ -19,6 +19,12 @@ License: Creative Commons(Attribution 3.0 United States)
 Use the main buttons from mindmap taskbar to create mindmaps.
 + If you double click anywhere in the empty space you can start connecting lines between nodes! Helps to save a few moves.
 
+// 25.03.2020 - 2021032207 version
++ Keyboard "Insert" key helps to add new nodes to mindmap.
++ Keyboard "Delete" key enables to instantly delete selected nodes or edges.
++ Coding style fixes
++ Minor locking bug fix
+
 // 05.03.2020 update
 + Moved from Flash to JS - Thanks to vis.js library! - https://visjs.org/
 + Javascript version is supported in all browser!
