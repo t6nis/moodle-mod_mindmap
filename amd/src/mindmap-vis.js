@@ -307,6 +307,27 @@ define(['jquery', 'mod_mindmap/mindmap'],
                             network.addEdgeMode();
                         }
                     });
+                    //NetWork on Zoom
+                    network.on("zoom", function() {
+                        pos = [];
+                        pos = network.getViewPosition();
+                        if(network.getScale() <= 0.49 ) {
+                            network.moveTo({
+                                position: {x:pos.x, y:pos.y},
+                                scale: 0.49,
+                            });
+                        }
+                        if(network.getScale() >= 5.49 ) {
+                            network.moveTo({
+                                position: {x:pos.x, y:pos.y},
+                                scale: 5.49,
+                            });
+                        }
+                    });
+                    // Reset zoom
+                    $('.resetzoom').on('click', function () {
+                        network.fit();
+                    });
                 }
             }
         };

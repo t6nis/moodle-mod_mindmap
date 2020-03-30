@@ -29,6 +29,15 @@
     height: 500px;
 }
 
+#intro {
+    padding: 0 !important;
+}
+
+#mindmap_view {
+    position: relative;
+    padding-top: 0 !important;
+}
+
 .network {
     display: block;
     width: 100%;
@@ -64,7 +73,7 @@ table.legend_table, td {
     display: none;
     position: absolute;
     width: 310px;
-    top: 45%;
+    top: 25%;
     left: calc(50% - 155px);
     z-index: 299;
     background-color: #f9f9f9;
@@ -73,7 +82,7 @@ table.legend_table, td {
     border-color: #ddd;
     padding: 10px;
     text-align: center;
-    box-shadow: 0px 0px 5px #ddd;
+    box-shadow: 0px 0px 5px #777;
 }
 
 #network-popup table {
@@ -118,6 +127,17 @@ div.vis-network:focus {
 
 div.vis-network div.vis-manipulation div.vis-button {
     margin: 10px;
+}
+
+div.resetzoom {
+    position: absolute;
+    bottom: 22px;
+    z-index: 1;
+    left: 5px;
+    width: 30px;
+    height: 30px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='mysvg' class='data-svg' width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='square' stroke-linejoin='arcs'%3E%3Cpath d='M7.027 7.027l9.946 9.946m0-9.946l-9.946 9.946m6.792-10.43h3.64v3.64m-7.278-3.64h-3.64v3.64m7.278 7.278h3.64v-3.64m-7.278 3.64h-3.64v-3.64' stroke-width='1.6'/%3E%3Ccircle cx='12.102' cy='12.102' r='10'/%3E%3C/svg%3E");
+    cursor: pointer;
 }
 
 /* JSColor css overrides */

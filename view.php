@@ -158,6 +158,7 @@ if ($locked == 1) {
     echo html_writer::tag('input', '', array('type' => 'hidden', 'id' => 'mindmapid', 'name' => 'mindmapid', 'value' => $mindmap->id));
     echo html_writer::tag('input', '', array('type' => 'button', 'id' => 'export_button', 'value' => get_string('mindmapsave', 'mindmap')));
 }
+echo html_writer::tag('div', '', array('class' => 'resetzoom'));
 echo html_writer::start_tag('div', array('id' => 'network', 'class' => 'network'));
 echo html_writer::end_tag('div');
 ?>
