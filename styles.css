@@ -29,16 +29,16 @@
     height: 500px;
 }
 
-#intro {
+.path-mod-mindmap #intro {
     padding: 0 !important;
 }
 
-#mindmap_view {
+.path-mod-mindmap #mindmap_view {
     position: relative;
     padding-top: 0 !important;
 }
 
-.network {
+.path-mod-mindmap .network {
     display: block;
     width: 100%;
     height: 600px;
@@ -50,26 +50,26 @@
     margin-top: 10px;
 }
 
-table.legend_table {
+.path-mod-mindmap table.legend_table {
     font-size: 11px;
     border-width: 1px;
     border-color: #d3d3d3;
     border-style: solid;
 }
 
-table.legend_table, td {
+.path-mod-mindmap table.legend_table, td {
     border-width: 1px;
     border-color: #d3d3d3;
     border-style: solid;
     padding: 2px;
 }
 
-#operation {
+.path-mod-mindmap #operation {
     font-size: 16px;
     font-weight: 600;
 }
 
-#network-popup {
+.path-mod-mindmap #network-popup {
     display: none;
     position: absolute;
     width: 310px;
@@ -85,22 +85,22 @@ table.legend_table, td {
     box-shadow: 0px 0px 5px #777;
 }
 
-#network-popup table {
+.path-mod-mindmap #network-popup table {
     margin: 5px 0px 10px 0px;
 }
 
-#network-popup table td {
+.path-mod-mindmap #network-popup table td {
     border-width: 0px;
     text-align: left;
 }
 
-.convert-save {
+.path-mod-mindmap .convert-save {
     text-align: center;
     margin: 20px 0px;
 }
 
 /* VisJS css overrides */
-div.vis-network div.vis-manipulation {
+.path-mod-mindmap div.vis-network div.vis-manipulation {
     border-bottom: 1px solid #ddd !important;
     background: none !important;
     background-color: #f9f9f9 !important;
@@ -108,28 +108,28 @@ div.vis-network div.vis-manipulation {
     height: auto !important;
 }
 
-div.vis-network div.vis-manipulation div.vis-separator-line {
+.path-mod-mindmap div.vis-network div.vis-manipulation div.vis-separator-line {
     display: none !important;
 }
 
-div.vis-network div.vis-manipulation div.vis-button:hover {
+.path-mod-mindmap div.vis-network div.vis-manipulation div.vis-button:hover {
     box-shadow: none !important;
     text-decoration: underline;
 }
 
-div.vis-network div.vis-close {
+.path-mod-mindmap div.vis-network div.vis-close {
     display: none !important;
 }
 
-div.vis-network:focus {
+.path-mod-mindmap div.vis-network:focus {
     outline: none;
 }
 
-div.vis-network div.vis-manipulation div.vis-button {
+.path-mod-mindmap div.vis-network div.vis-manipulation div.vis-button {
     margin: 10px;
 }
 
-div.resetzoom {
+.path-mod-mindmap div.resetzoom {
     position: absolute;
     bottom: 22px;
     z-index: 1;
@@ -141,7 +141,7 @@ div.resetzoom {
 }
 
 /* JSColor css overrides */
-input.jscolor {
+.path-mod-mindmap input.jscolor {
     background-color: #fff !important;
     color: #000 !important;
 }
