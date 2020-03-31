@@ -275,7 +275,7 @@ function mindmap_extend_settings_navigation(settings_navigation $settings, navig
     global $PAGE;
 
     if (has_capability('mod/mindmap:addinstance', $PAGE->cm->context)) {
-        $mindmap->add('Convert from Flash', new moodle_url('/mod/mindmap/convert.php', array('id' => $PAGE->cm->id)));
+        $mindmap->add(get_string('convertfromflash', 'mod_mindmap'), new moodle_url('/mod/mindmap/convert.php', array('id' => $PAGE->cm->id)));
     }
 }
 

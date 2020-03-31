@@ -97,7 +97,11 @@ if ($mindmap->locking > 0) {
 }
 $PAGE->requires->js('/mod/mindmap/javascript/vis-network.min.js', true);
 $PAGE->requires->js('/mod/mindmap/javascript/jscolor.js', true);
-$PAGE->requires->js_call_amd('mod_mindmap/mindmap-vis', 'Init', array($mindmap->id, $locked));
+$strings = get_strings(
+        array('visjsedit', 'visjsdel', 'visjsback', 'visjsaddnode', 'visjsaddedge', 'visjseditnode',
+            'visjseditedge', 'visjsadddescription', 'visjsedgedescription', 'visjseditedgedescription',
+            'visjscreateedgeerror', 'visjsdeleteclustererror', 'visjseditclustererror'), 'mod_mindmap');
+$PAGE->requires->js_call_amd('mod_mindmap/mindmap-vis', 'Init', array($mindmap->id, $locked, 0, current_language(), $strings));
 
 echo $OUTPUT->header();
 

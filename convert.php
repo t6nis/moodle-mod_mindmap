@@ -51,7 +51,11 @@ $PAGE->set_heading($course->fullname);
 
 $PAGE->requires->js('/mod/mindmap/javascript/vis-network.min.js', true);
 $PAGE->requires->js('/mod/mindmap/javascript/jscolor.js', true);
-$PAGE->requires->js_call_amd('mod_mindmap/mindmap-vis', 'Init', array($mindmap->id, 1, 1));
+$strings = get_strings(
+    array('visjsedit', 'visjsdel', 'visjsback', 'visjsaddnode', 'visjsaddedge', 'visjseditnode',
+        'visjseditedge', 'visjsadddescription', 'visjsedgedescription', 'visjseditedgedescription',
+        'visjscreateedgeerror', 'visjsdeleteclustererror', 'visjseditclustererror'), 'mod_mindmap');
+$PAGE->requires->js_call_amd('mod_mindmap/mindmap-vis', 'Init', array($mindmap->id, 1, 1, current_language(), $strings));
 
 echo $OUTPUT->header();
 // IF there is no xmldata currently available..

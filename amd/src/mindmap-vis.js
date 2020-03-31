@@ -1,7 +1,7 @@
 define(['jquery', 'mod_mindmap/mindmap'],
     function ($, Mindmap) {
         return {
-            Init: function (mindmapid, locked, convert) {
+            Init: function (mindmapid, locked, convert, lang, strings) {
                 var mindmapdata;
                 $.ajax({
                     async: false,
@@ -10,6 +10,26 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         mindmapdata = result; // Load mindmap data
                     }
                 });
+
+                // Languages support.
+                var default_supported_locales = ['en', 'de', 'es', 'it', 'fr', 'cz', 'nl', 'ru', 'cn', 'ua'];
+                var local_locales = {
+                    custom: {
+                        edit: strings.visjsedit,
+                        del: strings.visjsdel,
+                        back: strings.visjsback,
+                        addNode: strings.visjsaddnode,
+                        addEdge: strings.visjsaddedge,
+                        editNode: strings.visjseditnode,
+                        editEdge: strings.visjseditedge,
+                        addDescription: strings.visjsadddescription,
+                        edgeDescription: strings.visjsedgedescription,
+                        editEdgeDescription: strings.visjseditedgedescription,
+                        createEdgeError: strings.visjscreateedgeerror,
+                        deleteClusterError: strings.visjsdeleteclustererror,
+                        editClusterError: strings.visjseditclustererror
+                    }
+                };
 
                 var nodes = [
                     {
@@ -293,6 +313,13 @@ define(['jquery', 'mod_mindmap/mindmap'],
                             exportNetwork();
                         });
                     }
+                }
+
+                if ($.inArray(lang, default_supported_locales) != -1) {
+                    options['locale'] = lang;
+                } else {
+                    options['locales'] = local_locales;
+                    options['locale'] = 'custom';
                 }
 
                 network = new vis.Network(container, data, options);

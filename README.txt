@@ -19,6 +19,11 @@ License: Creative Commons(Attribution 3.0 United States)
 Use the main buttons from mindmap taskbar to create mindmaps.
 + If you double click anywhere in the empty space you can start connecting lines between nodes! Helps to save a few moves.
 
+// 31.03.2020 - 2021032210 version
++ VisJS supports default languages 'en', 'de', 'es', 'it', 'fr', 'cz', 'nl', 'ru', 'cn', 'ua'.
++ Now you can also translate VisJS labels inside the edit window in your own language.
++ Added new translatable strings.
+
 // 30.03.2020 - 2021032208 version
 + Max zoom out level
 + Max zoom in level
