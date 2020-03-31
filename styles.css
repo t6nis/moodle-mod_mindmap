@@ -57,7 +57,8 @@
     border-style: solid;
 }
 
-.path-mod-mindmap table.legend_table, td {
+.path-mod-mindmap table.legend_table,
+.path-mod-mindmap td {
     border-width: 1px;
     border-color: #d3d3d3;
     border-style: solid;
