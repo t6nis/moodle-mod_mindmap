@@ -201,7 +201,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                             initiallyActive: true,
                             addNode: function (data, callback) {
                                 // filling in the popup DOM elements
-                                document.getElementById("operation").innerHTML = "Add Node";
+                                document.getElementById("operation").innerHTML = strings.visjsaddnode;
                                 document.getElementById("node-id").value = data.id;
                                 document.getElementById("node-label").value = '';
                                 document.getElementById("node-font-color").value = '#343434';
@@ -230,7 +230,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                             },
                             editNode: function (data, callback) {
                                 // filling in the popup DOM elements
-                                document.getElementById("operation").innerHTML = "Edit Node";
+                                document.getElementById("operation").innerHTML = strings.visjseditnode;
                                 document.getElementById("node-id").value = data.id;
                                 document.getElementById("node-label").value = data.label;
                                 document.getElementById("node-font-color").value = (data.font.hasOwnProperty('color') ? data.font.color : '#343434');
@@ -324,6 +324,28 @@ define(['jquery', 'mod_mindmap/mindmap'],
 
                 network = new vis.Network(container, data, options);
 
+                //NetWork on Zoom
+                network.on("zoom", function() {
+                    pos = [];
+                    pos = network.getViewPosition();
+                    if(network.getScale() <= 0.49 ) {
+                        network.moveTo({
+                            position: {x:pos.x, y:pos.y},
+                            scale: 0.49,
+                        });
+                    }
+                    if(network.getScale() >= 5.49 ) {
+                        network.moveTo({
+                            position: {x:pos.x, y:pos.y},
+                            scale: 5.49,
+                        });
+                    }
+                });
+                // Reset zoom
+                $('.resetzoom').on('click', function () {
+                    network.fit();
+                });
+
                 if (locked == 0) {
                     network.on("doubleClick", function (params) {
                         if ((params.edges.length >= 0) && (params.nodes.length > 0)) {
@@ -341,27 +363,6 @@ define(['jquery', 'mod_mindmap/mindmap'],
                         if (e.key == 'Delete') {
                             network.deleteSelected();
                         }
-                    });
-                    //NetWork on Zoom
-                    network.on("zoom", function() {
-                        pos = [];
-                        pos = network.getViewPosition();
-                        if(network.getScale() <= 0.49 ) {
-                            network.moveTo({
-                                position: {x:pos.x, y:pos.y},
-                                scale: 0.49,
-                            });
-                        }
-                        if(network.getScale() >= 5.49 ) {
-                            network.moveTo({
-                                position: {x:pos.x, y:pos.y},
-                                scale: 5.49,
-                            });
-                        }
-                    });
-                    // Reset zoom
-                    $('.resetzoom').on('click', function () {
-                        network.fit();
                     });
                 }
             }

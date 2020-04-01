@@ -130,9 +130,13 @@
     margin: 10px;
 }
 
+.path-mod-mindmap div.network-container {
+    position: relative;
+}
+
 .path-mod-mindmap div.resetzoom {
     position: absolute;
-    bottom: 22px;
+    bottom: 5px;
     z-index: 1;
     left: 5px;
     width: 30px;

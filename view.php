@@ -53,7 +53,7 @@ if ($id) {
     }
 }
 
-require_login($course, true, $cm);
+require_login($course, false, $cm);
 $context = context_module::instance($cm->id);
 
 // Trigger events.
@@ -92,6 +92,9 @@ $locked = 0;
 if ($mindmap->locking > 0 && $mindmap->locked > 0 && $mindmap->lockedbyuser != $USER->id) {
     $locked = 1;
 }
+if (isloggedin() && isguestuser()) {
+    $locked = 1;
+}
 if ($mindmap->locking > 0) {
     $PAGE->requires->js_init_call('M.mod_mindmap.init_lock', array($mindmap->id, $mindmap->locked, $mindmap->lockedbyuser, $USER->id), false, $jsmodule);
 }
@@ -110,9 +113,13 @@ echo $OUTPUT->box_start('generalbox', 'mindmap_view');
 
 // Locking info
 if ($locked == 1) {
-    $user = $DB->get_record('user', array('id' => $mindmap->lockedbyuser), 'firstname, lastname', MUST_EXIST);
-    echo html_writer::start_tag('div', array('class' => 'mindmap_locked'));
-    echo html_writer::tag('span', get_string('mindmaplocked', 'mindmap', $user));
+    if (!isguestuser()) {
+        if ($mindmap->lockedbyuser > 0) {
+            $user = $DB->get_record('user', array('id' => $mindmap->lockedbyuser), 'firstname, lastname', MUST_EXIST);
+            echo html_writer::start_tag('div', array('class' => 'mindmap_locked'));
+            echo html_writer::tag('span', get_string('mindmaplocked', 'mindmap', $user));
+        }
+    }
     // Override lock for teachers.
     if (has_capability('moodle/course:manageactivities', $context, $USER->id)) {
         echo "<div class=\"mindmap-unlock-button\">";
@@ -162,8 +169,10 @@ if ($locked == 1) {
     echo html_writer::tag('input', '', array('type' => 'hidden', 'id' => 'mindmapid', 'name' => 'mindmapid', 'value' => $mindmap->id));
     echo html_writer::tag('input', '', array('type' => 'button', 'id' => 'export_button', 'value' => get_string('mindmapsave', 'mindmap')));
 }
+echo html_writer::start_tag('div', array('id' => 'network-container', 'class' => 'network-container'));
 echo html_writer::tag('div', '', array('class' => 'resetzoom'));
 echo html_writer::start_tag('div', array('id' => 'network', 'class' => 'network'));
+echo html_writer::end_tag('div');
 echo html_writer::end_tag('div');
 ?>
 
