@@ -91,6 +91,47 @@ function mindmap_delete_instance($id) {
 }
 
 /**
+ * Called by course/reset.php
+ */
+function mindmap_reset_course_form_definition(&$mform) {
+    $mform->addElement('header', 'mindmapheader', get_string('modulenameplural', 'mindmap'));
+
+    $mform->addElement('checkbox', 'delete_mindmap_all_content', get_string('deleteallmindmapscontent','mindmap'));
+}
+
+function mindmap_reset_course_form_defaults($course) {
+    return array('delete_mindmap_all_content' => 1);
+}
+
+/**
+ * This function is used by the reset_course_userdata function in moodlelib.
+ * This function will clean up all mindmaps.
+ *
+ * @global object
+ * @global object
+ * @param $data the data submitted from the reset course.
+ * @return array status array
+ */
+function mindmap_reset_userdata($data) {
+    global $DB;
+
+    $status = array();
+    $componentstr = get_string('modulenameplural', 'mindmap');
+
+    if (!empty($data->delete_mindmap_all_content)) {
+        $course = get_course($data->courseid);
+        $mindmaps = get_all_instances_in_course('mindmap', $course);
+        foreach ($mindmaps as $mindmap) {
+            $mindmap->mindmapdata = '';
+            $DB->update_record('mindmap', $mindmap);
+        }
+        $status[] = array('component' => $componentstr, 'item' => get_string('deleteallmindmapscontent', 'mindmap'), 'error' => false);
+    }
+
+    return $status;
+}
+
+/**
  * Return a small object with summary information about what a
  * user has done with a given particular instance of this module
  * Used for user activity reports.

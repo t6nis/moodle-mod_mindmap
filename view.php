@@ -95,6 +95,9 @@ if ($mindmap->locking > 0 && $mindmap->locked > 0 && $mindmap->lockedbyuser != $
 if (isloggedin() && isguestuser()) {
     $locked = 1;
 }
+if ($mindmap->editable == 0 && !has_capability('moodle/course:manageactivities', $context, $USER->id)) {
+    $locked = 1;
+}
 if ($mindmap->locking > 0) {
     $PAGE->requires->js_init_call('M.mod_mindmap.init_lock', array($mindmap->id, $mindmap->locked, $mindmap->lockedbyuser, $USER->id), false, $jsmodule);
 }
@@ -113,10 +116,10 @@ echo $OUTPUT->box_start('generalbox', 'mindmap_view');
 
 // Locking info
 if ($locked == 1) {
+    echo html_writer::start_tag('div', array('class' => 'mindmap_locked'));
     if (!isguestuser()) {
         if ($mindmap->lockedbyuser > 0) {
             $user = $DB->get_record('user', array('id' => $mindmap->lockedbyuser), 'firstname, lastname', MUST_EXIST);
-            echo html_writer::start_tag('div', array('class' => 'mindmap_locked'));
             echo html_writer::tag('span', get_string('mindmaplocked', 'mindmap', $user));
         }
     }

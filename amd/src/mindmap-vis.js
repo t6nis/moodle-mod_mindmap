@@ -12,7 +12,6 @@ define(['jquery', 'mod_mindmap/mindmap'],
                 });
 
                 // Languages support.
-                var default_supported_locales = ['en', 'de', 'es', 'it', 'fr', 'cz', 'nl', 'ru', 'cn', 'ua'];
                 var local_locales = {
                     custom: {
                         edit: strings.visjsedit,
@@ -315,12 +314,8 @@ define(['jquery', 'mod_mindmap/mindmap'],
                     }
                 }
 
-                if ($.inArray(lang, default_supported_locales) != -1) {
-                    options['locale'] = lang;
-                } else {
-                    options['locales'] = local_locales;
-                    options['locale'] = 'custom';
-                }
+                options['locales'] = local_locales;
+                options['locale'] = 'custom';
 
                 network = new vis.Network(container, data, options);
 

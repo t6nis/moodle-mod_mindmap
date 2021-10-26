@@ -31,6 +31,7 @@ $string['convertfromflash'] = 'Convert from Flash';
 $string['convertinfo'] = 'Please review content before saving.';
 $string['convertjs'] = 'This is the new JS based view of the mindmap. Using the old Flash XML data.';
 $string['database'] = 'Database';
+$string['deleteallmindmapscontent'] = 'Delete all Mindmaps content';
 $string['editable'] = 'Allow students to edit this mindmap';
 $string['ellipse'] = 'Ellipse';
 $string['label'] = 'Label';
