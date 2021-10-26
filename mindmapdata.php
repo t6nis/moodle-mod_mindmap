@@ -41,16 +41,4 @@ if ($id) {
 require_login($course->id);
 
 // Get old flash data for conversion
-if ($convert == 1) {
-    $xml = simplexml_load_string($mindmap->xmldata);
-    $json = json_encode($xml);
-    $array = json_decode($json, true);
-
-    $jsonobject = convert_node_helper($array['MM']);
-    $flashmindmaparray = array();
-    $result = array_builder($jsonobject, $flashmindmaparray);
-    $flashmindmap = json_encode($result);
-    echo $flashmindmap;
-} else {
-    echo $mindmap->mindmapdata;
-}
+echo $mindmap->mindmapdata;

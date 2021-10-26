@@ -1,11 +1,11 @@
 define(['jquery', 'mod_mindmap/mindmap'],
     function ($, Mindmap) {
         return {
-            Init: function (mindmapid, locked, convert, lang, strings) {
+            Init: function (mindmapid, locked, lang, strings) {
                 var mindmapdata;
                 $.ajax({
                     async: false,
-                    url: "mindmapdata.php?id=" + mindmapid + "&convert=" + convert,
+                    url: "mindmapdata.php?id=" + mindmapid,
                     success: function (result) {
                         mindmapdata = result; // Load mindmap data
                     }
@@ -307,11 +307,6 @@ define(['jquery', 'mod_mindmap/mindmap'],
                             labelHighlightBold: false
                         }
                     };
-                    if (convert == 1) {
-                        $('#export_button').on('click', function () {
-                            exportNetwork();
-                        });
-                    }
                 }
 
                 options['locales'] = local_locales;

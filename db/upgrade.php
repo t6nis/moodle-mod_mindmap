@@ -91,5 +91,17 @@ function xmldb_mindmap_upgrade($oldversion = 0) {
         upgrade_mod_savepoint(true, 2020220204, 'mindmap');
     }
 
+    if ($oldversion < 2021102601) {
+
+        $table = new xmldb_table('mindmap');
+        $field = new xmldb_field('xmldata');
+
+        // Conditionally launch drop field.
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        upgrade_mod_savepoint(true, 2021102601, 'mindmap');
+    }
     return $result;
 }

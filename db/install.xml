@@ -19,11 +19,9 @@
                 <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
                        PREVIOUS="introformat" NEXT="editable"/>
                 <FIELD NAME="editable" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
-                       PREVIOUS="userid" NEXT="xmldata"/>
-                <FIELD NAME="xmldata" TYPE="text" LENGTH="big" NOTNULL="true" SEQUENCE="false" COMMENT="data"
-                       PREVIOUS="editable" NEXT="mindmapdata"/>
+                       PREVIOUS="userid" NEXT="mindmapdata"/>
                 <FIELD NAME="mindmapdata" TYPE="text" LENGTH="big" NOTNULL="true" SEQUENCE="false" COMMENT="mindmapdata"
-                       PREVIOUS="xmldata" NEXT="timecreated"/>
+                       PREVIOUS="editable" NEXT="timecreated"/>
                 <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0"
                        SEQUENCE="false" PREVIOUS="mindmapdata" NEXT="timemodified"/>
                 <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0"

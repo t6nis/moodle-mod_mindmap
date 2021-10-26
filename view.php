@@ -107,7 +107,7 @@ $strings = get_strings(
         array('visjsedit', 'visjsdel', 'visjsback', 'visjsaddnode', 'visjsaddedge', 'visjseditnode',
             'visjseditedge', 'visjsadddescription', 'visjsedgedescription', 'visjseditedgedescription',
             'visjscreateedgeerror', 'visjsdeleteclustererror', 'visjseditclustererror'), 'mod_mindmap');
-$PAGE->requires->js_call_amd('mod_mindmap/mindmap-vis', 'Init', array($mindmap->id, $locked, 0, current_language(), $strings));
+$PAGE->requires->js_call_amd('mod_mindmap/mindmap-vis', 'Init', array($mindmap->id, $locked, current_language(), $strings));
 
 echo $OUTPUT->header();
 

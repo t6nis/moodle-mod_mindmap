@@ -31,12 +31,11 @@ class backup_mindmap_activity_structure_step extends backup_activity_structure_s
     protected function define_structure() {
 
         // To know if we are including userinfo.
-        // Mindmap user data is in the xmldata field in DB - anyway lets skip that.
 
         // Define each element separated.
         $mindmap = new backup_nested_element('mindmap', array('id'), array(
             'name', 'intro', 'introformat', 'userid', 'editable',
-            'xmldata', 'mindmapdata', 'timecreated', 'timemodified'));
+            'mindmapdata', 'timecreated', 'timemodified'));
 
         // Build the tree.
 

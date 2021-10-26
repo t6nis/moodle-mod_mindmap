@@ -19,6 +19,12 @@ License: Creative Commons(Attribution 3.0 United States)
 Use the main buttons from mindmap taskbar to create mindmaps.
 + If you double click anywhere in the empty space you can start connecting lines between nodes! Helps to save a few moves.
 
+// 26.10.2021 - 2021102601 version
++ Removing default languages supported by VisJS, caused not beeing able to customize strings in the VisJS supported languages from Moodle.
++ Added Spanish / Castilian translation. Thanks Marcelo Audisio!
++ Added resetting function. All the mindmaps can be cleared of content when resetting course.
++ Removing SWF support. If you require swf migration then from github branch 'swf_convert' has that functionality.
+
 // 31.03.2020 - 2021032210 version
 + VisJS supports default languages 'en', 'de', 'es', 'it', 'fr', 'cz', 'nl', 'ru', 'cn', 'ua'.
 + Now you can also translate VisJS labels inside the edit window in your own language.

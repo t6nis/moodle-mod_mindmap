@@ -76,7 +76,7 @@ if ($usesections) {
     $table->head = array($strsectionname, $strname, $strintro);
     $table->align = array('center', 'left', 'left');
 } else {
-    $table->head = array($strlastmodified, $strname, $strintro);
+    $table->head = array($strsectionname, $strname, $strintro);
     $table->align = array('left', 'left', 'left');
 }
 

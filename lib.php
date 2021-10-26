@@ -39,7 +39,6 @@ function mindmap_add_instance($mindmap) {
     global $USER, $DB;
 
     $mindmap->mindmapdata = '';
-    $mindmap->xmldata = ''; // This is kept for historic purpose..
     $mindmap->userid = $USER->id;
     $mindmap->timecreated = time();
 
@@ -263,7 +262,6 @@ function mindmap_supports($feature) {
             return false;
         case FEATURE_BACKUP_MOODLE2:
             return true;
-
         default:
             return null;
     }
@@ -314,10 +312,6 @@ function mindmap_page_type_list($pagetype, $parentcontext, $currentcontext) {
  */
 function mindmap_extend_settings_navigation(settings_navigation $settings, navigation_node $mindmap) {
     global $PAGE;
-
-    if (has_capability('mod/mindmap:addinstance', $PAGE->cm->context)) {
-        $mindmap->add(get_string('convertfromflash', 'mod_mindmap'), new moodle_url('/mod/mindmap/convert.php', array('id' => $PAGE->cm->id)));
-    }
 }
 
 /**
@@ -338,46 +332,5 @@ function array_builder($array, $result = array()) {
         }
     }
 
-    return $result;
-}
-
-/**
- * @param $array
- * @param bool $parentconnection
- * @return array
- */
-function convert_node_helper($array, $parentconnection = false) {
-    $result = array();
-    $pattern = array('Ö', 'Ä', 'Õ', 'Ü', 'ö', 'ä', 'õ', 'ü');
-    $replace = array('O', 'A', 'O', 'U', 'o', 'a', 'o', 'u');
-    foreach ($array as $node => $key) {
-        if (empty($key['Text'])) {
-            continue;
-        }
-        $jsonobject = array();
-        $jsonobject['x'] = $key['@attributes']['x_Coord'];
-        $jsonobject['y'] = $key['@attributes']['y_Coord'];
-        $jsonobject['id'] = str_replace($pattern, $replace, $key['Text']) . $key['@attributes']['x_Coord'];
-        $jsonobject['label'] = $key['Text'];
-        $jsonobject['font']['color'] = '#' . $key['Format']['FontColor'];
-        $jsonobject['color']['background'] = '#' . $key['Format']['BackgrColor'];
-        if (!empty($parentconnection)) {
-            $jsonobject['connections'][] = $parentconnection;
-        }
-        if (!empty($key['Node']) && is_array($key['Node'])) {
-            foreach ($key['Node'] as $subkey => $subval) {
-                if (empty($subval['Text'])) {
-                    continue;
-                }
-                $jsonobject['connections'][] = str_replace($pattern, $replace, $subval['Text']) . $subval['@attributes']['x_Coord'];
-            }
-        }
-        $result[] = $jsonobject;
-        if (!empty($key['Node']) && is_array($key['Node'])) {
-            $parentconnection = str_replace($pattern, $replace, $key['Text']) . $key['@attributes']['x_Coord'];
-            $result[] = convert_node_helper($key['Node'], $parentconnection);
-        }
-
-    }
     return $result;
 }
