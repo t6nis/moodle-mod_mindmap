@@ -41,4 +41,15 @@ if ($id) {
 require_login($course->id);
 
 // Get old flash data for conversion
-echo $mindmap->mindmapdata;
+if ($mindmap->mindmapdata) {
+    echo $mindmap->mindmapdata;
+} else {
+    echo '[{"x": 400,
+        "y": 370,
+        "id": "moodle",
+        "label": "Moodle",
+        "font": {"color": "#fff"},
+        "color": {"background": "#c45400"},
+        "connections": []
+    }]';
+}
