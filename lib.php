@@ -262,6 +262,9 @@ function mindmap_supports($feature) {
             return false;
         case FEATURE_BACKUP_MOODLE2:
             return true;
+        /* Moodle 4.x icons */
+        case FEATURE_MOD_PURPOSE:
+            return MOD_PURPOSE_COLLABORATION;
         default:
             return null;
     }
