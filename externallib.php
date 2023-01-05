@@ -32,7 +32,8 @@ class mod_mindmap_external extends external_api {
         return new external_function_parameters(
             array(
                 'mindmapid' => new external_value(PARAM_INT, 'The item id to operate on'),
-                'mindmapdata' => new external_value(PARAM_TEXT, 'Update data'))
+                'mindmapdata' => new external_value(PARAM_TEXT, 'Update data'),
+                'mindmapmode' => new external_value(PARAM_INT, 'Mindmap mode'))
         );
     }
 
@@ -40,14 +41,19 @@ class mod_mindmap_external extends external_api {
         return null;
     }
 
-    public static function submit_mindmap($mindmapid, $mindmapdata) {
+    public static function submit_mindmap($mindmapid, $mindmapdata, $mindmapmode) {
         global $DB;
 
         $dataobject = new stdClass();
         $dataobject->id = $mindmapid;
         $dataobject->mindmapdata = $mindmapdata;
-
-        return $DB->update_record('mindmap', $dataobject);
+        $dataobject->timemodified = time();
+        // Individual mindmaps feature.
+        if ($mindmapmode == 2) {
+            return $DB->update_record('mindmap_individual', $dataobject);
+        } else {
+            return $DB->update_record('mindmap', $dataobject);
+        }
 
     }
 

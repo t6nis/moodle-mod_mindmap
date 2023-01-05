@@ -145,6 +145,16 @@
     cursor: pointer;
 }
 
+.path-mod-mindmap .mindmap_actions {
+    display: flex;
+}
+.path-mod-mindmap .mindmap_action_select {
+    margin-left: auto;
+}
+.path-mod-mindmap #mindmap_select {
+    padding: 3px;
+}
+
 /* JSColor css overrides */
 .path-mod-mindmap input.jscolor {
     background-color: #fff !important;

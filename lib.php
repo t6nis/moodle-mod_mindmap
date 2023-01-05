@@ -47,6 +47,27 @@ function mindmap_add_instance($mindmap) {
 }
 
 /**
+ * @param $mindmapid
+ * @param $userid
+ * @return bool|int
+ * @throws dml_exception
+ */
+function mindmap_add_individual_instance($mindmapid, $userid) {
+
+    global $DB;
+
+    $mindmap = new stdClass();
+    $mindmap->mindmapid = $mindmapid;
+    $mindmap->mindmapdata = '';
+    $mindmap->userid = $userid;
+    $mindmap->timecreated = time();
+    $mindmap->timemodified = time();
+
+    return $DB->insert_record('mindmap_individual', $mindmap);
+
+}
+
+/**
  * Given an object containing all the necessary data,
  * (defined by the form in mod.html) this function
  * will update an existing instance with new data.
@@ -76,13 +97,17 @@ function mindmap_delete_instance($id) {
 
     global $DB;
 
-    if (!$mindmap = $DB->get_record("mindmap", array("id" => $id))) {
+    if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
         return false;
     }
 
     $result = true;
 
-    if (!$DB->delete_records("mindmap", array("id" => $mindmap->id))) {
+    if (!$DB->delete_records('mindmap', array('id' => $mindmap->id))) {
+        $result = false;
+    }
+
+    if (!$DB->delete_records('mindmap_individual', array('mindmapid' => $mindmap->id))) {
         $result = false;
     }
 
@@ -123,6 +148,10 @@ function mindmap_reset_userdata($data) {
         foreach ($mindmaps as $mindmap) {
             $mindmap->mindmapdata = '';
             $DB->update_record('mindmap', $mindmap);
+            // Individual mindmaps must be deleted too.
+            if (isset($mindmap->mindmapmode) && $mindmap->mindmapmode == 2) {
+                $DB->delete_records("mindmap_individual", array("mindmapid" => $mindmap->id));
+            }
         }
         $status[] = array('component' => $componentstr, 'item' => get_string('deleteallmindmapscontent', 'mindmap'), 'error' => false);
     }
@@ -315,25 +344,4 @@ function mindmap_page_type_list($pagetype, $parentcontext, $currentcontext) {
  */
 function mindmap_extend_settings_navigation(settings_navigation $settings, navigation_node $mindmap) {
     global $PAGE;
-}
-
-/**
- * @param $array
- * @param array $resultx
- * @return array|bool
- */
-function array_builder($array, $result = array()) {
-    if (!is_array($array)) {
-        return false;
-    }
-
-    foreach ($array as $key => $value) {
-        if (!empty($value['x'])) {
-            $result[] = $value;
-        } else {
-            $result = array_builder($value, $result);
-        }
-    }
-
-    return $result;
 }

@@ -36,3 +36,12 @@ M.mod_mindmap.init_lock = function (Y, mindmapid, locked, uid, vid) {
         };
     }
 };
+
+M.mod_mindmap.user_selector = function (Y) {
+    // Select users with onclick.
+    Y.all('#mindmap_select').on('change', function() {
+        var newurl = window.location.href.split('&');
+        var userid = $('#mindmap_select').find(":selected").val();
+        window.location.href = newurl[0]+'&userid='+userid;
+    });
+}

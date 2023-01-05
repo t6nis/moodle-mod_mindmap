@@ -25,10 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2022091400;  // The current module version (Date: YYYYMMDDXX).
+$plugin->version = 2022102100;  // The current module version (Date: YYYYMMDDXX).
 $plugin->requires = 2013111800; // Requires Moodle 2.6.
 $plugin->cron = 0;           // Period for cron to check this module (secs).
 $plugin->component = 'mod_mindmap'; // Full name of the plugin (used for diagnostics).
 
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = "2022091400"; // User-friendly version number.
+$plugin->release = "2022102100"; // User-friendly version number.

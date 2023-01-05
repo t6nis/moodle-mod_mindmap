@@ -27,20 +27,34 @@ require_once('../../config.php');
 require_once('lib.php');
 
 $id = optional_param('id', 0, PARAM_INT);
-$convert = optional_param('convert', 0, PARAM_INT);
+$mindmapmode = optional_param('mindmapmode', 0, PARAM_INT);
+
+global $DB;
 
 if ($id) {
-    if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
-        print_error('Course module is incorrect');
-    }
-    if (!$course = $DB->get_record('course', array('id' => $mindmap->course))) {
-        print_error('Course is misconfigured');
+    if ($mindmapmode == 2) {
+        if (!$mindmap = $DB->get_record('mindmap_individual', array('id' => $id))) {
+            print_error('Course module is incorrect');
+        }
+        if (!$mindmap_parent = $DB->get_record('mindmap', array('id' => $mindmap->mindmapid))) {
+            print_error('Mindmap parent is incorrect');
+        }
+        if (!$course = $DB->get_record('course', array('id' => $mindmap_parent->course))) {
+            print_error('Course is misconfigured');
+        }
+    } else {
+        if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
+            print_error('Course module is incorrect');
+        }
+        if (!$course = $DB->get_record('course', array('id' => $mindmap->course))) {
+            print_error('Course is misconfigured');
+        }
     }
 }
 
 require_login($course->id);
 
-// Get old flash data for conversion
+// Get old flash data for conversion.
 if ($mindmap->mindmapdata) {
     echo $mindmap->mindmapdata;
 } else {

@@ -1,13 +1,14 @@
 define(['jquery', 'mod_mindmap/mindmap'],
     function ($, Mindmap) {
         return {
-            Init: function (mindmapid, locked, lang, strings) {
+            Init: function (mindmapid, locked, lang, strings, mindmapmode, mindmapindividualid) {
                 var mindmapdata;
                 $.ajax({
                     async: false,
-                    url: "mindmapdata.php?id=" + mindmapid,
+                    url: "mindmapdata.php?id=" + (mindmapindividualid ? mindmapindividualid : mindmapid)
+                        + (mindmapmode ? "&mindmapmode="+mindmapmode : ""),
                     success: function (result) {
-                        mindmapdata = result; // Load mindmap data
+                        mindmapdata = result; // Load mindmap data.
                     }
                 });
 
@@ -185,7 +186,7 @@ define(['jquery', 'mod_mindmap/mindmap'],
                     // pretty print node data
                     var exportValue = JSON.stringify(nodes, undefined, 2);
                     var ajax = new Mindmap();
-                    ajax.mindmapsubmit(mindmapid, exportValue);
+                    ajax.mindmapsubmit((mindmapindividualid ? mindmapindividualid : mindmapid), exportValue, mindmapmode);
                     //console.log(exportValue);
                 }
 

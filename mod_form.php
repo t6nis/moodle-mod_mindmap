@@ -49,6 +49,15 @@ class mod_mindmap_mod_form extends moodleform_mod {
         $mform->addElement('advcheckbox', 'locking', get_string('locking', 'mindmap'), '', array('group' => 1), array(0, 1));
         $mform->setDefault('locking', 1);
 
+        $mindmapmodeoptions = array ('1' => get_string('mindmapmodecollaborative', 'mindmap'), '2' => get_string('mindmapmodeindividual', 'mindmap'));
+        // Don't allow changes to the wiki type once it is set.
+        $mindmaptype_attr = array();
+        if (!empty($this->_instance)) {
+            $mindmaptype_attr['disabled'] = 'disabled';
+        }
+        $mform->addElement('select', 'mindmapmode', get_string('mindmapmode', 'mindmap'), $mindmapmodeoptions, $mindmaptype_attr);
+        $mform->addHelpButton('mindmapmode', 'mindmapmode', 'mindmap');
+
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();
 

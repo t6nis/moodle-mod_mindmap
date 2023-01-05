@@ -31,7 +31,9 @@
                 <FIELD NAME="locked" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
                        PREVIOUS="locking" NEXT="lockedbyuser"/>
                 <FIELD NAME="lockedbyuser" TYPE="int" LENGTH="12" NOTNULL="true" UNSIGNED="true" DEFAULT="0"
-                       SEQUENCE="false" PREVIOUS="locked"/>
+                       SEQUENCE="false" PREVIOUS="locked" NEXT="mindmapmode"/>
+                <FIELD NAME="mindmapmode" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false"
+                       PREVIOUS="lockedbyuser" COMMENT="1 - Collaborative, 2 - Individual"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -40,6 +42,33 @@
                 <INDEX NAME="course" UNIQUE="false" FIELDS="course" NEXT="userid"/>
                 <INDEX NAME="userid" UNIQUE="false" FIELDS="userid" PREVIOUS="course"/>
             </INDEXES>
+        </TABLE>
+        <TABLE NAME="mindmap_individual" COMMENT="Stores individual mindmap instances">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="mindmapid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"
+                       COMMENT="Mindmap activity"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"
+                       COMMENT="Group that owns this mindmap"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"
+                       COMMENT="Owner of that individual mindmap"/>
+                <FIELD NAME="mindmapdata" TYPE="text" LENGTH="big" NOTNULL="true" SEQUENCE="false"
+                       COMMENT="mindmapdata"
+                       PREVIOUS="userid" NEXT="timecreated"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0"
+                       SEQUENCE="false" PREVIOUS="mindmapdata" NEXT="timemodified"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0"
+                       SEQUENCE="false" PREVIOUS="timecreated" NEXT="locked"/>
+                <FIELD NAME="locked" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
+                       PREVIOUS="timemodified" NEXT="lockedbyuser"/>
+                <FIELD NAME="lockedbyuser" TYPE="int" LENGTH="12" NOTNULL="true" UNSIGNED="true" DEFAULT="0"
+                       SEQUENCE="false" PREVIOUS="locked"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="mindmapfk" TYPE="foreign" FIELDS="mindmapid" REFTABLE="mindmap" REFFIELDS="id"
+                     COMMENT="Foreign key to mindmap table"/>
+            </KEYS>
         </TABLE>
     </TABLES>
 </XMLDB>

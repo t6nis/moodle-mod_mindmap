@@ -103,5 +103,41 @@ function xmldb_mindmap_upgrade($oldversion = 0) {
 
         upgrade_mod_savepoint(true, 2021102601, 'mindmap');
     }
+
+    // Individual Mindmaps feature.
+    if ($oldversion < 2022102100) {
+
+        $table = new xmldb_table('mindmap');
+        $field = new xmldb_field('mindmapmode');
+        $field->set_attributes(XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'lockedbyuser');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define table mindmap_individual to be created.
+        $table = new xmldb_table('mindmap_individual');
+
+        // Adding fields to table assignfeedback_editpdf_rot.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('mindmapid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('groupid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('mindmapdata', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null);
+        $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('locked', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('lockedbyuser', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+
+        // Adding keys to table assignfeedback_editpdf_rot.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_key('mindmapfk', XMLDB_KEY_FOREIGN, ['mindmapid'], 'mindmap', ['id']);
+
+        // Conditionally launch create table for assignfeedback_editpdf_rot.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        upgrade_mod_savepoint(true, 2022102100, 'mindmap');
+    }
     return $result;
 }

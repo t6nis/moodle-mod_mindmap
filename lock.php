@@ -38,13 +38,24 @@ if ($id) {
     if (!$course = $DB->get_record('course', array('id' => $mindmap->course))) {
         print_error('Course is misconfigured');
     }
+    // Individual mindmap feature.
+    if ($mindmap->mindmapmode == 2) {
+        if ($mindmap = $DB->get_record('mindmap_individual', array('mindmapid' => $id, 'userid' => $uid))) {
+            print_error('Could not get individual mindmap');
+        }
+    }
 }
 
-require_login($mindmap->course);
+require_login($course->id);
 
 $update = new stdClass();
 $update->id = $id;
 $update->locked = $lock;
 $update->lockedbyuser = $uid;
 
-$DB->update_record('mindmap', $update);
+// Individual mindmap feature.
+if ($mindmap->mindmapmode == 2) {
+    $DB->update_record('mindmap_individual', $update);
+} else {
+    $DB->update_record('mindmap', $update);
+}

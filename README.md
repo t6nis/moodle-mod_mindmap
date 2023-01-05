@@ -20,7 +20,16 @@ Use the main buttons from mindmap taskbar to create mindmaps.
 
 + If you double click anywhere in the empty space you can start connecting lines between nodes! Helps to save a few moves.
 
+# Plans for future releases.
+**TO-DO** - code refactoring required for Moodle 4.x+ versions.
+**TO-DO** - group mode for mindmaps
+**TO-DO** - import/export of mindmaps
+**TO-DO** - image uploads for nodes.
+
 # Release notes
+## 05.01.2023 - 2022102100 version
++ Ability to choose whether mindmap is collaborative or individual mode. Once chosen it cannot be changed per module. Similar like wikis.
+
 ## 14.09.2022 - 2022091400 version
 + Replace empty json used on fresh new mindmap by a minimal one to avoid some http server to interpret it as an error.
 + Add monoicon svg version for Moodle 4.x
@@ -59,7 +68,6 @@ Use the main buttons from mindmap taskbar to create mindmaps.
 NB! Conversion from flash data might still hold a few bugs. Always check your data!
 
 - Dropped Moodle 1.x backup/restore support.
-
 
 ## 25.04.2019 - version 2019042500
 + Version update

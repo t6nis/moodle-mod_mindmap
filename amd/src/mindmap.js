@@ -4,11 +4,10 @@ define(['core/ajax', 'core/notification', 'core/str'], function (ajax, notificat
         this.value = "";
     };
 
-    Mindmap.prototype.mindmapsubmit = function (mindmapid, mindmapdata) {
-
+    Mindmap.prototype.mindmapsubmit = function (mindmapid, mindmapdata, mindmapmode) {
         var promises = ajax.call([{
             methodname: 'mod_mindmap_submit_mindmap',
-            args: {mindmapid: mindmapid, mindmapdata: mindmapdata},
+            args: {mindmapid: mindmapid, mindmapdata: mindmapdata, mindmapmode: mindmapmode},
             done:
                 str.get_strings([
                     {key: 'changessaved', component: 'core'},
