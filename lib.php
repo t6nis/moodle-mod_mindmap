@@ -274,6 +274,12 @@ function mindmap_scale_used_anywhere($scaleid) {
  * @return bool|int|null
  */
 function mindmap_supports($feature) {
+    if (defined('FEATURE_MOD_PURPOSE')) {
+        if ($feature == FEATURE_MOD_PURPOSE) {
+            return MOD_PURPOSE_COLLABORATION;
+        }
+    }
+    
     switch ($feature) {
         case FEATURE_MOD_ARCHETYPE:
             return MOD_ARCHETYPE_OTHER;
@@ -291,9 +297,6 @@ function mindmap_supports($feature) {
             return false;
         case FEATURE_BACKUP_MOODLE2:
             return true;
-        /* Moodle 4.x icons */
-        case FEATURE_MOD_PURPOSE:
-            return MOD_PURPOSE_COLLABORATION;
         default:
             return null;
     }
