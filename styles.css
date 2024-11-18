@@ -154,7 +154,9 @@
 .path-mod-mindmap #mindmap_select {
     padding: 3px;
 }
-
+.path-mod-mindmap .activity-header {
+    display: none !important;
+}
 /* JSColor css overrides */
 .path-mod-mindmap input.jscolor {
     background-color: #fff !important;

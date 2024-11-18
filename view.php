@@ -230,11 +230,15 @@ if ($mindmap->mindmapmode == 2 && !empty($mindmap_individual)) {
                 <td><?php echo get_string('shape', 'mindmap'); ?></td>
                 <td>
                     <select name="node-shape" id="node-shape">
-                        <option value="ellipse"><?php echo get_string('ellipse', 'mindmap'); ?></option>
-                        <option value="circle"><?php echo get_string('circle', 'mindmap'); ?></option>
                         <option value="box"><?php echo get_string('box', 'mindmap'); ?></option>
-                        <option value="text"><?php echo get_string('text', 'mindmap'); ?></option>
+                        <option value="circle"><?php echo get_string('circle', 'mindmap'); ?></option>
                         <option value="database"><?php echo get_string('database', 'mindmap'); ?></option>
+                        <option value="diamond"><?php echo get_string('diamond', 'mindmap'); ?></option>
+                        <option value="ellipse"><?php echo get_string('ellipse', 'mindmap'); ?></option>
+                        <option value="hexagon"><?php echo get_string('hexagon', 'mindmap'); ?></option>
+                        <option value="text"><?php echo get_string('text', 'mindmap'); ?></option>
+                        <option value="triangle"><?php echo get_string('triangle', 'mindmap'); ?></option>
+                        <option value="star"><?php echo get_string('star', 'mindmap'); ?></option>
                     </select>
                 </td>
             </tr>
@@ -342,11 +346,15 @@ if ($mindmap->mindmapmode == 2 && !empty($mindmap_individual)) {
                 <td><?php echo get_string('shape', 'mindmap'); ?></td>
                 <td>
                     <select name="node-shape" id="node-shape">
-                        <option value="ellipse"><?php echo get_string('ellipse', 'mindmap'); ?></option>
-                        <option value="circle"><?php echo get_string('circle', 'mindmap'); ?></option>
                         <option value="box"><?php echo get_string('box', 'mindmap'); ?></option>
-                        <option value="text"><?php echo get_string('text', 'mindmap'); ?></option>
+                        <option value="circle"><?php echo get_string('circle', 'mindmap'); ?></option>
                         <option value="database"><?php echo get_string('database', 'mindmap'); ?></option>
+                        <option value="diamond"><?php echo get_string('diamond', 'mindmap'); ?></option>
+                        <option value="ellipse"><?php echo get_string('ellipse', 'mindmap'); ?></option>
+                        <option value="hexagon"><?php echo get_string('hexagon', 'mindmap'); ?></option>
+                        <option value="text"><?php echo get_string('text', 'mindmap'); ?></option>
+                        <option value="triangle"><?php echo get_string('triangle', 'mindmap'); ?></option>
+                        <option value="star"><?php echo get_string('star', 'mindmap'); ?></option>
                     </select>
                 </td>
             </tr>

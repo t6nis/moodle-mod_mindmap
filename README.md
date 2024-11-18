@@ -24,9 +24,14 @@ Use the main buttons from mindmap taskbar to create mindmaps.
 **TO-DO** - code refactoring required for Moodle 4.x+ versions.
 **TO-DO** - group mode for mindmaps
 **TO-DO** - import/export of mindmaps
-**TO-DO** - image uploads for nodes.
+**TO-DO** - image url for nodes.(Uploads not possible)
 
 # Release notes
+
+## 18.11.2024 - 2024111800 version
++ Moodle supported version update.
++ Added diamond,hexagon,triangle,star shapes.
+
 ## 05.01.2023 - 2022102100 version
 + Ability to choose whether mindmap is collaborative or individual mode. Once chosen it cannot be changed per module. Similar like wikis.
 
