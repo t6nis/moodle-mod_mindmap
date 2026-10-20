@@ -26,33 +26,40 @@
 require_once('../../config.php');
 require_once('lib.php');
 
-$id = optional_param('id', 0, PARAM_INT);
+$id = required_param('id', PARAM_INT);
 $mindmapmode = optional_param('mindmapmode', 0, PARAM_INT);
 
-global $DB;
+global $DB, $USER;
 
-if ($id) {
-    if ($mindmapmode == 2) {
-        if (!$mindmap = $DB->get_record('mindmap_individual', array('id' => $id))) {
-            print_error('Course module is incorrect');
-        }
-        if (!$mindmap_parent = $DB->get_record('mindmap', array('id' => $mindmap->mindmapid))) {
-            print_error('Mindmap parent is incorrect');
-        }
-        if (!$course = $DB->get_record('course', array('id' => $mindmap_parent->course))) {
-            print_error('Course is misconfigured');
-        }
-    } else {
-        if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
-            print_error('Course module is incorrect');
-        }
-        if (!$course = $DB->get_record('course', array('id' => $mindmap->course))) {
-            print_error('Course is misconfigured');
-        }
+if ($mindmapmode == 2) {
+    if (!$mindmap = $DB->get_record('mindmap_individual', array('id' => $id))) {
+        print_error('Course module is incorrect');
     }
+    if (!$mindmap_parent = $DB->get_record('mindmap', array('id' => $mindmap->mindmapid))) {
+        print_error('Mindmap parent is incorrect');
+    }
+} else {
+    if (!$mindmap = $DB->get_record('mindmap', array('id' => $id))) {
+        print_error('Course module is incorrect');
+    }
+    $mindmap_parent = $mindmap;
 }
+// The requested mode must match the real mode of the activity.
+if (($mindmap_parent->mindmapmode == 2) != ($mindmapmode == 2)) {
+    print_error('Course module is incorrect');
+}
+if (!$course = $DB->get_record('course', array('id' => $mindmap_parent->course))) {
+    print_error('Course is misconfigured');
+}
+$cm = get_coursemodule_from_instance('mindmap', $mindmap_parent->id, $course->id, false, MUST_EXIST);
 
-require_login($course->id);
+require_login($course, false, $cm);
+$context = context_module::instance($cm->id);
+
+// Users cant peek each others individual mindmaps! Only teachers can!
+if ($mindmapmode == 2 && $mindmap->userid != $USER->id) {
+    require_capability('moodle/course:manageactivities', $context);
+}
 
 // Get old flash data for conversion.
 if ($mindmap->mindmapdata) {
